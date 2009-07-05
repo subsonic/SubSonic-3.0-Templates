@@ -1,0 +1,141 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SubSonic.TemplatesVB
+</name>
+</assembly>
+<members>
+<member name="T:Southwind.Customer">
+	<summary>
+ A class which represents the Customers table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Shipper">
+	<summary>
+ A class which represents the Shippers table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Supplier">
+	<summary>
+ A class which represents the Suppliers table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Order">
+	<summary>
+ A class which represents the Orders table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Product">
+	<summary>
+ A class which represents the Products table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.OrderDetail">
+	<summary>
+ A class which represents the Order Details table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.CustomerCustomerDemo">
+	<summary>
+ A class which represents the CustomerCustomerDemo table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.CustomerDemographic">
+	<summary>
+ A class which represents the CustomerDemographics table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Region">
+	<summary>
+ A class which represents the Region table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Territory">
+	<summary>
+ A class which represents the Territories table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.EmployeeTerritory">
+	<summary>
+ A class which represents the EmployeeTerritories table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Employee">
+	<summary>
+ A class which represents the Employees table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.Category">
+	<summary>
+ A class which represents the Categories table in the Northwind Database.
+ </summary>
+</member><member name="T:Southwind.CustomersTable">
+	<summary>
+ Table: Customers
+ Primary Key: CustomerID
+ </summary>
+</member><member name="T:Southwind.ShippersTable">
+	<summary>
+ Table: Shippers
+ Primary Key: ShipperID
+ </summary>
+</member><member name="T:Southwind.SuppliersTable">
+	<summary>
+ Table: Suppliers
+ Primary Key: SupplierID
+ </summary>
+</member><member name="T:Southwind.OrdersTable">
+	<summary>
+ Table: Orders
+ Primary Key: OrderID
+ </summary>
+</member><member name="T:Southwind.ProductsTable">
+	<summary>
+ Table: Products
+ Primary Key: ProductID
+ </summary>
+</member><member name="T:Southwind.OrderDetailsTable">
+	<summary>
+ Table: Order Details
+ Primary Key: OrderID
+ </summary>
+</member><member name="T:Southwind.CustomerCustomerDemoTable">
+	<summary>
+ Table: CustomerCustomerDemo
+ Primary Key: CustomerID
+ </summary>
+</member><member name="T:Southwind.CustomerDemographicsTable">
+	<summary>
+ Table: CustomerDemographics
+ Primary Key: CustomerTypeID
+ </summary>
+</member><member name="T:Southwind.RegionTable">
+	<summary>
+ Table: Region
+ Primary Key: RegionID
+ </summary>
+</member><member name="T:Southwind.TerritoriesTable">
+	<summary>
+ Table: Territories
+ Primary Key: TerritoryID
+ </summary>
+</member><member name="T:Southwind.EmployeeTerritoriesTable">
+	<summary>
+ Table: EmployeeTerritories
+ Primary Key: EmployeeID
+ </summary>
+</member><member name="T:Southwind.EmployeesTable">
+	<summary>
+ Table: Employees
+ Primary Key: EmployeeID
+ </summary>
+</member><member name="T:Southwind.CategoriesTable">
+	<summary>
+ Table: Categories
+ Primary Key: CategoryID
+ </summary>
+</member><member name="P:My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

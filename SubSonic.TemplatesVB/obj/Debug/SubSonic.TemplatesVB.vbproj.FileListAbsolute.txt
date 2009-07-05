@@ -1,0 +1,14 @@
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\SubSonic.TemplatesVB.dll.config
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\SubSonic.TemplatesVB.dll
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\SubSonic.TemplatesVB.pdb
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\SubSonic.TemplatesVB.xml
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\MySql.Data.dll
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\nunit.framework.dll
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\SubSonic.Core.dll
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\bin\Debug\xunit.dll
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\obj\Debug\Resources.resources
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\obj\Debug\SubSonic.TemplatesVB.vbproj.GenerateResource.Cache
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\obj\Debug\SubSonic.TemplatesVB.dll
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\obj\Debug\SubSonic.TemplatesVB.xml
+D:\Projects\GitHub\SubSonic-3.0-Templates\SubSonic.TemplatesVB\obj\Debug\SubSonic.TemplatesVB.pdb

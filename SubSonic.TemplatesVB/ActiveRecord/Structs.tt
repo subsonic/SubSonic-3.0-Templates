@@ -1,0 +1,57 @@
+<#@ template language="C#v3.5" debug="False" hostspecific="True"  #>
+<#@ output extension=".vb" #>
+<#@ include file="SQLServer.ttinclude" #>
+<#
+    var tables = LoadTables();
+#>
+Imports System
+Imports SubSonic.Schema
+Imports System.Collections.Generic
+Imports SubSonic.DataProviders
+Imports System.Data
+
+NameSpace <#=Namespace#>
+
+<#  foreach(var tbl in tables){
+        if(!ExcludeTables.Contains(tbl.Name))
+        {
+#>
+		''' <summary>
+		''' Table: <#=tbl.Name#>
+		''' Primary Key: <#=tbl.PrimaryKey#>
+		''' </summary>
+
+	Public Class <#=tbl.CleanName#>Table
+		Inherits DatabaseTable
+
+		Public Sub New(provider As IDataProvider)
+			MyBase.New("<#=tbl.Name#>",provider)
+			ClassName = "<#=tbl.ClassName#>"
+			SchemaName = "<#=tbl.Schema#>"
+                
+<#          foreach(var col in tbl.Columns){#>
+				Columns.Add(New DatabaseColumn("<#=col.Name#>", Me) With { _
+					.IsPrimaryKey = <#=col.IsPK.ToString().ToLower()#>, _
+					.DataType = DbType.<#=col.DbType.ToString()#>, _
+					.IsNullable = <#=col.IsNullable.ToString().ToLower()#>, _
+					.AutoIncrement = <#=col.AutoIncrement.ToString().ToLower()#>, _
+					.IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#> _
+				})
+
+<#          }#>                    
+       End Sub
+            
+<#          foreach(var col in tbl.Columns){#>
+		Public ReadOnly Property <#=col.CleanName#> As IColumn
+			Get
+				Return Me.GetColumn("<#=col.Name#>")
+			End Get
+		End Property
+            
+<#          }#>                    
+	End Class        
+<#    
+        }
+    }
+#>
+End NameSpace
