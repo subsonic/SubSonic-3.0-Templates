@@ -15,7 +15,7 @@ namespace Southwind{
             sp.Command.AddParameter("CustomerID",CustomerID);
             return sp;
         }
-        public static StoredProcedure CustOrdersDetail(int OrderID){
+        public static StoredProcedure CustOrdersDetail(int? OrderID){
             StoredProcedure sp=new StoredProcedure("CustOrdersDetail",ProviderFactory.GetProvider("Northwind"));
             sp.Command.AddParameter("OrderID",OrderID);
             return sp;
@@ -25,13 +25,13 @@ namespace Southwind{
             sp.Command.AddParameter("CustomerID",CustomerID);
             return sp;
         }
-        public static StoredProcedure EmployeeSalesbyCountry(DateTime Beginning_Date,DateTime Ending_Date){
+        public static StoredProcedure EmployeeSalesbyCountry(DateTime? Beginning_Date,DateTime? Ending_Date){
             StoredProcedure sp=new StoredProcedure("Employee Sales by Country",ProviderFactory.GetProvider("Northwind"));
             sp.Command.AddParameter("Beginning_Date",Beginning_Date);
             sp.Command.AddParameter("Ending_Date",Ending_Date);
             return sp;
         }
-        public static StoredProcedure SalesbyYear(DateTime Beginning_Date,DateTime Ending_Date){
+        public static StoredProcedure SalesbyYear(DateTime? Beginning_Date,DateTime? Ending_Date){
             StoredProcedure sp=new StoredProcedure("Sales by Year",ProviderFactory.GetProvider("Northwind"));
             sp.Command.AddParameter("Beginning_Date",Beginning_Date);
             sp.Command.AddParameter("Ending_Date",Ending_Date);

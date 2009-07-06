@@ -223,7 +223,13 @@
                 StringBuilder sb=new StringBuilder();
                 int loopCount=1;
                 foreach(var par in Parameters){
-                    sb.AppendFormat("{0} {1}", par.SysType,par.CleanName);
+                    string sysType=par.SysType;
+                    			
+			        if(sysType!="byte[]" && sysType !="string")
+			            sysType+="?";
+
+                
+                    sb.AppendFormat("{0} {1}", sysType,par.CleanName);
                     if(loopCount<Parameters.Count)
                         sb.Append(",");
                     loopCount++;
