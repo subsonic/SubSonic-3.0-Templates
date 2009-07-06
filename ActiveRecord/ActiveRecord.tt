@@ -427,15 +427,18 @@ namespace <#=Namespace #>
             this.CreatedOn=DateTime.Now;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="CreatedBy")){#>
-            this.CreatedBy=Environment.UserName;
+            if(String.IsNullOrEmpty(this.CreatedBy))
+                this.CreatedBy=Environment.UserName;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="ModifiedOn")){#>
             this.ModifiedOn=DateTime.Now;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="ModifiedBy")){#>
-            this.ModifiedBy=Environment.UserName;
+            if(String.IsNullOrEmpty(this.ModifiedBy))
+                this.ModifiedBy=Environment.UserName;
 <#}#>
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         

@@ -550,6 +550,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -996,6 +997,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -1604,6 +1606,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -2098,6 +2101,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -2538,6 +2542,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -2966,6 +2971,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -3394,6 +3400,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -3852,6 +3859,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -4292,6 +4300,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -4972,6 +4981,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -5588,6 +5598,7 @@ namespace Southwind
             
             this.CreatedOn=DateTime.Now;
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -6184,6 +6195,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -6924,6 +6936,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
@@ -7388,6 +7401,7 @@ namespace Southwind
         public void Add(IDataProvider provider){
 
             this.SetKeyValue(_repo.Add(this,provider));
+            _isNew=false;
             OnSaved();
         }
         
