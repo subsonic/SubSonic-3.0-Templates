@@ -1,0 +1,30 @@
+<#@ template language="C#v3.5" debug="False" hostspecific="True"  #>
+<#@ output extension=".vb" #>
+<#@ include file="SQLServer.ttinclude" #>
+<#
+    var sps = GetSPs(); 
+    if(sps.Count>0){ 
+#>  
+Imports System
+Imports SubSonic
+Imports SubSonic.Schema
+Imports SubSonic.DataProviders
+
+NameSpace <#=Namespace#>
+
+	Public Class SPs
+
+<#  foreach(var sp in sps){#>
+        Public Shared Function <#=sp.CleanName#>(<#=sp.ArgList#>) As StoredProcedure
+            Dim sp As New StoredProcedure("<#=sp.Name#>",ProviderFactory.GetProvider("<#=ConnectionStringName#>"))
+<#      foreach(var par in sp.Parameters){#>
+            sp.Command.AddParameter("<#=par.Name#>",<#=par.Name#>)
+<#      }#>
+            Return sp
+        End Function
+<#  }#>
+	
+	End Class
+	
+End NameSpace
+<#  }#> 

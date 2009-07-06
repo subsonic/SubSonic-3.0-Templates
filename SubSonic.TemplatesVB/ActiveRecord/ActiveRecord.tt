@@ -1,0 +1,560 @@
+<#@ template language="C#v3.5" debug="True" hostspecific="True" #>
+<#@ output extension=".vb" #>
+<#@ include file="SQLServer.ttinclude" #>
+Imports System
+Imports System.Collections.Generic
+Imports System.Linq
+Imports System.Text
+Imports System.Data
+Imports SubSonic.DataProviders
+Imports SubSonic.Extensions
+Imports System.Linq.Expressions
+Imports SubSonic.Schema
+Imports System.Collections
+Imports SubSonic
+Imports SubSonic.Repository
+Imports System.ComponentModel
+Imports System.Data.Common
+
+NameSpace <#=Namespace #>
+<#
+
+    var tables = LoadTables();
+
+    foreach(Table tbl in tables)
+    {
+	    if(!ExcludeTables.Contains(tbl.Name))
+        {
+#>
+    
+    
+    ''' <summary>
+    ''' A class which represents the <#=tbl.Name #> table in the <#=DatabaseName#> Database.
+    ''' </summary>
+    Public Partial Class <#=tbl.ClassName#>
+		Implements IActiveRecord
+
+		' Built-in testing
+        Shared TestItems As IList(Of <#=tbl.ClassName#>)
+        Shared _testRepo As TestRepository(Of <#=tbl.ClassName#>)
+        Public Sub SetIsLoaded(isLoaded As Boolean) Implements IActiveRecord.SetIsLoaded
+            _isLoaded = isLoaded
+        End Sub
+        Private Shared Sub SetTestRepo()
+			iF _testRepo Is Nothing Then _testRepo = New TestRepository(Of <#=tbl.ClassName#>)(New <#=Namespace#>.<#=DatabaseName#>DB())
+        End Sub
+        Public Shared Sub ResetTestRepo()
+            _testRepo = Nothing
+            SetTestRepo()
+        End Sub
+        Public Shared Sub Setup(testlist As List(Of <#=tbl.ClassName#>))
+            SetTestRepo()
+            _testRepo._items = testlist
+        End Sub
+        Public Shared Sub Setup(item As <#=tbl.ClassName#>)
+            SetTestRepo()
+            _testRepo._items.Add(item)
+        End Sub
+        Public Shared Sub Setup(testItems As Integer)
+            SetTestRepo()
+            For i As Integer = 0 To testItems - 1
+                Dim item As New <#=tbl.ClassName#>()
+                _testRepo._items.Add(item)
+            Next i
+        End Sub
+        
+        Public TestMode As Boolean = False
+
+
+
+        Private _repo As IRepository(Of <#=tbl.ClassName#>)
+        Private tbl As ITable
+        Private _isNew As Boolean
+        Public Function IsNew() As Boolean Implements IActiveRecord.IsNew
+            Return _isNew
+        End Function
+        Public Sub SetIsNew(isNew As Boolean)
+            _isNew=isNew
+        End Sub
+        Private _isLoaded As Boolean
+        Public Function IsLoaded() As Boolean Implements IActiveRecord.IsLoaded
+            Return _isLoaded
+        End Function
+                
+        Private _dirtyColumns As List(Of IColumn)
+        Public Function IsDirty() As Boolean Implements IActiveRecord.IsDirty
+            Return _dirtyColumns.Count > 0
+        End Function
+        
+        Public Function GetDirtyColumns() As List(Of IColumn) Implements IActiveRecord.GetDirtyColumns
+            Return _dirtyColumns
+        End Function
+
+        Private _db As <#=Namespace#>.<#=DatabaseName#>DB
+        Public Sub New(connectionString As String, providerName As String)
+            _db = New <#=Namespace#>.<#=DatabaseName#>DB(connectionString, providerName)
+            Init()            
+         End Sub
+        Private Sub Init()
+            TestMode = Me._db.Provider.ConnectionString.Equals("test", StringComparison.InvariantCultureIgnoreCase)
+            _dirtyColumns = New List(Of IColumn)()
+            If TestMode Then
+                <#=tbl.ClassName#>.SetTestRepo()
+                _repo=_testRepo
+            Else
+                _repo = New SubSonicRepository(Of <#=tbl.ClassName#>)(_db)
+            End If
+            tbl=_repo.GetTable()
+            _isNew = True
+            OnCreated()       
+      
+        End Sub
+        
+        Public Sub New()
+             _db = New <#=Namespace#>.<#=DatabaseName#>DB()
+            Init()            
+        End Sub
+        
+       
+        Private Partial Sub OnCreated()
+		End Sub
+            
+        Private Partial Sub OnLoaded()
+		End Sub
+        
+		Private Partial Sub OnSaved()
+		End Sub
+        
+		Private Partial Sub OnChanged()
+		End Sub
+
+		Public ReadOnly Property Columns As IList(Of IColumn)
+            Get
+                Return tbl.Columns
+            End Get
+        End Property
+
+        Public Sub New(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean)))
+			MyBase.New()
+            _isLoaded=_repo.Load(Me,expression)
+            If _isLoaded Then OnLoaded()
+        End Sub
+        
+       
+        
+        Friend Shared Function GetRepo(connectionString As String, providerName As String) As IRepository(Of <#=tbl.ClassName#>)
+            Dim db As <#=Namespace#>.<#=DatabaseName#>DB
+            If String.IsNullOrEmpty(connectionString)
+                db = New <#=Namespace#>.<#=DatabaseName#>DB()
+            Else
+                db = New <#=Namespace#>.<#=DatabaseName#>DB(connectionString, providerName)
+            End If
+            Dim _repo As IRepository(Of <#=tbl.ClassName#>)
+            
+            If db.TestMode Then
+                <#=tbl.ClassName#>.SetTestRepo()
+                _repo = _testRepo
+            Else
+                _repo = New SubSonicRepository(Of <#=tbl.ClassName#>)(db)
+            End If
+            Return _repo
+        End Function
+        
+        Friend Shared Function GetRepo() As IRepository(Of <#=tbl.ClassName#>)
+            Return GetRepo(String.Empty,String.Empty)
+        End Function
+        
+        Public Shared Function SingleOrDefault(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean))) As <#=tbl.ClassName#>
+
+            Dim repo = GetRepo()
+            Dim results = repo.Find(expression)
+            Dim singleItem As <#=tbl.ClassName#> = Nothing
+            If results.Count() > 0 Then
+                singleItem = results.ToList()(0)
+                singleItem.OnLoaded()
+                singleItem.SetIsLoaded(true)
+            End If
+
+            Return singleItem
+        End Function  
+        
+        Public Shared Function SingleOrDefault(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean)), _
+											   connectionString As String, _
+											   providerName As String) As <#=tbl.ClassName#>
+			Dim repo = GetRepo(connectionString,providerName)
+            Dim results = repo.Find(expression)
+            Dim singleItem As <#=tbl.ClassName#> = Nothing
+            If results.Count() > 0 Then
+                singleItem = results.ToList()(0)
+                singleItem.OnLoaded()
+                singleItem.SetIsLoaded(true)
+            End If
+
+            Return singleItem
+		End Function
+        
+        
+        Public Shared Function Exists(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean)), connectionString As String, providerName As String) As Boolean
+        	Return All(connectionString,providerName).Any(expression)
+        End Function
+		
+        Public Shared Function Exists(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean))) As Boolean
+            Return All().Any(expression)
+        End Function        
+
+        Public Shared Function Find(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean))) As IList(Of <#=tbl.ClassName#>)
+            Dim repo = GetRepo()
+            Return repo.Find(expression).ToList()
+        End Function
+        
+        Public Shared Function Find(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean)), connectionString As String, providerName As String) As IList(Of <#=tbl.ClassName#>)
+            Dim repo = GetRepo(connectionString,providerName)
+            Return repo.Find(expression).ToList()
+        End Function
+        Public Shared Function All(connectionString As String, providerName As String) As IQueryable(Of <#=tbl.ClassName#>)
+            Return GetRepo(connectionString,providerName).GetAll()
+        End Function
+        Public Shared Function All() As IQueryable(Of <#=tbl.ClassName#>)
+            Return GetRepo().GetAll()
+        End Function
+        
+        Public Shared Function GetPaged(sortBy As String, pageIndex As Integer, pageSize As Integer, connectionString As String, providerName As String) As PagedList(Of <#=tbl.ClassName#>)
+            Return GetRepo(connectionString,providerName).GetPaged(sortBy, pageIndex, pageSize)
+        End Function
+      
+        Public Shared Function GetPaged(sortBy As String, pageIndex As Integer, pageSize As Integer) As PagedList(Of <#=tbl.ClassName#>)
+            Return GetRepo().GetPaged(sortBy, pageIndex, pageSize)
+        End Function
+
+        Public Shared Function GetPaged(pageIndex As Integer, pageSize As Integer, connectionString As String, providerName As String) As PagedList(Of <#=tbl.ClassName#>)
+            Return GetRepo(connectionString,providerName).GetPaged(pageIndex, pageSize)
+        End Function
+
+        Public Shared Function GetPaged(pageIndex As Integer, pageSize As Integer) As PagedList(Of <#=tbl.ClassName#>)
+            Return GetRepo().GetPaged(pageIndex, pageSize)
+        End Function
+
+        Public Function KeyName() As String Implements IActiveRecord.KeyName
+            Return "<#=tbl.PK.CleanName #>"
+        End Function
+
+        Public Function KeyValue() As Object Implements IActiveRecord.KeyValue
+            Return Me.<#=tbl.PK.CleanName#>
+        End Function
+        
+        Public Sub SetKeyValue(value As Object) Implements IActiveRecord.SetKeyValue
+            If value IsNot Nothing AndAlso value IsNot DBNull.Value Then
+                Dim settable = value.ChangeTypeTo(Of <#=tbl.PK.SysType#>)()
+                Me.GetType.GetProperty(Me.KeyName()).SetValue(Me, settable, Nothing)
+            End If
+        End Sub
+        
+        Public Overrides Function ToString() As String
+            Return Me.<#=tbl.Descriptor.CleanName #>.ToString()
+        End Function
+
+        Public Overrides Function Equals(obj As Object) As Boolean
+            If obj.GetType() Is GetType(<#=tbl.ClassName#>) Then
+                Dim compareItem As <#=tbl.ClassName#> = obj
+                Return compareItem.KeyValue() = Me.KeyValue()
+            Else
+                Return MyBase.Equals(obj)
+            End If
+        End Function
+
+        Public Function DescriptorValue() As String Implements IActiveRecord.DescriptorValue
+            Return Me.<#=tbl.Descriptor.CleanName #>.ToString()
+        End Function
+
+        Public Function DescriptorColumn() As String Implements IActiveRecord.DescriptorColumn
+            Return "<#=tbl.Descriptor.CleanName #>"
+        End Function
+        Public Shared Function GetKeyColumn() As String 
+            Return "<#=tbl.PK.CleanName #>"
+        End Function
+        Public Shared Function GetDescriptorColumn() As String
+            Return "<#=tbl.Descriptor.CleanName #>"
+        End Function
+        
+       #Region " Foreign Keys "
+<#
+            List<string> fkCreated = new List<string>();
+            foreach(FKTable fk in tbl.FKTables)
+            { 
+                
+                if(!ExcludeTables.Contains(fk.OtherTable)){
+                    string propName=fk.OtherQueryable;
+                    if(fkCreated.Contains(propName))
+                    {
+                        propName=fk.OtherQueryable+fkCreated.Count.ToString();
+                    }
+                    
+                    fkCreated.Add(fk.OtherQueryable);
+                    
+               
+#>
+        Public ReadOnly Property <#=propName #> As IQueryable(Of <#=fk.OtherClass #>)
+            Get
+                  Dim repo = <#=Namespace #>.<#=fk.OtherClass#>.GetRepo()
+                  Return From items In repo.GetAll() _
+                       	Where items.<#=fk.OtherColumn#> = _<#=fk.ThisColumn#> _
+                       Select items
+            End Get
+        End Property
+
+<#
+                }
+            }
+            
+#>
+        #End Region
+
+<#
+            foreach(Column col in tbl.Columns)
+            {
+
+			if (tbl.ClassName == col.CleanName)
+			{
+				col.CleanName += ColumnSuffix;
+			}
+#>
+        Private _<#=col.CleanName #> As <#=col.SysType #><#=CheckNullable(col)#>
+        Public Property <#=col.CleanName #> As <#=col.SysType #><#=CheckNullable(col)#>
+            Get
+				Return _<#=col.CleanName #>
+			End Get
+            Set(value As <#=col.SysType #><#=CheckNullable(col)#>)
+                _<#=col.CleanName #> = value
+                Dim col = tbl.Columns.SingleOrDefault(Function(x) x.Name = "<#=col.Name #>")
+                If col IsNot Nothing Then
+                    If Not _dirtyColumns.Any(Function(x) x.Name = col.Name) AndAlso _isLoaded Then
+                        _dirtyColumns.Add(col)
+                    End If
+                End If
+                OnChanged()
+            End Set
+        End Property
+
+<#
+            }
+#>
+
+
+        Public Function GetUpdateCommand() As DbCommand Implements IActiveRecord.GetUpdateCommand
+<#if(tbl.Columns.Any(x=>x.Name.ToLower()=="modifiedon")){#>
+            If Not _dirtyColumns.Any(Function(x) x.Name.ToLower() = "modifiedon") Then
+               Me.<#=tbl.Columns.Single(x=>x.Name.ToLower()=="modifiedon").CleanName#> = DateTime.Now
+            End If
+<#}#>
+            If TestMode Then
+                Return _db.Provider.CreateCommand()
+            Else
+                Return Me.ToUpdateQuery(_db.Provider).GetCommand().ToDbCommand()
+            End If
+        End Function
+        Public Function GetInsertCommand() As DbCommand Implements IActiveRecord.GetInsertCommand
+            If TestMode Then
+                Return _db.Provider.CreateCommand()
+            Else
+                Return Me.ToInsertQuery(_db.Provider).GetCommand().ToDbCommand()
+			End If
+        End Function
+        
+        Public Function GetDeleteCommand() As DbCommand Implements IActiveRecord.GetDeleteCommand
+            If TestMode Then
+                Return _db.Provider.CreateCommand()
+            Else
+                Return Me.ToDeleteQuery(_db.Provider).GetCommand().ToDbCommand()
+			End If
+        End Function
+       
+        
+        Public Sub Update() Implements IActiveRecord.Update
+            Update(_db.Provider)
+        End Sub
+        
+        Public Sub Update(provider As IDataProvider) Implements IActiveRecord.Update
+        
+<#if(tbl.Columns.Any(x=>x.Name=="ModifiedBy")){#>
+            Me.ModifiedBy = Environment.UserName
+<#}#>
+<#if(tbl.Columns.Any(x=>x.Name=="ModifiedOn")){#>
+            Me.ModifiedOn = DateTime.Now
+<#}#>
+            If Me._dirtyColumns.Count > 0 Then _repo.Update(Me,provider)
+			
+            OnSaved()
+        End Sub
+ 
+        Public Sub Add() Implements IActiveRecord.Add
+            Add(_db.Provider)
+        End Sub
+        
+        <#if(tbl.Columns.Any(x=>x.Name=="ModifiedBy")){#>
+        Public Sub Update(username As String)
+            
+            Me.ModifiedBy = username
+            Update()
+
+        End Sub
+        Public Sub Update(username As String, provider As IDataProvider)
+
+            Me.ModifiedBy = username
+            Update(provider)
+        End Sub
+        <#}#>
+
+       
+        Public Sub Add(provider As IDataProvider) Implements IActiveRecord.Add
+
+<#if(tbl.Columns.Any(x=>x.Name=="CreatedOn")){#>
+            Me.CreatedOn = DateTime.Now
+<#}#>
+<#if(tbl.Columns.Any(x=>x.Name=="CreatedBy")){#>
+            Me.CreatedBy = Environment.UserName
+<#}#>
+<#if(tbl.Columns.Any(x=>x.Name=="ModifiedOn")){#>
+            Me.ModifiedOn = DateTime.Now
+<#}#>
+<#if(tbl.Columns.Any(x=>x.Name=="ModifiedBy")){#>
+            Me.ModifiedBy = Environment.UserName
+<#}#>
+            Me.SetKeyValue(_repo.Add(Me,provider))
+            OnSaved()
+        End Sub
+        
+        <#if(tbl.Columns.Any(x=>x.Name=="CreatedBy")){#>
+        Public Sub Add(username As String)
+            
+            Me.CreatedBy = username
+            Add()
+
+        End Sub
+        Public Sub Add(username As String, provider As IDataProvider)
+
+            Me.CreatedBy = username
+            Add(provider)
+        End Sub
+        <#}#>
+        
+        
+        Public Sub Save() Implements IActiveRecord.Save
+            Save(_db.Provider)
+        End Sub
+        Public Sub Save(provider As IDataProvider) Implements IActiveRecord.Save
+            If _isNew Then
+                Add(provider)
+            Else
+                Update(provider)
+			End If
+        End Sub
+
+        <#if(tbl.Columns.Any(x=>x.Name=="CreatedBy" || x.Name=="ModifiedBy")){#>
+        Public Sub Save(username As String, provider As IDataProvider)
+            If _isNew Then
+                <#if(tbl.Columns.Any(x=>x.Name=="CreatedBy")){#>
+                Add(username,provider)
+                <#}else{#>
+                Add(provider)
+                <#}#>
+            Else
+                <#if(tbl.Columns.Any(x=>x.Name=="ModifiedBy")){#>
+                Update(username,provider)
+                <#}else{#>
+                Update(provider)
+                <#}#>
+
+            End If
+            
+        End Sub
+        <#}#>
+
+
+        Public Sub Delete(provider As IDataProvider)
+            <#if(tbl.HasLogicalDelete()){#>
+             
+             Me.<#=tbl.DeleteColumn.CleanName#> = True
+            _repo.Update(Me,provider)
+                
+            <#}else{#>       
+                 
+            _repo.Delete(KeyValue())
+            
+            <#}#>
+        End Sub
+
+
+        Public Sub Delete() Implements IActiveRecord.Delete
+            Delete(_db.Provider)
+        End Sub
+
+
+        Public Shared Sub Delete(expression As Expression(Of Func(Of <#=tbl.ClassName#>, Boolean)))
+            Dim repo = GetRepo()
+            
+<#if(tbl.HasLogicalDelete()){#>
+            
+            Dim items As List(Of <#=tbl.ClassName#>) = repo.GetAll().Where(expression).ToList()
+            items.ForEach(Function(x) x.<#=tbl.DeleteColumn.CleanName#> = True)
+            repo.Update(items)
+            
+<#}else{#>       
+            
+            repo.DeleteMany(expression)
+            
+<#}#>
+        End Sub
+
+        <#if(tbl.HasLogicalDelete()){#>
+        
+        Public Shared Sub Destroy(expression As Func(Of <#=tbl.ClassName#>, Boolean))
+            Dim repo = GetRepo()
+            repo.Delete(expression)
+        End Sub
+        
+        Public Shared Sub Destroy(key As Object)
+            Dim repo = GetRepo()
+            repo.Delete(key)
+        End Sub
+        
+        Public Shared Sub Destroy(key As Object, provider As IDataProvider)
+        
+            Dim repo = GetRepo()
+            repo.Delete(key,provider)
+            
+        End Sub
+        
+        Public Sub Destroy()
+            _repo.Delete(KeyValue())
+        End Sub
+        Public Sub Destroy(provider As IDataProvider)
+            _repo.Delete(KeyValue(), provider)
+        End Sub
+        <#}#>
+
+
+        Public Sub Load(rdr As IDataReader) Implements IActiveRecord.Load
+            Load(rdr, true)
+        End Sub
+        Public Sub Load(rdr As IDataReader, closeReader As Boolean) Implements IActiveRecord.Load
+            If rdr.Read() Then
+                Try
+                    rdr.Load(Me)
+                    _isNew = False
+                    _isLoaded = True
+                Catch
+                    _isLoaded = False
+                    Throw
+                End Try
+            Else
+                _isLoaded = False
+            End If
+
+            If closeReader Then rdr.Dispose()
+
+        End Sub
+	End Class
+<#        }
+    }
+#>
+End NameSpace

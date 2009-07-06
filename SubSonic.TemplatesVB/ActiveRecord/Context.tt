@@ -1,0 +1,258 @@
+<#@ template language="C#v3.5" debug="False" hostspecific="True"  #>
+<#@ output extension=".vb" #>
+<#@ include file="SQLServer.ttinclude" #>
+<#
+    var tables = LoadTables();
+#>
+Imports System
+Imports System.Data
+Imports System.Linq
+Imports System.Linq.Expressions
+Imports SubSonic.DataProviders
+Imports SubSonic.Extensions
+Imports SubSonic.Linq.Structure
+Imports SubSonic.Query
+Imports SubSonic.Schema
+Imports System.Data.Common
+Imports System.Collections.Generic
+
+NameSpace <#=Namespace#>
+
+    Public Partial Class <#=DatabaseName#>DB 
+		Implements IQuerySurface
+
+        Private _dataProvider As IDataProvider
+        Private _provider As DbQueryProvider
+        
+        Public ReadOnly Property TestMode As Boolean
+            Get
+               	Return _dataProvider.ConnectionString.Equals("test", StringComparison.InvariantCultureIgnoreCase)
+			End Get
+        End Property
+
+        Public Sub New() 
+            _dataProvider = ProviderFactory.GetProvider("<#=ConnectionStringName#>")
+            Init()
+        End Sub
+
+        Public Sub New(connectionStringName As String)
+            _dataProvider = ProviderFactory.GetProvider(connectionStringName)
+            Init()
+        End Sub
+
+		Public Sub New(connectionString As String, providerName As String)
+            _dataProvider = ProviderFactory.GetProvider(connectionString,providerName)
+            Init()
+        End Sub
+
+		Public Function FindByPrimaryKey(pkName As String) As ITable
+            Return _dataProvider.Schema.Tables.SingleOrDefault(Function(x) x.PrimaryKey.Name.Equals(pkName, StringComparison.InvariantCultureIgnoreCase))
+        End Function
+
+        Public Function GetQuery(Of T)() As Query(Of T) Implements IQuerySurface.GetQuery
+            Return New Query(Of T)(provider)
+        End Function
+        
+        Public Function FindTable(tableName As String) As ITable Implements IQuerySurface.FindTable
+            Return _dataProvider.FindTable(tableName)
+        End Function
+               
+        Public ReadOnly Property Provider As IDataProvider Implements IQuerySurface.Provider
+            Get 
+				Return _dataProvider
+			End Get
+		End Property
+        
+        Public ReadOnly Property QueryProvider As DbQueryProvider
+            Get 
+				Return _provider
+			End Get
+		End Property
+		
+        Private _batch As BatchQuery = Nothing
+		
+        Public Sub Queue(Of T)(qry As IQueryable(Of T))
+            If _batch Is Nothing Then _batch = New BatchQuery(Provider, QueryProvider)
+            _batch.Queue(qry)
+        End Sub
+
+        Public Sub Queue(qry As ISqlQuery)
+            If _batch Is Nothing Then _batch = new BatchQuery(Provider, QueryProvider)
+            _batch.Queue(qry)
+        End Sub
+
+        Public Sub ExecuteTransaction(commands As IList(Of DbCommand))
+            If Not TestMode Then
+                Using connection = commands(0).Connection
+                   If connection.State = ConnectionState.Closed Then connection.Open()
+                   
+                   Using trans = connection.BeginTransaction() 
+                        For Each cmd in commands 
+                            cmd.Transaction = trans
+                            cmd.Connection = connection
+                            cmd.ExecuteNonQuery()
+                        Next cmd
+                        trans.Commit()
+                    End Using
+                    connection.Close()
+                End Using
+            End If
+        End Sub
+
+        Public Function ExecuteBatch() As IDataReader
+            If _batch Is Nothing Then Throw New InvalidOperationException("There's nothing in the queue")
+            If Not TestMode Then Return _batch.ExecuteReader()
+            Return Nothing
+        End Function
+<#
+		//################################################     IQueryable         #######################################
+#>			
+<#  foreach(Table tbl in tables){
+        if(!ExcludeTables.Contains(tbl.Name))
+        {
+#>
+		Private _<#=tbl.QueryableName#> As Query(Of <#=tbl.ClassName#>)
+        Public Property <#=tbl.QueryableName#> As Query(Of <#=tbl.ClassName#>)
+			Get
+				Return _<#=tbl.QueryableName#>
+			End Get
+			Set(value As Query(Of <#=tbl.ClassName#>))
+				_<#=tbl.QueryableName#> = value
+			End Set
+		End Property
+<#
+        }
+    }
+#>
+
+<# 
+	//################################################ Aggregates and Queries #######################################
+#>
+        #Region " Aggregates and SubSonic Queries "
+
+		Public Function SelectColumns(ParamArray columns As String()) As [Select]
+            Return New [Select](Provider, columns)
+        End Function
+
+        Public ReadOnly Property [Select] As [Select] Implements IQuerySurface.Select
+            Get
+				Return New [Select](Me.Provider)
+			End Get
+        End Property
+
+		Public ReadOnly Property Insert() As Insert Implements IQuerySurface.Insert
+			Get
+				Return New Insert(Me.provider)
+			End Get
+		End Property
+		
+        Public Function Update(Of T As New) As Update(Of T) Implements IQuerySurface.Update
+            Return New Update(Of T)(Me.Provider)
+        End Function
+
+        Public Function Delete(Of T As New)(column As Expression(Of Func(Of T, Boolean))) As SqlQuery Implements IQuerySurface.Delete
+            Dim lambda As LambdaExpression = column
+            Dim result As SqlQuery = New Delete(Of T)(Me.Provider)
+            result = result.From(Of T)()
+            Dim c As Global.SubSonic.Query.Constraint = lambda.ParseConstraint()
+            result.Constraints.Add(c)
+            Return result
+        End Function
+
+        Public Function Max(Of T)(column As Expression(Of Func(Of T, Object))) As SqlQuery Implements IQuerySurface.Max
+            Dim lambda As LambdaExpression = column
+            Dim colName As String = lambda.ParseObjectValue()
+            Dim objectName As String = GetType(T).Name
+            Dim tableName As String = Me.Provider.FindTable(objectName).Name
+            Return New [Select](Me.Provider, New Aggregate(colName, AggregateFunction.Max)).From(tableName)
+        End Function
+
+        Public Function Min(Of T)(column As Expression(Of Func(Of T, Object))) As SqlQuery Implements IQuerySurface.Min
+            Dim lambda As LambdaExpression = column
+            Dim colName As String = lambda.ParseObjectValue()
+            Dim objectName As String = GetType(T).Name
+            Dim tableName As String = Me.Provider.FindTable(objectName).Name
+            Return New [Select](Me.Provider, New Aggregate(colName, AggregateFunction.Min)).From(tableName)
+        End Function
+
+        Public Function Sum(Of T)(column As Expression(Of Func(Of T, Object))) As SqlQuery Implements IQuerySurface.Sum
+            Dim lambda As LambdaExpression = column
+            Dim colName As String = lambda.ParseObjectValue()
+            Dim objectName As String = GetType(T).Name
+            Dim tableName As String = Me.Provider.FindTable(objectName).Name
+            Return New [Select](Me.Provider, New Aggregate(colName, AggregateFunction.Sum)).From(tableName)
+        End Function
+
+        Public Function Avg(Of T)(column As Expression(Of Func(Of T, Object))) As SqlQuery Implements IQuerySurface.Avg
+            Dim lambda As LambdaExpression = column
+            Dim colName As String = lambda.ParseObjectValue()
+            Dim objectName As String = GetType(T).Name
+            Dim tableName As String = Me.Provider.FindTable(objectName).Name
+            Return New [Select](Me.Provider, New Aggregate(colName, AggregateFunction.Avg)).From(tableName)
+        End Function
+
+        Public Function Count(Of T)(column As Expression(Of Func(Of T, Object))) As SqlQuery Implements IQuerySurface.Count
+            Dim lambda As LambdaExpression = column
+            Dim colName As String = lambda.ParseObjectValue()
+            Dim objectName As String = GetType(T).Name
+            Dim tableName As String = Me.Provider.FindTable(objectName).Name
+            Return New [Select](Me.Provider, New Aggregate(colName, AggregateFunction.Count)).From(tableName)
+        End Function
+
+        Public Function Variance(Of T)(column As Expression(Of Func(Of T, Object))) As SqlQuery Implements IQuerySurface.Variance
+            Dim lambda As LambdaExpression = column
+            Dim colName As String = lambda.ParseObjectValue()
+            Dim objectName As String = GetType(T).Name
+            Dim tableName As String = Me.Provider.FindTable(objectName).Name
+            Return New [Select](Me.Provider, New Aggregate(colName, AggregateFunction.Var)).From(tableName)
+        End Function
+
+        Public Function StandardDeviation(Of T)(column As Expression(Of Func(Of T, Object))) As SqlQuery Implements IQuerySurface.StandardDeviation
+            Dim lambda As LambdaExpression = column
+            Dim colName As String = lambda.ParseObjectValue()
+            Dim objectName As String = GetType(T).Name
+            Dim tableName As String = Me.Provider.FindTable(objectName).Name
+            Return New [Select](Me.Provider, New Aggregate(colName, AggregateFunction.StDev)).From(tableName)
+        End Function
+
+        #End Region
+
+        Private Sub Init()
+            _provider = New DbQueryProvider(Me.Provider)
+
+<#
+    //################################################ QUERIES ####################################### #>
+            ' Query Defs
+<#
+    foreach(Table tbl in tables)
+    {
+        if(!ExcludeTables.Contains(tbl.Name))
+        {
+#>
+            <#=tbl.QueryableName#> = New Query(Of <#=tbl.ClassName#>)(_provider)
+<#
+        }
+#>
+<#
+    }
+#>
+
+<#//################################################ SCHEMAS ####################################### #>
+
+            ' Schemas
+        	If _dataProvider.Schema.Tables.Count = 0 Then
+<#
+    foreach(Table tbl in tables)
+    {
+        if(!ExcludeTables.Contains(tbl.Name))
+        {
+#>
+            	_dataProvider.Schema.Tables.Add(New <#=tbl.CleanName#>Table(_dataProvider))
+<#
+        }
+    }
+#>
+            End If
+        End Sub
+    End Class
+End NameSpace
