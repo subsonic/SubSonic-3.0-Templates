@@ -310,7 +310,7 @@ namespace <#=Namespace #>
                 
                   var repo=<#=Namespace #>.<#=fk.OtherClass#>.GetRepo();
                   return from items in repo.GetAll()
-                       where items.<#=fk.OtherColumn#> == _<#=fk.ThisColumn#>
+                       where items.<#=CleanUp(fk.OtherColumn)#> == _<#=CleanUp(fk.ThisColumn)#>
                        select items;
             }
         }
