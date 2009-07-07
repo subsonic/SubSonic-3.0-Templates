@@ -74,9 +74,13 @@ string GetSysType(string sqlType){
 	string sysType="string";
 	switch (sqlType) {
 		case "bigint":
-		case "smallint":
-		case "integer":
+			sysType= "long";
+			break;
+		case "int":
 			sysType= "int";
+			break;
+		case "smallint":
+			sysType= "short";
 			break;
 		case "guid":
 			sysType=  "Guid";
@@ -95,12 +99,12 @@ string GetSysType(string sqlType){
 		case "money":
 			sysType=  "decimal";
 			 break;
+		case "tinyint":
 		case "bit":
 			sysType=  "bool";
 			   break;
 		case "image":
 		case "binary":
-		case "tinyint":
 		case "varbinary":
 			sysType=  "byte[]";
 			 break;
