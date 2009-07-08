@@ -31,7 +31,12 @@ namespace <#=Namespace#>
 	    
 	    #region Properties
 	    
-<#      foreach(var col in tbl.Columns){#>
+<#      foreach(var col in tbl.Columns){
+			if (tbl.ClassName == col.CleanName)
+			{
+				col.CleanName += "X";
+			}
+#>
         partial void On<#=col.CleanName#>Changing(<#=col.SysType#><#=CheckNullable(col)#> value);
         partial void On<#=col.CleanName#>Changed();
 		
@@ -75,7 +80,7 @@ namespace <#=Namespace#>
             get
             {
                   var db=new <#=Namespace #>.<#=DatabaseName#>DB();
-                  return from items in db.<#=CleanUp(Inflector.MakePlural(fk.OtherTable)) #>
+                  return from items in db.<#=fk.OtherQueryable #>
                        where items.<#=fk.OtherColumn#> == _<#=fk.ThisColumn#>
                        select items;
             }
