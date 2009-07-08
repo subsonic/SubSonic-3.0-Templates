@@ -25,7 +25,7 @@ namespace <#=Namespace#> {
             
             public <#=tbl.CleanName#>Table(IDataProvider provider):base("<#=tbl.Name#>",provider){
                 ClassName = "<#=tbl.ClassName#>";
-                SchemaName = "<#=tbl.Schema#>";
+                SchemaName = "<#=tbl.Schema ?? ""#>";
                 
 <#          foreach(var col in tbl.Columns){#>
 
