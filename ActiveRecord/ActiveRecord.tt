@@ -171,7 +171,8 @@ namespace <#=Namespace #>
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -184,6 +185,7 @@ namespace <#=Namespace #>
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;

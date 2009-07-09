@@ -163,7 +163,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -176,6 +177,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -777,7 +779,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -790,6 +793,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -1227,7 +1231,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -1240,6 +1245,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -1848,7 +1854,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -1861,6 +1868,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -2348,7 +2356,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -2361,6 +2370,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -2791,7 +2801,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -2804,6 +2815,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -3222,7 +3234,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -3235,6 +3248,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -3653,7 +3667,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -3666,6 +3681,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -4115,7 +4131,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -4128,6 +4145,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -4558,7 +4576,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -4571,6 +4590,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -5253,7 +5273,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -5266,6 +5287,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -5883,7 +5905,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -5896,6 +5919,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -6490,7 +6514,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -6503,6 +6528,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
@@ -7249,7 +7275,8 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
-            }
+                single.SetIsNew(false);
+          }
 
             return single;
         }      
@@ -7262,6 +7289,7 @@ namespace SouthWind
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
+                single.SetIsNew(false);
             }
 
             return single;
