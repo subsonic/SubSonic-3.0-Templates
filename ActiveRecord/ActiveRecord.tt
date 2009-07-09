@@ -441,7 +441,10 @@ namespace <#=Namespace #>
             if(String.IsNullOrEmpty(this.ModifiedBy))
                 this.ModifiedBy=Environment.UserName;
 <#}#>
-            this.SetKeyValue(_repo.Add(this,provider));
+            
+            var newKey=_repo.Add(this,provider);
+            if(newKey!=KeyValue())
+                this.SetKeyValue(newKey);
             _isNew=false;
             OnSaved();
         }

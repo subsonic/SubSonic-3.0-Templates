@@ -81,6 +81,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ActiveRecord\Tests\BugFixes.cs" />
     <Compile Include="ActiveRecord\Tests\FetchTests.cs" />
     <Compile Include="LinqTemplates\Classes.cs">
       <AutoGen>True</AutoGen>
