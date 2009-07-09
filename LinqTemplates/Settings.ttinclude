@@ -236,7 +236,7 @@
         public string Name;
         public string CleanName;
         public string SysType;
-
+        public string DbType;
     }
     
 
