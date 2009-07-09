@@ -393,7 +393,8 @@ namespace <#=Namespace #>
         public void Update(IDataProvider provider){
         
 <#if(tbl.Columns.Any(x=>x.Name=="ModifiedBy")){#>
-            this.ModifiedBy=Environment.UserName;
+            if(String.IsNullOrEmpty(this.ModifiedBy))
+                this.ModifiedBy=Environment.UserName;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="ModifiedOn")){#>
             this.ModifiedOn=DateTime.Now;
