@@ -18,7 +18,7 @@
 
 <#+
 
-    const string Namespace = "Southwind";
+    const string Namespace = "WestWind";
     const string ConnectionStringName = "Northwind";
     
     //This is the name of your database and is used in naming
@@ -223,13 +223,7 @@
                 StringBuilder sb=new StringBuilder();
                 int loopCount=1;
                 foreach(var par in Parameters){
-                    string sysType=par.SysType;
-                    			
-			        if(sysType!="byte[]" && sysType !="string")
-			            sysType+="?";
-
-                
-                    sb.AppendFormat("{0} {1}", sysType,par.CleanName);
+                    sb.AppendFormat("{0} {1}", par.SysType,par.CleanName);
                     if(loopCount<Parameters.Count)
                         sb.Append(",");
                     loopCount++;
@@ -242,7 +236,7 @@
         public string Name;
         public string CleanName;
         public string SysType;
-
+        public string DbType;
     }
     
 

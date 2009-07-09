@@ -6,45 +6,46 @@ using System;
 using SubSonic;
 using SubSonic.Schema;
 using SubSonic.DataProviders;
+using System.Data;
 
-namespace Southwind{
-	public class SPs{
+namespace WestWind{
+	public partial class NorthwindDB{
 
-        public static StoredProcedure CustOrderHist(string CustomerID){
-            StoredProcedure sp=new StoredProcedure("CustOrderHist",ProviderFactory.GetProvider("Northwind"));
-            sp.Command.AddParameter("CustomerID",CustomerID);
+        public StoredProcedure CustOrderHist(string CustomerID){
+            StoredProcedure sp=new StoredProcedure("CustOrderHist",this.Provider);
+            sp.Command.AddParameter("CustomerID",CustomerID,DbType.String);
             return sp;
         }
-        public static StoredProcedure CustOrdersDetail(int? OrderID){
-            StoredProcedure sp=new StoredProcedure("CustOrdersDetail",ProviderFactory.GetProvider("Northwind"));
-            sp.Command.AddParameter("OrderID",OrderID);
+        public StoredProcedure CustOrdersDetail(int OrderID){
+            StoredProcedure sp=new StoredProcedure("CustOrdersDetail",this.Provider);
+            sp.Command.AddParameter("OrderID",OrderID,DbType.Int32);
             return sp;
         }
-        public static StoredProcedure CustOrdersOrders(string CustomerID){
-            StoredProcedure sp=new StoredProcedure("CustOrdersOrders",ProviderFactory.GetProvider("Northwind"));
-            sp.Command.AddParameter("CustomerID",CustomerID);
+        public StoredProcedure CustOrdersOrders(string CustomerID){
+            StoredProcedure sp=new StoredProcedure("CustOrdersOrders",this.Provider);
+            sp.Command.AddParameter("CustomerID",CustomerID,DbType.String);
             return sp;
         }
-        public static StoredProcedure EmployeeSalesbyCountry(DateTime? Beginning_Date,DateTime? Ending_Date){
-            StoredProcedure sp=new StoredProcedure("Employee Sales by Country",ProviderFactory.GetProvider("Northwind"));
-            sp.Command.AddParameter("Beginning_Date",Beginning_Date);
-            sp.Command.AddParameter("Ending_Date",Ending_Date);
+        public StoredProcedure EmployeeSalesbyCountry(DateTime Beginning_Date,DateTime Ending_Date){
+            StoredProcedure sp=new StoredProcedure("Employee Sales by Country",this.Provider);
+            sp.Command.AddParameter("Beginning_Date",Beginning_Date,DbType.DateTime);
+            sp.Command.AddParameter("Ending_Date",Ending_Date,DbType.DateTime);
             return sp;
         }
-        public static StoredProcedure SalesbyYear(DateTime? Beginning_Date,DateTime? Ending_Date){
-            StoredProcedure sp=new StoredProcedure("Sales by Year",ProviderFactory.GetProvider("Northwind"));
-            sp.Command.AddParameter("Beginning_Date",Beginning_Date);
-            sp.Command.AddParameter("Ending_Date",Ending_Date);
+        public StoredProcedure SalesbyYear(DateTime Beginning_Date,DateTime Ending_Date){
+            StoredProcedure sp=new StoredProcedure("Sales by Year",this.Provider);
+            sp.Command.AddParameter("Beginning_Date",Beginning_Date,DbType.DateTime);
+            sp.Command.AddParameter("Ending_Date",Ending_Date,DbType.DateTime);
             return sp;
         }
-        public static StoredProcedure SalesByCategory(string CategoryName,string OrdYear){
-            StoredProcedure sp=new StoredProcedure("SalesByCategory",ProviderFactory.GetProvider("Northwind"));
-            sp.Command.AddParameter("CategoryName",CategoryName);
-            sp.Command.AddParameter("OrdYear",OrdYear);
+        public StoredProcedure SalesByCategory(string CategoryName,string OrdYear){
+            StoredProcedure sp=new StoredProcedure("SalesByCategory",this.Provider);
+            sp.Command.AddParameter("CategoryName",CategoryName,DbType.String);
+            sp.Command.AddParameter("OrdYear",OrdYear,DbType.String);
             return sp;
         }
-        public static StoredProcedure TenMostExpensiveProducts(){
-            StoredProcedure sp=new StoredProcedure("Ten Most Expensive Products",ProviderFactory.GetProvider("Northwind"));
+        public StoredProcedure TenMostExpensiveProducts(){
+            StoredProcedure sp=new StoredProcedure("Ten Most Expensive Products",this.Provider);
             return sp;
         }
 	

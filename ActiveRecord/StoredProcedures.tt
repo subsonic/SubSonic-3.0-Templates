@@ -9,15 +9,16 @@ using System;
 using SubSonic;
 using SubSonic.Schema;
 using SubSonic.DataProviders;
+using System.Data;
 
 namespace <#=Namespace#>{
-	public class SPs{
+	public partial class <#=DatabaseName#>DB{
 
 <#  foreach(var sp in sps){#>
-        public static StoredProcedure <#=sp.CleanName#>(<#=sp.ArgList#>){
-            StoredProcedure sp=new StoredProcedure("<#=sp.Name#>",ProviderFactory.GetProvider("<#=ConnectionStringName#>"));
+        public StoredProcedure <#=sp.CleanName#>(<#=sp.ArgList#>){
+            StoredProcedure sp=new StoredProcedure("<#=sp.Name#>",this.Provider);
 <#      foreach(var par in sp.Parameters){#>
-            sp.Command.AddParameter("<#=par.Name#>",<#=par.Name#>);
+            sp.Command.AddParameter("<#=par.Name#>",<#=par.CleanName#>,DbType.<#=par.DbType#>);
 <#      }#>
             return sp;
         }

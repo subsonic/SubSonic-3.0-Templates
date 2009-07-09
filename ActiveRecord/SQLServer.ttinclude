@@ -67,6 +67,7 @@ List<SPParam> GetSPParams(string spName){
 		foreach(DataRow row in sprocs.Rows){
 		    SPParam p=new SPParam();
 			p.SysType=GetSysType(row["DATA_TYPE"].ToString());
+			p.DbType=GetDbType(row["DATA_TYPE"].ToString()).ToString();
 			p.Name=row["PARAMETER_NAME"].ToString().Replace("@","");
 			p.CleanName=CleanUp(p.Name);
 			result.Add(p);
