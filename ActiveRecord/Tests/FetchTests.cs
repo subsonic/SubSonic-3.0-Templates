@@ -12,7 +12,7 @@
 //   rights and limitations under the License.
 // 
 using System.Linq;
-using Southwind;
+using SouthWind;
 using Xunit;
 
 namespace SubSonic.Tests.ActiveRecord

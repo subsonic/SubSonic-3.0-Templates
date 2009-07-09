@@ -338,15 +338,16 @@ namespace <#=Namespace #>
             get { return _<#=col.CleanName #>; }
             set
             {
-                
-                _<#=col.CleanName #>=value;
-                var col=tbl.Columns.SingleOrDefault(x=>x.Name=="<#=col.Name #>");
-                if(col!=null){
-                    if(!_dirtyColumns.Any(x=>x.Name==col.Name) && _isLoaded){
-                        _dirtyColumns.Add(col);
+                if(_<#=col.CleanName #>!=value){
+                    _<#=col.CleanName #>=value;
+                    var col=tbl.Columns.SingleOrDefault(x=>x.Name=="<#=col.Name #>");
+                    if(col!=null){
+                        if(!_dirtyColumns.Any(x=>x.Name==col.Name) && _isLoaded){
+                            _dirtyColumns.Add(col);
+                        }
                     }
+                    OnChanged();
                 }
-                OnChanged();
             }
         }
 

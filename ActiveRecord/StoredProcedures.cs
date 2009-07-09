@@ -8,7 +8,7 @@ using SubSonic.Schema;
 using SubSonic.DataProviders;
 using System.Data;
 
-namespace WestWind{
+namespace SouthWind{
 	public partial class NorthwindDB{
 
         public StoredProcedure CustOrderHist(string CustomerID){

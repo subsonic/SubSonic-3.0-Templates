@@ -18,7 +18,7 @@
 
 <#+
 
-    const string Namespace = "WestWind";
+    const string Namespace = "SouthWind";
     const string ConnectionStringName = "Northwind";
     
     //This is the name of your database and is used in naming

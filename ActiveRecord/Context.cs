@@ -13,7 +13,7 @@ using SubSonic.Schema;
 using System.Data.Common;
 using System.Collections.Generic;
 
-namespace Southwind
+namespace SouthWind
 {
     public partial class NorthwindDB : IQuerySurface
     {
