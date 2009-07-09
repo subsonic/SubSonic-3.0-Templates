@@ -50,5 +50,8 @@ namespace SubSonic.Tests.ActiveRecord
 
             Assert.Equal(2155, products.Count());
         }
+
+
+
     }
 }

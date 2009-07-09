@@ -29,9 +29,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Customer> TestItems;
         static TestRepository<Customer> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Customer>(new SouthWind.NorthwindDB());
         }
@@ -66,6 +66,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -99,9 +106,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Customer>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Customer(){
@@ -125,9 +132,8 @@ namespace SouthWind
         }
 
         public Customer(Expression<Func<Customer, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -164,7 +170,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -175,9 +181,6 @@ namespace SouthWind
             Customer single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -566,7 +569,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -621,14 +625,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -648,9 +652,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Shipper> TestItems;
         static TestRepository<Shipper> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Shipper>(new SouthWind.NorthwindDB());
         }
@@ -685,6 +689,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -718,9 +729,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Shipper>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Shipper(){
@@ -744,9 +755,8 @@ namespace SouthWind
         }
 
         public Shipper(Expression<Func<Shipper, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -783,7 +793,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -794,9 +804,6 @@ namespace SouthWind
             Shipper single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -1021,7 +1028,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -1076,14 +1084,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -1103,9 +1111,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Supplier> TestItems;
         static TestRepository<Supplier> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Supplier>(new SouthWind.NorthwindDB());
         }
@@ -1140,6 +1148,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -1173,9 +1188,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Supplier>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Supplier(){
@@ -1199,9 +1214,8 @@ namespace SouthWind
         }
 
         public Supplier(Expression<Func<Supplier, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -1238,7 +1252,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -1249,9 +1263,6 @@ namespace SouthWind
             Supplier single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -1647,7 +1658,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -1702,14 +1714,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -1729,9 +1741,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<OrderDetail> TestItems;
         static TestRepository<OrderDetail> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<OrderDetail>(new SouthWind.NorthwindDB());
         }
@@ -1766,6 +1778,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -1799,9 +1818,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<OrderDetail>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public OrderDetail(){
@@ -1825,9 +1844,8 @@ namespace SouthWind
         }
 
         public OrderDetail(Expression<Func<OrderDetail, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -1864,7 +1882,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -1875,9 +1893,6 @@ namespace SouthWind
             OrderDetail single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -2152,7 +2167,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -2207,14 +2223,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -2234,9 +2250,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<CustomerCustomerDemo> TestItems;
         static TestRepository<CustomerCustomerDemo> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<CustomerCustomerDemo>(new SouthWind.NorthwindDB());
         }
@@ -2271,6 +2287,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -2304,9 +2327,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<CustomerCustomerDemo>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public CustomerCustomerDemo(){
@@ -2330,9 +2353,8 @@ namespace SouthWind
         }
 
         public CustomerCustomerDemo(Expression<Func<CustomerCustomerDemo, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -2369,7 +2391,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -2380,9 +2402,6 @@ namespace SouthWind
             CustomerCustomerDemo single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -2600,7 +2619,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -2655,14 +2675,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -2682,9 +2702,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<CustomerDemographic> TestItems;
         static TestRepository<CustomerDemographic> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<CustomerDemographic>(new SouthWind.NorthwindDB());
         }
@@ -2719,6 +2739,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -2752,9 +2779,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<CustomerDemographic>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public CustomerDemographic(){
@@ -2778,9 +2805,8 @@ namespace SouthWind
         }
 
         public CustomerDemographic(Expression<Func<CustomerDemographic, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -2817,7 +2843,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -2828,9 +2854,6 @@ namespace SouthWind
             CustomerDemographic single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -3036,7 +3059,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -3091,14 +3115,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -3118,9 +3142,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Region> TestItems;
         static TestRepository<Region> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Region>(new SouthWind.NorthwindDB());
         }
@@ -3155,6 +3179,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -3188,9 +3219,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Region>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Region(){
@@ -3214,9 +3245,8 @@ namespace SouthWind
         }
 
         public Region(Expression<Func<Region, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -3253,7 +3283,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -3264,9 +3294,6 @@ namespace SouthWind
             Region single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -3472,7 +3499,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -3527,14 +3555,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -3554,9 +3582,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Territory> TestItems;
         static TestRepository<Territory> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Territory>(new SouthWind.NorthwindDB());
         }
@@ -3591,6 +3619,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -3624,9 +3659,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Territory>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Territory(){
@@ -3650,9 +3685,8 @@ namespace SouthWind
         }
 
         public Territory(Expression<Func<Territory, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -3689,7 +3723,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -3700,9 +3734,6 @@ namespace SouthWind
             Territory single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -3939,7 +3970,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -3994,14 +4026,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -4021,9 +4053,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<EmployeeTerritory> TestItems;
         static TestRepository<EmployeeTerritory> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<EmployeeTerritory>(new SouthWind.NorthwindDB());
         }
@@ -4058,6 +4090,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -4091,9 +4130,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<EmployeeTerritory>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public EmployeeTerritory(){
@@ -4117,9 +4156,8 @@ namespace SouthWind
         }
 
         public EmployeeTerritory(Expression<Func<EmployeeTerritory, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -4156,7 +4194,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -4167,9 +4205,6 @@ namespace SouthWind
             EmployeeTerritory single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -4387,7 +4422,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -4442,14 +4478,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -4469,9 +4505,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Order> TestItems;
         static TestRepository<Order> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Order>(new SouthWind.NorthwindDB());
         }
@@ -4506,6 +4542,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -4539,9 +4582,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Order>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Order(){
@@ -4565,9 +4608,8 @@ namespace SouthWind
         }
 
         public Order(Expression<Func<Order, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -4604,7 +4646,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -4615,9 +4657,6 @@ namespace SouthWind
             Order single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -5087,7 +5126,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -5142,14 +5182,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -5169,9 +5209,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<SubSonicTest> TestItems;
         static TestRepository<SubSonicTest> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<SubSonicTest>(new SouthWind.NorthwindDB());
         }
@@ -5206,6 +5246,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -5239,9 +5286,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<SubSonicTest>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public SubSonicTest(){
@@ -5265,9 +5312,8 @@ namespace SouthWind
         }
 
         public SubSonicTest(Expression<Func<SubSonicTest, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -5304,7 +5350,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -5315,9 +5361,6 @@ namespace SouthWind
             SubSonicTest single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -5722,7 +5765,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -5777,14 +5821,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -5804,9 +5848,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Product> TestItems;
         static TestRepository<Product> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Product>(new SouthWind.NorthwindDB());
         }
@@ -5841,6 +5885,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -5874,9 +5925,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Product>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Product(){
@@ -5900,9 +5951,8 @@ namespace SouthWind
         }
 
         public Product(Expression<Func<Product, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -5939,7 +5989,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -5950,9 +6000,6 @@ namespace SouthWind
             Product single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -6334,7 +6381,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -6389,14 +6437,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -6416,9 +6464,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Employee> TestItems;
         static TestRepository<Employee> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Employee>(new SouthWind.NorthwindDB());
         }
@@ -6453,6 +6501,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -6486,9 +6541,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Employee>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Employee(){
@@ -6512,9 +6567,8 @@ namespace SouthWind
         }
 
         public Employee(Expression<Func<Employee, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -6551,7 +6605,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -6562,9 +6616,6 @@ namespace SouthWind
             Employee single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -7098,7 +7149,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -7153,14 +7205,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
@@ -7180,9 +7232,9 @@ namespace SouthWind
         #region Built-in testing
         static IList<Category> TestItems;
         static TestRepository<Category> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<Category>(new SouthWind.NorthwindDB());
         }
@@ -7217,6 +7269,13 @@ namespace SouthWind
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -7250,9 +7309,9 @@ namespace SouthWind
                 _repo = new SubSonicRepository<Category>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public Category(){
@@ -7276,9 +7335,8 @@ namespace SouthWind
         }
 
         public Category(Expression<Func<Category, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -7315,7 +7373,7 @@ namespace SouthWind
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -7326,9 +7384,6 @@ namespace SouthWind
             Category single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -7572,7 +7627,8 @@ namespace SouthWind
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -7627,14 +7683,14 @@ namespace SouthWind
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)

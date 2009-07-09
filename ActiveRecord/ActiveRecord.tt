@@ -37,9 +37,9 @@ namespace <#=Namespace #>
         #region Built-in testing
         static IList<<#=tbl.ClassName#>> TestItems;
         static TestRepository<<#=tbl.ClassName#>> _testRepo;
-        public void SetIsLoaded(bool isLoaded){
-            _isLoaded=isLoaded;
-        }
+        
+
+        
         static void SetTestRepo(){
             _testRepo = _testRepo ?? new TestRepository<<#=tbl.ClassName#>>(new <#=Namespace#>.<#=DatabaseName#>DB());
         }
@@ -74,6 +74,13 @@ namespace <#=Namespace #>
         public bool IsNew(){
             return _isNew;
         }
+        
+        public void SetIsLoaded(bool isLoaded){
+            _isLoaded=isLoaded;
+            if(isLoaded)
+                OnLoaded();
+        }
+        
         public void SetIsNew(bool isNew){
             _isNew=isNew;
         }
@@ -107,9 +114,9 @@ namespace <#=Namespace #>
                 _repo = new SubSonicRepository<<#=tbl.ClassName#>>(_db);
             }
             tbl=_repo.GetTable();
-            _isNew = true;
+            SetIsNew(true);
             OnCreated();       
-      
+
         }
         
         public <#=tbl.ClassName#>(){
@@ -133,9 +140,8 @@ namespace <#=Namespace #>
         }
 
         public <#=tbl.ClassName#>(Expression<Func<<#=tbl.ClassName#>, bool>> expression):this() {
-            _isLoaded=_repo.Load(this,expression);
-            if(_isLoaded)
-                OnLoaded();
+
+            SetIsLoaded(_repo.Load(this,expression));
         }
         
        
@@ -172,7 +178,7 @@ namespace <#=Namespace #>
                 single.OnLoaded();
                 single.SetIsLoaded(true);
                 single.SetIsNew(false);
-          }
+            }
 
             return single;
         }      
@@ -183,9 +189,6 @@ namespace <#=Namespace #>
             <#=tbl.ClassName#> single=null;
             if(results.Count() > 0){
                 single=results.ToList()[0];
-                single.OnLoaded();
-                single.SetIsLoaded(true);
-                single.SetIsNew(false);
             }
 
             return single;
@@ -445,7 +448,8 @@ namespace <#=Namespace #>
             var newKey=_repo.Add(this,provider);
             if(newKey!=KeyValue())
                 this.SetKeyValue(newKey);
-            _isNew=false;
+            
+            SetIsNew(false);
             OnSaved();
         }
         
@@ -573,14 +577,14 @@ namespace <#=Namespace #>
 
                 try {
                     rdr.Load(this);
-                    _isNew = false;
-                    _isLoaded = true;
+                    SetIsNew(false);
+                    SetIsLoaded(true);
                 } catch {
-                    _isLoaded = false;
+                    SetIsLoaded(false);
                     throw;
                 }
             }else{
-                _isLoaded = false;
+                SetIsLoaded(false);
             }
 
             if (closeReader)
