@@ -273,6 +273,10 @@ namespace <#=Namespace #>
             }
         }
 
+        public override int GetHashCode() {
+            return this.ID;
+        }
+
         public string DescriptorValue()
         {
             return this.<#=tbl.Descriptor.CleanName #>.ToString();
