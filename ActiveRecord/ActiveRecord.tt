@@ -1,4 +1,3 @@
-<#@ template language="C#v3.5" debug="True" hostspecific="True" #>
 <#@ include file="SQLServer.ttinclude" #>
 using System;
 using System.Collections.Generic;
