@@ -84,8 +84,8 @@ List<Table> LoadTables(){
                 //add it
                 Table tbl = new Table();
                 tbl.PrimaryKey="";
-                tbl.FKTables=new List<FKTable>();
                 tbl.Name = row["TABLE_NAME"].ToString();
+                tbl.FKTables=LoadFKTables(tbl.Name);
                 tbl.CleanName=CleanUp(tbl.Name);
                 tbl.ClassName=Inflector.MakeSingular(tbl.CleanName);
                 tbl.QueryableName=Inflector.MakePlural(tbl.ClassName);
