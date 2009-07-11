@@ -5,7 +5,7 @@
         //Table=alphabetical list of products
         //Columns=11
         //PK =ProductID
-        
+        //FKs = 0;
         
              
         //ProductID (int): Nullable: False
@@ -28,7 +28,7 @@
         //Table=categories
         //Columns=4
         //PK =CategoryID
-        
+        //FKs = 1;
         
              
         //CategoryID (int): Nullable: False
@@ -45,7 +45,7 @@
         //Table=category sales for 1997
         //Columns=2
         //PK =CategoryName
-        
+        //FKs = 0;
         
              
         //CategoryName (string): Nullable: False
@@ -59,7 +59,7 @@
         //Table=current product list
         //Columns=2
         //PK =ProductID
-        
+        //FKs = 0;
         
              
         //ProductID (int): Nullable: False
@@ -73,7 +73,7 @@
         //Table=customer and suppliers by city
         //Columns=4
         //PK =City
-        
+        //FKs = 0;
         
              
         //City (string): Nullable: True
@@ -89,7 +89,7 @@
         //Table=customercustomerdemo
         //Columns=2
         //PK =CustomerID
-        
+        //FKs = 2;
         
              
         //CustomerID (string): Nullable: False
@@ -105,7 +105,7 @@
         //Table=customerdemographics
         //Columns=2
         //PK =CustomerTypeID
-        
+        //FKs = 1;
         
              
         //CustomerTypeID (string): Nullable: False
@@ -120,7 +120,7 @@
         //Table=customers
         //Columns=11
         //PK =CustomerID
-        
+        //FKs = 2;
         
              
         //CustomerID (string): Nullable: False
@@ -145,7 +145,7 @@
         //Table=employees
         //Columns=18
         //PK =EmployeeID
-        
+        //FKs = 3;
         
              
         //EmployeeID (int): Nullable: False
@@ -178,7 +178,7 @@
         //Table=employeeterritories
         //Columns=2
         //PK =EmployeeID
-        
+        //FKs = 2;
         
              
         //EmployeeID (int): Nullable: False
@@ -194,7 +194,7 @@
         //Table=invoices
         //Columns=26
         //PK =ShipName
-        
+        //FKs = 0;
         
              
         //ShipName (string): Nullable: True
@@ -232,7 +232,7 @@
         //Table=order details extended
         //Columns=7
         //PK =OrderID
-        
+        //FKs = 0;
         
              
         //OrderID (int): Nullable: False
@@ -251,7 +251,7 @@
         //Table=order details
         //Columns=5
         //PK =OrderID
-        
+        //FKs = 2;
         
              
         //OrderID (int): Nullable: False
@@ -270,7 +270,7 @@
         //Table=order subtotals
         //Columns=2
         //PK =OrderID
-        
+        //FKs = 0;
         
              
         //OrderID (int): Nullable: False
@@ -284,7 +284,7 @@
         //Table=orders qry
         //Columns=20
         //PK =OrderID
-        
+        //FKs = 0;
         
              
         //OrderID (int): Nullable: False
@@ -316,7 +316,7 @@
         //Table=orders
         //Columns=14
         //PK =OrderID
-        
+        //FKs = 4;
         
              
         //OrderID (int): Nullable: False
@@ -346,7 +346,7 @@
         //Table=product sales for 1997
         //Columns=3
         //PK =CategoryName
-        
+        //FKs = 0;
         
              
         //CategoryName (string): Nullable: False
@@ -361,7 +361,7 @@
         //Table=products above average price
         //Columns=2
         //PK =ProductName
-        
+        //FKs = 0;
         
              
         //ProductName (string): Nullable: False
@@ -375,7 +375,7 @@
         //Table=products by category
         //Columns=5
         //PK =CategoryName
-        
+        //FKs = 0;
         
              
         //CategoryName (string): Nullable: False
@@ -392,7 +392,7 @@
         //Table=products
         //Columns=12
         //PK =ProductID
-        
+        //FKs = 3;
         
              
         //ProductID (int): Nullable: False
@@ -419,7 +419,7 @@
         //Table=quarterly orders
         //Columns=4
         //PK =CustomerID
-        
+        //FKs = 0;
         
              
         //CustomerID (string): Nullable: True
@@ -435,7 +435,7 @@
         //Table=region
         //Columns=2
         //PK =RegionID
-        
+        //FKs = 1;
         
              
         //RegionID (int): Nullable: False
@@ -450,7 +450,7 @@
         //Table=sales by category
         //Columns=4
         //PK =CategoryID
-        
+        //FKs = 0;
         
              
         //CategoryID (int): Nullable: False
@@ -466,7 +466,7 @@
         //Table=sales totals by amount
         //Columns=4
         //PK =SaleAmount
-        
+        //FKs = 0;
         
              
         //SaleAmount (decimal): Nullable: True
@@ -482,7 +482,7 @@
         //Table=shippers
         //Columns=3
         //PK =ShipperID
-        
+        //FKs = 1;
         
              
         //ShipperID (int): Nullable: False
@@ -498,7 +498,7 @@
         //Table=subsonictests
         //Columns=12
         //PK =Thinger
-        
+        //FKs = 0;
         
              
         //Thinger (int): Nullable: False
@@ -522,7 +522,7 @@
         //Table=summary of sales by quarter
         //Columns=3
         //PK =ShippedDate
-        
+        //FKs = 0;
         
              
         //ShippedDate (DateTime): Nullable: True
@@ -537,7 +537,7 @@
         //Table=summary of sales by year
         //Columns=3
         //PK =ShippedDate
-        
+        //FKs = 0;
         
              
         //ShippedDate (DateTime): Nullable: True
@@ -552,7 +552,7 @@
         //Table=suppliers
         //Columns=12
         //PK =SupplierID
-        
+        //FKs = 1;
         
              
         //SupplierID (int): Nullable: False
@@ -577,7 +577,7 @@
         //Table=territories
         //Columns=3
         //PK =TerritoryID
-        
+        //FKs = 2;
         
              
         //TerritoryID (string): Nullable: False

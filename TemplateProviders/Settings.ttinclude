@@ -18,8 +18,8 @@
 
 <#+
 
-    const string Namespace = "EastWind";
-    const string ConnectionStringName = "NorthwindMySql";
+    const string Namespace = "SouthWind";
+    const string ConnectionStringName = "NorthwindMySQL";
     
     //This is the name of your database and is used in naming
     //the repository. By default we set it to the connection string name
@@ -236,7 +236,7 @@
         public string Name;
         public string CleanName;
         public string SysType;
-
+        public string DbType;
     }
     
 

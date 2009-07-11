@@ -145,6 +145,7 @@ string GetSysType(string sqlType){
 			sysType=  "Guid";
 			 break;
 		case "smalldatetime":
+		case "date":
 		case "datetime":
 			sysType=  "DateTime";
 			  break;

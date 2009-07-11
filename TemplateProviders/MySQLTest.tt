@@ -10,7 +10,7 @@
         //Table=<#=tbl.Name#>
         //Columns=<#=tbl.Columns.Count#>
         //PK =<#=tbl.PK.Name#>
-        
+        //FKs = <#=tbl.FKTables.Count#>;
         
              
 <#      foreach(var col in tbl.Columns){#>
@@ -18,8 +18,7 @@
 <#      }#>
 
         //FKs
-<#      var fks=LoadFKTables(tbl.Name);
-        foreach(var fk in fks){#>
+<#      foreach(var fk in tbl.FKTables){#>
         //<#=fk.ThisTable#> --> <#=fk.OtherTable#>
 <#      }#>
 
