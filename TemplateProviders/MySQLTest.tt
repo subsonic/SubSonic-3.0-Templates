@@ -3,7 +3,7 @@
 <#@ include file="MySQL.ttinclude" #>
 <#
     var tables = LoadTables();
-    
+   
     foreach(var tbl in tables){
 #>
         //***********************************************
@@ -11,8 +11,18 @@
         //Columns=<#=tbl.Columns.Count#>
         //PK =<#=tbl.PK.Name#>
         
+        
+             
 <#      foreach(var col in tbl.Columns){#>
         //<#=col.Name#> (<#=col.SysType#>): Nullable: <#=col.IsNullable#>
 <#      }#>
+
+        //FKs
+<#      var fks=LoadFKTables(tbl.Name);
+        foreach(var fk in fks){#>
+        //<#=fk.ThisTable#> --> <#=fk.OtherTable#>
+<#      }#>
+
+
 
 <#  }#>

@@ -6,6 +6,8 @@
         //Columns=11
         //PK =ProductID
         
+        
+             
         //ProductID (int): Nullable: False
         //ProductName (string): Nullable: False
         //SupplierID (int): Nullable: True
@@ -18,63 +20,109 @@
         //Discontinued (bool): Nullable: False
         //CategoryName (string): Nullable: False
 
+        //FKs
+
+
+
         //***********************************************
         //Table=categories
         //Columns=4
         //PK =CategoryID
         
+        
+             
         //CategoryID (int): Nullable: False
         //CategoryName (string): Nullable: False
         //Description (string): Nullable: True
         //Picture (string): Nullable: True
+
+        //FKs
+        //categories --> products
+
+
 
         //***********************************************
         //Table=category sales for 1997
         //Columns=2
         //PK =CategoryName
         
+        
+             
         //CategoryName (string): Nullable: False
         //CategorySales (decimal): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=current product list
         //Columns=2
         //PK =ProductID
         
+        
+             
         //ProductID (int): Nullable: False
         //ProductName (string): Nullable: False
+
+        //FKs
+
+
 
         //***********************************************
         //Table=customer and suppliers by city
         //Columns=4
         //PK =City
         
+        
+             
         //City (string): Nullable: True
         //CompanyName (string): Nullable: False
         //ContactName (string): Nullable: True
         //Relationship (string): Nullable: False
+
+        //FKs
+
+
 
         //***********************************************
         //Table=customercustomerdemo
         //Columns=2
         //PK =CustomerID
         
+        
+             
         //CustomerID (string): Nullable: False
         //CustomerTypeID (string): Nullable: False
+
+        //FKs
+        //customercustomerdemo --> customers
+        //customercustomerdemo --> customerdemographics
+
+
 
         //***********************************************
         //Table=customerdemographics
         //Columns=2
         //PK =CustomerTypeID
         
+        
+             
         //CustomerTypeID (string): Nullable: False
         //CustomerDesc (string): Nullable: True
+
+        //FKs
+        //customerdemographics --> customercustomerdemo
+
+
 
         //***********************************************
         //Table=customers
         //Columns=11
         //PK =CustomerID
         
+        
+             
         //CustomerID (string): Nullable: False
         //CompanyName (string): Nullable: False
         //ContactName (string): Nullable: True
@@ -87,11 +135,19 @@
         //Phone (string): Nullable: True
         //Fax (string): Nullable: True
 
+        //FKs
+        //customers --> customercustomerdemo
+        //customers --> orders
+
+
+
         //***********************************************
         //Table=employees
         //Columns=18
         //PK =EmployeeID
         
+        
+             
         //EmployeeID (int): Nullable: False
         //LastName (string): Nullable: False
         //FirstName (string): Nullable: False
@@ -111,19 +167,36 @@
         //ReportsTo (int): Nullable: True
         //PhotoPath (string): Nullable: True
 
+        //FKs
+        //employees --> employees
+        //employees --> employeeterritories
+        //employees --> orders
+
+
+
         //***********************************************
         //Table=employeeterritories
         //Columns=2
         //PK =EmployeeID
         
+        
+             
         //EmployeeID (int): Nullable: False
         //TerritoryID (string): Nullable: False
+
+        //FKs
+        //employeeterritories --> employees
+        //employeeterritories --> territories
+
+
 
         //***********************************************
         //Table=invoices
         //Columns=26
         //PK =ShipName
         
+        
+             
         //ShipName (string): Nullable: True
         //ShipAddress (string): Nullable: True
         //ShipCity (string): Nullable: True
@@ -151,11 +224,17 @@
         //ExtendedPrice (decimal): Nullable: True
         //Freight (decimal): Nullable: True
 
+        //FKs
+
+
+
         //***********************************************
         //Table=order details extended
         //Columns=7
         //PK =OrderID
         
+        
+             
         //OrderID (int): Nullable: False
         //ProductID (int): Nullable: False
         //ProductName (string): Nullable: False
@@ -164,30 +243,50 @@
         //Discount (double): Nullable: False
         //ExtendedPrice (decimal): Nullable: True
 
+        //FKs
+
+
+
         //***********************************************
         //Table=order details
         //Columns=5
         //PK =OrderID
         
+        
+             
         //OrderID (int): Nullable: False
         //ProductID (int): Nullable: False
         //UnitPrice (decimal): Nullable: False
         //Quantity (short): Nullable: False
         //Discount (double): Nullable: False
 
+        //FKs
+        //order details --> orders
+        //order details --> products
+
+
+
         //***********************************************
         //Table=order subtotals
         //Columns=2
         //PK =OrderID
         
+        
+             
         //OrderID (int): Nullable: False
         //Subtotal (decimal): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=orders qry
         //Columns=20
         //PK =OrderID
         
+        
+             
         //OrderID (int): Nullable: False
         //CustomerID (string): Nullable: True
         //EmployeeID (int): Nullable: True
@@ -209,11 +308,17 @@
         //PostalCode (string): Nullable: True
         //Country (string): Nullable: True
 
+        //FKs
+
+
+
         //***********************************************
         //Table=orders
         //Columns=14
         //PK =OrderID
         
+        
+             
         //OrderID (int): Nullable: False
         //CustomerID (string): Nullable: True
         //EmployeeID (int): Nullable: True
@@ -229,39 +334,67 @@
         //ShipPostalCode (string): Nullable: True
         //ShipCountry (string): Nullable: True
 
+        //FKs
+        //orders --> order details
+        //orders --> customers
+        //orders --> employees
+        //orders --> shippers
+
+
+
         //***********************************************
         //Table=product sales for 1997
         //Columns=3
         //PK =CategoryName
         
+        
+             
         //CategoryName (string): Nullable: False
         //ProductName (string): Nullable: False
         //ProductSales (decimal): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=products above average price
         //Columns=2
         //PK =ProductName
         
+        
+             
         //ProductName (string): Nullable: False
         //UnitPrice (decimal): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=products by category
         //Columns=5
         //PK =CategoryName
         
+        
+             
         //CategoryName (string): Nullable: False
         //ProductName (string): Nullable: False
         //QuantityPerUnit (string): Nullable: True
         //UnitsInStock (short): Nullable: True
         //Discontinued (bool): Nullable: False
 
+        //FKs
+
+
+
         //***********************************************
         //Table=products
         //Columns=12
         //PK =ProductID
         
+        
+             
         //ProductID (int): Nullable: False
         //ProductName (string): Nullable: False
         //SupplierID (int): Nullable: True
@@ -275,58 +408,99 @@
         //IsDeleted (bool): Nullable: True
         //Thoughtful (long): Nullable: False
 
+        //FKs
+        //products --> order details
+        //products --> categories
+        //products --> suppliers
+
+
+
         //***********************************************
         //Table=quarterly orders
         //Columns=4
         //PK =CustomerID
         
+        
+             
         //CustomerID (string): Nullable: True
         //CompanyName (string): Nullable: True
         //City (string): Nullable: True
         //Country (string): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=region
         //Columns=2
         //PK =RegionID
         
+        
+             
         //RegionID (int): Nullable: False
         //RegionDescription (string): Nullable: False
+
+        //FKs
+        //region --> territories
+
+
 
         //***********************************************
         //Table=sales by category
         //Columns=4
         //PK =CategoryID
         
+        
+             
         //CategoryID (int): Nullable: False
         //CategoryName (string): Nullable: False
         //ProductName (string): Nullable: False
         //ProductSales (decimal): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=sales totals by amount
         //Columns=4
         //PK =SaleAmount
         
+        
+             
         //SaleAmount (decimal): Nullable: True
         //OrderID (int): Nullable: False
         //CompanyName (string): Nullable: False
         //ShippedDate (DateTime): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=shippers
         //Columns=3
         //PK =ShipperID
         
+        
+             
         //ShipperID (int): Nullable: False
         //CompanyName (string): Nullable: False
         //Phone (string): Nullable: True
+
+        //FKs
+        //shippers --> orders
+
+
 
         //***********************************************
         //Table=subsonictests
         //Columns=12
         //PK =Thinger
         
+        
+             
         //Thinger (int): Nullable: False
         //Name (string): Nullable: False
         //UserName (string): Nullable: False
@@ -340,29 +514,47 @@
         //LongText (string): Nullable: False
         //MediumText (string): Nullable: False
 
+        //FKs
+
+
+
         //***********************************************
         //Table=summary of sales by quarter
         //Columns=3
         //PK =ShippedDate
         
+        
+             
         //ShippedDate (DateTime): Nullable: True
         //OrderID (int): Nullable: False
         //Subtotal (decimal): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=summary of sales by year
         //Columns=3
         //PK =ShippedDate
         
+        
+             
         //ShippedDate (DateTime): Nullable: True
         //OrderID (int): Nullable: False
         //Subtotal (decimal): Nullable: True
+
+        //FKs
+
+
 
         //***********************************************
         //Table=suppliers
         //Columns=12
         //PK =SupplierID
         
+        
+             
         //SupplierID (int): Nullable: False
         //CompanyName (string): Nullable: False
         //ContactName (string): Nullable: True
@@ -376,12 +568,25 @@
         //Fax (string): Nullable: True
         //HomePage (string): Nullable: True
 
+        //FKs
+        //suppliers --> products
+
+
+
         //***********************************************
         //Table=territories
         //Columns=3
         //PK =TerritoryID
         
+        
+             
         //TerritoryID (string): Nullable: False
         //TerritoryDescription (string): Nullable: False
         //RegionID (int): Nullable: False
+
+        //FKs
+        //territories --> employeeterritories
+        //territories --> region
+
+
 

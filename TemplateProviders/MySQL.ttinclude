@@ -4,6 +4,65 @@
 <#+
 MySqlConnection conn;
 
+
+List<FKTable> LoadFKTables(string tableName){
+    string fkSQL=@"SELECT*
+        FROM information_schema.KEY_COLUMN_USAGE
+        WHERE
+        (REFERENCED_TABLE_SCHEMA = (@schema)
+        AND REFERENCED_TABLE_NAME =@table
+        AND TABLE_NAME is not null
+        )
+        OR
+        (TABLE_SCHEMA = (@schema)
+        AND TABLE_NAME =@table
+        AND REFERENCED_TABLE_NAME is not null
+        )
+        ORDER BY TABLE_NAME, COLUMN_NAME;";
+    
+    var result=new List<FKTable>();
+    
+    using(conn=new MySqlConnection(ConnectionString)){
+        
+        var cmd=new MySqlCommand(fkSQL,conn);
+        cmd.Parameters.AddWithValue("@table",tableName);
+        cmd.Parameters.AddWithValue("@schema",DatabaseName);
+        conn.Open();
+        var rdr=cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        
+        while(rdr.Read()){
+            FKTable fk=new FKTable();
+            string thisTable=rdr["TABLE_NAME"].ToString();
+            
+            if(tableName.ToLower()==thisTable.ToLower()){
+                fk.ThisTable=rdr["TABLE_NAME"].ToString();
+                fk.ThisColumn=rdr["COLUMN_NAME"].ToString();
+                fk.OtherTable=rdr["REFERENCED_TABLE_NAME"].ToString();
+                fk.OtherColumn=rdr["REFERENCED_COLUMN_NAME"].ToString();
+            
+            }else{
+                fk.ThisTable=rdr["REFERENCED_TABLE_NAME"].ToString();
+                fk.ThisColumn=rdr["REFERENCED_COLUMN_NAME"].ToString();
+                fk.OtherTable=rdr["TABLE_NAME"].ToString();
+                fk.OtherColumn=rdr["COLUMN_NAME"].ToString();
+          
+            }
+            
+            fk.OtherClass=Inflector.MakeSingular(CleanUp(fk.OtherTable));
+            fk.OtherQueryable=Inflector.MakePlural(fk.OtherClass);
+            
+            result.Add(fk);
+        }
+        
+    
+    }    
+
+    return result;
+    
+    
+}
+
+
 List<Table> LoadTables(){
 
     var result=new List<Table>();
