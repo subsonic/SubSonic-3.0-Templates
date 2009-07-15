@@ -42,7 +42,7 @@ NameSpace <#=Namespace#>
        End Sub
             
 <#          foreach(var col in tbl.Columns){#>
-		Public ReadOnly Property <#=col.CleanName#> As IColumn
+		Public ReadOnly Property [<#=col.CleanName#>] As IColumn
 			Get
 				Return Me.GetColumn("<#=col.Name#>")
 			End Get

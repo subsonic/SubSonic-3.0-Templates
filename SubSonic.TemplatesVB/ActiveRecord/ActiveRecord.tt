@@ -73,7 +73,7 @@ NameSpace <#=Namespace #>
         Public Function IsNew() As Boolean Implements IActiveRecord.IsNew
             Return _isNew
         End Function
-        Public Sub SetIsNew(isNew As Boolean)
+        Public Sub SetIsNew(isNew As Boolean) Implements IActiveRecord.SetIsNew
             _isNew=isNew
         End Sub
         Private _isLoaded As Boolean
@@ -293,7 +293,7 @@ NameSpace <#=Namespace #>
                     
                
 #>
-        Public ReadOnly Property <#=propName #> As IQueryable(Of <#=fk.OtherClass #>)
+        Public ReadOnly Property [<#=propName #>] As IQueryable(Of <#=fk.OtherClass #>)
             Get
                   Dim repo = <#=Namespace #>.<#=fk.OtherClass#>.GetRepo()
                   Return From items In repo.GetAll() _
@@ -319,7 +319,7 @@ NameSpace <#=Namespace #>
 			}
 #>
         Private _<#=col.CleanName #> As <#=col.SysType #><#=CheckNullable(col)#>
-        Public Property <#=col.CleanName #> As <#=col.SysType #><#=CheckNullable(col)#>
+        Public Property [<#=col.CleanName #>] As <#=col.SysType #><#=CheckNullable(col)#>
             Get
 				Return _<#=col.CleanName #>
 			End Get
