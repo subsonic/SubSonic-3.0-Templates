@@ -147,6 +147,7 @@ string GetSysType(string sqlType){
 		case "smalldatetime":
 		case "date":
 		case "datetime":
+		case "timestamp":
 			sysType=  "DateTime";
 			  break;
 		case "float":
@@ -182,6 +183,8 @@ DbType GetDbType(string sqlType){
             return DbType.Int32;
         case "guid":
             return DbType.Guid;
+        case "date":
+        case "timestamp":
         case "datetime":
             return DbType.DateTime;
         case "bigint":
@@ -220,8 +223,6 @@ DbType GetDbType(string sqlType){
             return DbType.String;
         case "text":
             return DbType.AnsiString;
-        case "timestamp":
-            return DbType.Binary;
         case "tinyint":
             return DbType.Byte;
         case "varbinary":
