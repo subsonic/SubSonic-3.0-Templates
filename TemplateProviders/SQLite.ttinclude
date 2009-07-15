@@ -73,9 +73,12 @@ string GetSysType(string sqlType){
 	switch (sqlType) {
 		case "bigint":
 		case "smallint":
-		case "integer":
+		case "int":
 			sysType= "int";
 			break;
+		case "long":
+		case "integer":
+			sysType= "long";
 		case "guid":
 			sysType=  "Guid";
 			 break;
@@ -112,8 +115,12 @@ DbType GetDbType(string sqlType){
             return DbType.AnsiString;
         case "nvarchar":
             return DbType.String;
-        case "integer":
+        case "int":
             return DbType.Int32;
+        case "integer":
+	        return DbType.Int64;
+        case "long":
+	        return DbType.Int64;
         case "guid":
             return DbType.Guid;
         case "datetime":
