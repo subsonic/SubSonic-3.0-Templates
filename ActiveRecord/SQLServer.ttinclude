@@ -324,7 +324,9 @@ DbType GetDbType(string sqlType){
             return DbType.Byte;
         case "varbinary":
             return DbType.Binary;
-        default:
+         case "xml":
+            return DbType.Xml;
+       default:
             return DbType.AnsiString;
     }
 
