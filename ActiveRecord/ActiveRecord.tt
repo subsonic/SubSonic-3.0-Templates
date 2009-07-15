@@ -273,10 +273,13 @@ namespace <#=Namespace #>
             }
         }
 
+<#      if(tbl.PK.SysType=="int"){#>
+        
         public override int GetHashCode() {
-            return this.ID;
+            return this.<#=tbl.PK.CleanName #>;
         }
-
+        
+<#      }#>
         public string DescriptorValue()
         {
             return this.<#=tbl.Descriptor.CleanName #>.ToString();

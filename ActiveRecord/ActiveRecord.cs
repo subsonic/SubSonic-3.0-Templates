@@ -892,6 +892,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.ShipperID;
+        }
+        
         public string DescriptorValue()
         {
             return this.CompanyName.ToString();
@@ -1354,6 +1359,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.SupplierID;
+        }
+        
         public string DescriptorValue()
         {
             return this.CompanyName.ToString();
@@ -1987,6 +1997,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.OrderID;
+        }
+        
         public string DescriptorValue()
         {
             return this.ProductID.ToString();
@@ -3397,6 +3412,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.RegionID;
+        }
+        
         public string DescriptorValue()
         {
             return this.RegionDescription.ToString();
@@ -4314,6 +4334,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.EmployeeID;
+        }
+        
         public string DescriptorValue()
         {
             return this.TerritoryID.ToString();
@@ -4769,6 +4794,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.OrderID;
+        }
+        
         public string DescriptorValue()
         {
             return this.CustomerID.ToString();
@@ -5476,6 +5506,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.SubSonicTestID;
+        }
+        
         public string DescriptorValue()
         {
             return this.Name.ToString();
@@ -6118,6 +6153,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.ProductID;
+        }
+        
         public string DescriptorValue()
         {
             return this.ProductName.ToString();
@@ -6737,6 +6777,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.EmployeeID;
+        }
+        
         public string DescriptorValue()
         {
             return this.LastName.ToString();
@@ -7508,6 +7553,11 @@ namespace SouthWind
             }
         }
 
+        
+        public override int GetHashCode() {
+            return this.CategoryID;
+        }
+        
         public string DescriptorValue()
         {
             return this.CategoryName.ToString();
