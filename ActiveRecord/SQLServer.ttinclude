@@ -64,7 +64,7 @@ List<SPParam> GetSPParams(string spName){
         conn.Open();
 		var sprocs=conn.GetSchema("ProcedureParameters", restrictions);
 		conn.Close();
-		foreach(DataRow row in sprocs.Rows){
+	    foreach(DataRow row in sprocs.Select("", "ORDINAL_POSITION")){
 		    SPParam p=new SPParam();
 			p.SysType=GetSysType(row["DATA_TYPE"].ToString());
 			p.DbType=GetDbType(row["DATA_TYPE"].ToString()).ToString();
@@ -90,7 +90,7 @@ List<SP> GetSPs(){
 		conn.Close();
 	}
 	
-    foreach(DataRow row in sprocs.Rows){
+	foreach(DataRow row in sprocs.Rows){
 	    string spType=row["ROUTINE_TYPE"].ToString();
         var sp=new SP();
 	    sp.Name=row["ROUTINE_NAME"].ToString();
