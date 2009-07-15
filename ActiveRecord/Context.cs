@@ -164,8 +164,7 @@ namespace SouthWind
             LambdaExpression lamda = column;
             SqlQuery result = new Delete<T>(this.Provider);
             result = result.From<T>();
-            SubSonic.Query.Constraint c = lamda.ParseConstraint();
-            result.Constraints.Add(c);
+            result.Constraints=lamda.ParseConstraints().ToList();
             return result;
         }
 
