@@ -445,10 +445,13 @@ namespace <#=Namespace #>
                 this.ModifiedBy=Environment.UserName;
 <#}#>
             
-            var newKey=_repo.Add(this,provider);
-            if(newKey!=KeyValue())
+            var key=KeyValue();
+            if(key==null){
+                var newKey=_repo.Add(this,provider);
                 this.SetKeyValue(newKey);
-            
+            }else{
+                _repo.Add(this,provider);
+            }
             SetIsNew(false);
             OnSaved();
         }
