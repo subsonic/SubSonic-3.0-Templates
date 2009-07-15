@@ -34,7 +34,6 @@ namespace <#=Namespace #>
     {
     
         #region Built-in testing
-        static IList<<#=tbl.ClassName#>> TestItems;
         static TestRepository<<#=tbl.ClassName#>> _testRepo;
         
 

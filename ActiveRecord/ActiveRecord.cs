@@ -27,7 +27,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Customer> TestItems;
         static TestRepository<Customer> _testRepo;
         
 
@@ -653,7 +652,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Shipper> TestItems;
         static TestRepository<Shipper> _testRepo;
         
 
@@ -1120,7 +1118,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Supplier> TestItems;
         static TestRepository<Supplier> _testRepo;
         
 
@@ -1758,7 +1755,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<OrderDetail> TestItems;
         static TestRepository<OrderDetail> _testRepo;
         
 
@@ -2275,7 +2271,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<CustomerCustomerDemo> TestItems;
         static TestRepository<CustomerCustomerDemo> _testRepo;
         
 
@@ -2730,7 +2725,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<CustomerDemographic> TestItems;
         static TestRepository<CustomerDemographic> _testRepo;
         
 
@@ -3173,7 +3167,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Region> TestItems;
         static TestRepository<Region> _testRepo;
         
 
@@ -3621,7 +3614,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Territory> TestItems;
         static TestRepository<Territory> _testRepo;
         
 
@@ -4095,7 +4087,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<EmployeeTerritory> TestItems;
         static TestRepository<EmployeeTerritory> _testRepo;
         
 
@@ -4555,7 +4546,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Order> TestItems;
         static TestRepository<Order> _testRepo;
         
 
@@ -5267,7 +5257,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<SubSonicTest> TestItems;
         static TestRepository<SubSonicTest> _testRepo;
         
 
@@ -5914,7 +5903,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Product> TestItems;
         static TestRepository<Product> _testRepo;
         
 
@@ -6538,7 +6526,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Employee> TestItems;
         static TestRepository<Employee> _testRepo;
         
 
@@ -7314,7 +7301,6 @@ namespace SouthWind
     {
     
         #region Built-in testing
-        static IList<Category> TestItems;
         static TestRepository<Category> _testRepo;
         
 
