@@ -1,4 +1,4 @@
-﻿
+
 
 
 using System;
@@ -27,7 +27,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 5
                 });
 
                 Columns.Add(new DatabaseColumn("CompanyName", this)
@@ -36,7 +37,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 40
                 });
 
                 Columns.Add(new DatabaseColumn("ContactName", this)
@@ -45,7 +47,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 30
                 });
 
                 Columns.Add(new DatabaseColumn("ContactTitle", this)
@@ -54,7 +57,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 30
                 });
 
                 Columns.Add(new DatabaseColumn("Address", this)
@@ -63,7 +67,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 60
                 });
 
                 Columns.Add(new DatabaseColumn("City", this)
@@ -72,7 +77,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("Region", this)
@@ -81,7 +87,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("PostalCode", this)
@@ -90,7 +97,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 10
                 });
 
                 Columns.Add(new DatabaseColumn("Country", this)
@@ -99,7 +107,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("Phone", this)
@@ -108,7 +117,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 24
                 });
 
                 Columns.Add(new DatabaseColumn("Fax", this)
@@ -117,7 +127,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 24
                 });
                     
                 
@@ -129,67 +140,133 @@ namespace WestWind {
                     return this.GetColumn("CustomerID");
                 }
             }
-            
+            				
+   			public static string CustomerIDColumn{
+			      get{
+        			return "CustomerID";
+      			}
+		    }
+           
             public IColumn CompanyName{
                 get{
                     return this.GetColumn("CompanyName");
                 }
             }
-            
+            				
+   			public static string CompanyNameColumn{
+			      get{
+        			return "CompanyName";
+      			}
+		    }
+           
             public IColumn ContactName{
                 get{
                     return this.GetColumn("ContactName");
                 }
             }
-            
+            				
+   			public static string ContactNameColumn{
+			      get{
+        			return "ContactName";
+      			}
+		    }
+           
             public IColumn ContactTitle{
                 get{
                     return this.GetColumn("ContactTitle");
                 }
             }
-            
+            				
+   			public static string ContactTitleColumn{
+			      get{
+        			return "ContactTitle";
+      			}
+		    }
+           
             public IColumn Address{
                 get{
                     return this.GetColumn("Address");
                 }
             }
-            
+            				
+   			public static string AddressColumn{
+			      get{
+        			return "Address";
+      			}
+		    }
+           
             public IColumn City{
                 get{
                     return this.GetColumn("City");
                 }
             }
-            
+            				
+   			public static string CityColumn{
+			      get{
+        			return "City";
+      			}
+		    }
+           
             public IColumn Region{
                 get{
                     return this.GetColumn("Region");
                 }
             }
-            
+            				
+   			public static string RegionColumn{
+			      get{
+        			return "Region";
+      			}
+		    }
+           
             public IColumn PostalCode{
                 get{
                     return this.GetColumn("PostalCode");
                 }
             }
-            
+            				
+   			public static string PostalCodeColumn{
+			      get{
+        			return "PostalCode";
+      			}
+		    }
+           
             public IColumn Country{
                 get{
                     return this.GetColumn("Country");
                 }
             }
-            
+            				
+   			public static string CountryColumn{
+			      get{
+        			return "Country";
+      			}
+		    }
+           
             public IColumn Phone{
                 get{
                     return this.GetColumn("Phone");
                 }
             }
-            
+            				
+   			public static string PhoneColumn{
+			      get{
+        			return "Phone";
+      			}
+		    }
+           
             public IColumn Fax{
                 get{
                     return this.GetColumn("Fax");
                 }
             }
-            
+            				
+   			public static string FaxColumn{
+			      get{
+        			return "Fax";
+      			}
+		    }
+           
                     
         }
         
@@ -211,7 +288,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = true,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("CompanyName", this)
@@ -220,7 +298,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 40
                 });
 
                 Columns.Add(new DatabaseColumn("Phone", this)
@@ -229,7 +308,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 24
                 });
                     
                 
@@ -241,19 +321,37 @@ namespace WestWind {
                     return this.GetColumn("ShipperID");
                 }
             }
-            
+            				
+   			public static string ShipperIDColumn{
+			      get{
+        			return "ShipperID";
+      			}
+		    }
+           
             public IColumn CompanyName{
                 get{
                     return this.GetColumn("CompanyName");
                 }
             }
-            
+            				
+   			public static string CompanyNameColumn{
+			      get{
+        			return "CompanyName";
+      			}
+		    }
+           
             public IColumn Phone{
                 get{
                     return this.GetColumn("Phone");
                 }
             }
-            
+            				
+   			public static string PhoneColumn{
+			      get{
+        			return "Phone";
+      			}
+		    }
+           
                     
         }
         
@@ -275,7 +373,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = true,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("CompanyName", this)
@@ -284,7 +383,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 40
                 });
 
                 Columns.Add(new DatabaseColumn("ContactName", this)
@@ -293,7 +393,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 30
                 });
 
                 Columns.Add(new DatabaseColumn("ContactTitle", this)
@@ -302,7 +403,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 30
                 });
 
                 Columns.Add(new DatabaseColumn("Address", this)
@@ -311,7 +413,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 60
                 });
 
                 Columns.Add(new DatabaseColumn("City", this)
@@ -320,7 +423,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("Region", this)
@@ -329,7 +433,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("PostalCode", this)
@@ -338,7 +443,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 10
                 });
 
                 Columns.Add(new DatabaseColumn("Country", this)
@@ -347,7 +453,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("Phone", this)
@@ -356,7 +463,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 24
                 });
 
                 Columns.Add(new DatabaseColumn("Fax", this)
@@ -365,7 +473,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 24
                 });
 
                 Columns.Add(new DatabaseColumn("HomePage", this)
@@ -374,7 +483,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 1073741823
                 });
                     
                 
@@ -386,73 +496,145 @@ namespace WestWind {
                     return this.GetColumn("SupplierID");
                 }
             }
-            
+            				
+   			public static string SupplierIDColumn{
+			      get{
+        			return "SupplierID";
+      			}
+		    }
+           
             public IColumn CompanyName{
                 get{
                     return this.GetColumn("CompanyName");
                 }
             }
-            
+            				
+   			public static string CompanyNameColumn{
+			      get{
+        			return "CompanyName";
+      			}
+		    }
+           
             public IColumn ContactName{
                 get{
                     return this.GetColumn("ContactName");
                 }
             }
-            
+            				
+   			public static string ContactNameColumn{
+			      get{
+        			return "ContactName";
+      			}
+		    }
+           
             public IColumn ContactTitle{
                 get{
                     return this.GetColumn("ContactTitle");
                 }
             }
-            
+            				
+   			public static string ContactTitleColumn{
+			      get{
+        			return "ContactTitle";
+      			}
+		    }
+           
             public IColumn Address{
                 get{
                     return this.GetColumn("Address");
                 }
             }
-            
+            				
+   			public static string AddressColumn{
+			      get{
+        			return "Address";
+      			}
+		    }
+           
             public IColumn City{
                 get{
                     return this.GetColumn("City");
                 }
             }
-            
+            				
+   			public static string CityColumn{
+			      get{
+        			return "City";
+      			}
+		    }
+           
             public IColumn Region{
                 get{
                     return this.GetColumn("Region");
                 }
             }
-            
+            				
+   			public static string RegionColumn{
+			      get{
+        			return "Region";
+      			}
+		    }
+           
             public IColumn PostalCode{
                 get{
                     return this.GetColumn("PostalCode");
                 }
             }
-            
+            				
+   			public static string PostalCodeColumn{
+			      get{
+        			return "PostalCode";
+      			}
+		    }
+           
             public IColumn Country{
                 get{
                     return this.GetColumn("Country");
                 }
             }
-            
+            				
+   			public static string CountryColumn{
+			      get{
+        			return "Country";
+      			}
+		    }
+           
             public IColumn Phone{
                 get{
                     return this.GetColumn("Phone");
                 }
             }
-            
+            				
+   			public static string PhoneColumn{
+			      get{
+        			return "Phone";
+      			}
+		    }
+           
             public IColumn Fax{
                 get{
                     return this.GetColumn("Fax");
                 }
             }
-            
+            				
+   			public static string FaxColumn{
+			      get{
+        			return "Fax";
+      			}
+		    }
+           
             public IColumn HomePage{
                 get{
                     return this.GetColumn("HomePage");
                 }
             }
-            
+            				
+   			public static string HomePageColumn{
+			      get{
+        			return "HomePage";
+      			}
+		    }
+           
                     
         }
         
@@ -474,7 +656,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("ProductID", this)
@@ -483,7 +666,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("UnitPrice", this)
@@ -492,7 +676,8 @@ namespace WestWind {
 	                DataType = DbType.Currency,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Quantity", this)
@@ -501,7 +686,8 @@ namespace WestWind {
 	                DataType = DbType.Int16,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Discount", this)
@@ -510,7 +696,8 @@ namespace WestWind {
 	                DataType = DbType.Single,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
                     
                 
@@ -522,31 +709,61 @@ namespace WestWind {
                     return this.GetColumn("OrderID");
                 }
             }
-            
+            				
+   			public static string OrderIDColumn{
+			      get{
+        			return "OrderID";
+      			}
+		    }
+           
             public IColumn ProductID{
                 get{
                     return this.GetColumn("ProductID");
                 }
             }
-            
+            				
+   			public static string ProductIDColumn{
+			      get{
+        			return "ProductID";
+      			}
+		    }
+           
             public IColumn UnitPrice{
                 get{
                     return this.GetColumn("UnitPrice");
                 }
             }
-            
+            				
+   			public static string UnitPriceColumn{
+			      get{
+        			return "UnitPrice";
+      			}
+		    }
+           
             public IColumn Quantity{
                 get{
                     return this.GetColumn("Quantity");
                 }
             }
-            
+            				
+   			public static string QuantityColumn{
+			      get{
+        			return "Quantity";
+      			}
+		    }
+           
             public IColumn Discount{
                 get{
                     return this.GetColumn("Discount");
                 }
             }
-            
+            				
+   			public static string DiscountColumn{
+			      get{
+        			return "Discount";
+      			}
+		    }
+           
                     
         }
         
@@ -568,7 +785,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 5
                 });
 
                 Columns.Add(new DatabaseColumn("CustomerTypeID", this)
@@ -577,7 +795,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 10
                 });
                     
                 
@@ -589,13 +808,25 @@ namespace WestWind {
                     return this.GetColumn("CustomerID");
                 }
             }
-            
+            				
+   			public static string CustomerIDColumn{
+			      get{
+        			return "CustomerID";
+      			}
+		    }
+           
             public IColumn CustomerTypeID{
                 get{
                     return this.GetColumn("CustomerTypeID");
                 }
             }
-            
+            				
+   			public static string CustomerTypeIDColumn{
+			      get{
+        			return "CustomerTypeID";
+      			}
+		    }
+           
                     
         }
         
@@ -617,7 +848,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 10
                 });
 
                 Columns.Add(new DatabaseColumn("CustomerDesc", this)
@@ -626,7 +858,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 1073741823
                 });
                     
                 
@@ -638,13 +871,25 @@ namespace WestWind {
                     return this.GetColumn("CustomerTypeID");
                 }
             }
-            
+            				
+   			public static string CustomerTypeIDColumn{
+			      get{
+        			return "CustomerTypeID";
+      			}
+		    }
+           
             public IColumn CustomerDesc{
                 get{
                     return this.GetColumn("CustomerDesc");
                 }
             }
-            
+            				
+   			public static string CustomerDescColumn{
+			      get{
+        			return "CustomerDesc";
+      			}
+		    }
+           
                     
         }
         
@@ -666,7 +911,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("RegionDescription", this)
@@ -675,7 +921,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 50
                 });
                     
                 
@@ -687,13 +934,25 @@ namespace WestWind {
                     return this.GetColumn("RegionID");
                 }
             }
-            
+            				
+   			public static string RegionIDColumn{
+			      get{
+        			return "RegionID";
+      			}
+		    }
+           
             public IColumn RegionDescription{
                 get{
                     return this.GetColumn("RegionDescription");
                 }
             }
-            
+            				
+   			public static string RegionDescriptionColumn{
+			      get{
+        			return "RegionDescription";
+      			}
+		    }
+           
                     
         }
         
@@ -715,7 +974,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 20
                 });
 
                 Columns.Add(new DatabaseColumn("TerritoryDescription", this)
@@ -724,7 +984,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 50
                 });
 
                 Columns.Add(new DatabaseColumn("RegionID", this)
@@ -733,7 +994,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
                     
                 
@@ -745,19 +1007,37 @@ namespace WestWind {
                     return this.GetColumn("TerritoryID");
                 }
             }
-            
+            				
+   			public static string TerritoryIDColumn{
+			      get{
+        			return "TerritoryID";
+      			}
+		    }
+           
             public IColumn TerritoryDescription{
                 get{
                     return this.GetColumn("TerritoryDescription");
                 }
             }
-            
+            				
+   			public static string TerritoryDescriptionColumn{
+			      get{
+        			return "TerritoryDescription";
+      			}
+		    }
+           
             public IColumn RegionID{
                 get{
                     return this.GetColumn("RegionID");
                 }
             }
-            
+            				
+   			public static string RegionIDColumn{
+			      get{
+        			return "RegionID";
+      			}
+		    }
+           
                     
         }
         
@@ -779,7 +1059,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("TerritoryID", this)
@@ -788,7 +1069,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 20
                 });
                     
                 
@@ -800,13 +1082,25 @@ namespace WestWind {
                     return this.GetColumn("EmployeeID");
                 }
             }
-            
+            				
+   			public static string EmployeeIDColumn{
+			      get{
+        			return "EmployeeID";
+      			}
+		    }
+           
             public IColumn TerritoryID{
                 get{
                     return this.GetColumn("TerritoryID");
                 }
             }
-            
+            				
+   			public static string TerritoryIDColumn{
+			      get{
+        			return "TerritoryID";
+      			}
+		    }
+           
                     
         }
         
@@ -828,7 +1122,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = true,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("CustomerID", this)
@@ -837,7 +1132,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 5
                 });
 
                 Columns.Add(new DatabaseColumn("EmployeeID", this)
@@ -846,7 +1142,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("OrderDate", this)
@@ -855,7 +1152,8 @@ namespace WestWind {
 	                DataType = DbType.DateTime,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("RequiredDate", this)
@@ -864,7 +1162,8 @@ namespace WestWind {
 	                DataType = DbType.DateTime,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("ShippedDate", this)
@@ -873,7 +1172,8 @@ namespace WestWind {
 	                DataType = DbType.DateTime,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("ShipVia", this)
@@ -882,7 +1182,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Freight", this)
@@ -891,7 +1192,8 @@ namespace WestWind {
 	                DataType = DbType.Currency,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("ShipName", this)
@@ -900,7 +1202,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 40
                 });
 
                 Columns.Add(new DatabaseColumn("ShipAddress", this)
@@ -909,7 +1212,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 60
                 });
 
                 Columns.Add(new DatabaseColumn("ShipCity", this)
@@ -918,7 +1222,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("ShipRegion", this)
@@ -927,7 +1232,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("ShipPostalCode", this)
@@ -936,7 +1242,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 10
                 });
 
                 Columns.Add(new DatabaseColumn("ShipCountry", this)
@@ -945,7 +1252,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
                     
                 
@@ -957,85 +1265,169 @@ namespace WestWind {
                     return this.GetColumn("OrderID");
                 }
             }
-            
+            				
+   			public static string OrderIDColumn{
+			      get{
+        			return "OrderID";
+      			}
+		    }
+           
             public IColumn CustomerID{
                 get{
                     return this.GetColumn("CustomerID");
                 }
             }
-            
+            				
+   			public static string CustomerIDColumn{
+			      get{
+        			return "CustomerID";
+      			}
+		    }
+           
             public IColumn EmployeeID{
                 get{
                     return this.GetColumn("EmployeeID");
                 }
             }
-            
+            				
+   			public static string EmployeeIDColumn{
+			      get{
+        			return "EmployeeID";
+      			}
+		    }
+           
             public IColumn OrderDate{
                 get{
                     return this.GetColumn("OrderDate");
                 }
             }
-            
+            				
+   			public static string OrderDateColumn{
+			      get{
+        			return "OrderDate";
+      			}
+		    }
+           
             public IColumn RequiredDate{
                 get{
                     return this.GetColumn("RequiredDate");
                 }
             }
-            
+            				
+   			public static string RequiredDateColumn{
+			      get{
+        			return "RequiredDate";
+      			}
+		    }
+           
             public IColumn ShippedDate{
                 get{
                     return this.GetColumn("ShippedDate");
                 }
             }
-            
+            				
+   			public static string ShippedDateColumn{
+			      get{
+        			return "ShippedDate";
+      			}
+		    }
+           
             public IColumn ShipVia{
                 get{
                     return this.GetColumn("ShipVia");
                 }
             }
-            
+            				
+   			public static string ShipViaColumn{
+			      get{
+        			return "ShipVia";
+      			}
+		    }
+           
             public IColumn Freight{
                 get{
                     return this.GetColumn("Freight");
                 }
             }
-            
+            				
+   			public static string FreightColumn{
+			      get{
+        			return "Freight";
+      			}
+		    }
+           
             public IColumn ShipName{
                 get{
                     return this.GetColumn("ShipName");
                 }
             }
-            
+            				
+   			public static string ShipNameColumn{
+			      get{
+        			return "ShipName";
+      			}
+		    }
+           
             public IColumn ShipAddress{
                 get{
                     return this.GetColumn("ShipAddress");
                 }
             }
-            
+            				
+   			public static string ShipAddressColumn{
+			      get{
+        			return "ShipAddress";
+      			}
+		    }
+           
             public IColumn ShipCity{
                 get{
                     return this.GetColumn("ShipCity");
                 }
             }
-            
+            				
+   			public static string ShipCityColumn{
+			      get{
+        			return "ShipCity";
+      			}
+		    }
+           
             public IColumn ShipRegion{
                 get{
                     return this.GetColumn("ShipRegion");
                 }
             }
-            
+            				
+   			public static string ShipRegionColumn{
+			      get{
+        			return "ShipRegion";
+      			}
+		    }
+           
             public IColumn ShipPostalCode{
                 get{
                     return this.GetColumn("ShipPostalCode");
                 }
             }
-            
+            				
+   			public static string ShipPostalCodeColumn{
+			      get{
+        			return "ShipPostalCode";
+      			}
+		    }
+           
             public IColumn ShipCountry{
                 get{
                     return this.GetColumn("ShipCountry");
                 }
             }
-            
+            				
+   			public static string ShipCountryColumn{
+			      get{
+        			return "ShipCountry";
+      			}
+		    }
+           
                     
         }
         
@@ -1057,7 +1449,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = true,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Thinger", this)
@@ -1066,7 +1459,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Name", this)
@@ -1075,7 +1469,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 255
                 });
 
                 Columns.Add(new DatabaseColumn("UserName", this)
@@ -1084,7 +1479,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 500
                 });
 
                 Columns.Add(new DatabaseColumn("CreatedOn", this)
@@ -1093,7 +1489,8 @@ namespace WestWind {
 	                DataType = DbType.DateTime,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Price", this)
@@ -1102,7 +1499,8 @@ namespace WestWind {
 	                DataType = DbType.Decimal,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Discount", this)
@@ -1111,7 +1509,8 @@ namespace WestWind {
 	                DataType = DbType.Double,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Lat", this)
@@ -1120,7 +1519,8 @@ namespace WestWind {
 	                DataType = DbType.Decimal,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Long", this)
@@ -1129,7 +1529,8 @@ namespace WestWind {
 	                DataType = DbType.Decimal,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("SomeFlag", this)
@@ -1138,7 +1539,8 @@ namespace WestWind {
 	                DataType = DbType.Boolean,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("SomeNullableFlag", this)
@@ -1147,7 +1549,8 @@ namespace WestWind {
 	                DataType = DbType.Boolean,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("LongText", this)
@@ -1156,7 +1559,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = -1
                 });
 
                 Columns.Add(new DatabaseColumn("MediumText", this)
@@ -1165,7 +1569,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 800
                 });
                     
                 
@@ -1177,79 +1582,157 @@ namespace WestWind {
                     return this.GetColumn("SubSonicTestID");
                 }
             }
-            
+            				
+   			public static string SubSonicTestIDColumn{
+			      get{
+        			return "SubSonicTestID";
+      			}
+		    }
+           
             public IColumn Thinger{
                 get{
                     return this.GetColumn("Thinger");
                 }
             }
-            
+            				
+   			public static string ThingerColumn{
+			      get{
+        			return "Thinger";
+      			}
+		    }
+           
             public IColumn Name{
                 get{
                     return this.GetColumn("Name");
                 }
             }
-            
+            				
+   			public static string NameColumn{
+			      get{
+        			return "Name";
+      			}
+		    }
+           
             public IColumn UserName{
                 get{
                     return this.GetColumn("UserName");
                 }
             }
-            
+            				
+   			public static string UserNameColumn{
+			      get{
+        			return "UserName";
+      			}
+		    }
+           
             public IColumn CreatedOn{
                 get{
                     return this.GetColumn("CreatedOn");
                 }
             }
-            
+            				
+   			public static string CreatedOnColumn{
+			      get{
+        			return "CreatedOn";
+      			}
+		    }
+           
             public IColumn Price{
                 get{
                     return this.GetColumn("Price");
                 }
             }
-            
+            				
+   			public static string PriceColumn{
+			      get{
+        			return "Price";
+      			}
+		    }
+           
             public IColumn Discount{
                 get{
                     return this.GetColumn("Discount");
                 }
             }
-            
+            				
+   			public static string DiscountColumn{
+			      get{
+        			return "Discount";
+      			}
+		    }
+           
             public IColumn Lat{
                 get{
                     return this.GetColumn("Lat");
                 }
             }
-            
+            				
+   			public static string LatColumn{
+			      get{
+        			return "Lat";
+      			}
+		    }
+           
             public IColumn Long{
                 get{
                     return this.GetColumn("Long");
                 }
             }
-            
+            				
+   			public static string LongColumn{
+			      get{
+        			return "Long";
+      			}
+		    }
+           
             public IColumn SomeFlag{
                 get{
                     return this.GetColumn("SomeFlag");
                 }
             }
-            
+            				
+   			public static string SomeFlagColumn{
+			      get{
+        			return "SomeFlag";
+      			}
+		    }
+           
             public IColumn SomeNullableFlag{
                 get{
                     return this.GetColumn("SomeNullableFlag");
                 }
             }
-            
+            				
+   			public static string SomeNullableFlagColumn{
+			      get{
+        			return "SomeNullableFlag";
+      			}
+		    }
+           
             public IColumn LongText{
                 get{
                     return this.GetColumn("LongText");
                 }
             }
-            
+            				
+   			public static string LongTextColumn{
+			      get{
+        			return "LongText";
+      			}
+		    }
+           
             public IColumn MediumText{
                 get{
                     return this.GetColumn("MediumText");
                 }
             }
-            
+            				
+   			public static string MediumTextColumn{
+			      get{
+        			return "MediumText";
+      			}
+		    }
+           
                     
         }
         
@@ -1271,7 +1754,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = true,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("ProductName", this)
@@ -1280,7 +1764,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 40
                 });
 
                 Columns.Add(new DatabaseColumn("SupplierID", this)
@@ -1289,7 +1774,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("CategoryID", this)
@@ -1298,7 +1784,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("QuantityPerUnit", this)
@@ -1307,7 +1794,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 20
                 });
 
                 Columns.Add(new DatabaseColumn("UnitPrice", this)
@@ -1316,7 +1804,8 @@ namespace WestWind {
 	                DataType = DbType.Currency,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("UnitsInStock", this)
@@ -1325,7 +1814,8 @@ namespace WestWind {
 	                DataType = DbType.Int16,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("UnitsOnOrder", this)
@@ -1334,7 +1824,8 @@ namespace WestWind {
 	                DataType = DbType.Int64,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("ReorderLevel", this)
@@ -1343,7 +1834,8 @@ namespace WestWind {
 	                DataType = DbType.Int16,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Discontinued", this)
@@ -1352,7 +1844,8 @@ namespace WestWind {
 	                DataType = DbType.Boolean,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
                     
                 
@@ -1364,61 +1857,121 @@ namespace WestWind {
                     return this.GetColumn("ProductID");
                 }
             }
-            
+            				
+   			public static string ProductIDColumn{
+			      get{
+        			return "ProductID";
+      			}
+		    }
+           
             public IColumn ProductName{
                 get{
                     return this.GetColumn("ProductName");
                 }
             }
-            
+            				
+   			public static string ProductNameColumn{
+			      get{
+        			return "ProductName";
+      			}
+		    }
+           
             public IColumn SupplierID{
                 get{
                     return this.GetColumn("SupplierID");
                 }
             }
-            
+            				
+   			public static string SupplierIDColumn{
+			      get{
+        			return "SupplierID";
+      			}
+		    }
+           
             public IColumn CategoryID{
                 get{
                     return this.GetColumn("CategoryID");
                 }
             }
-            
+            				
+   			public static string CategoryIDColumn{
+			      get{
+        			return "CategoryID";
+      			}
+		    }
+           
             public IColumn QuantityPerUnit{
                 get{
                     return this.GetColumn("QuantityPerUnit");
                 }
             }
-            
+            				
+   			public static string QuantityPerUnitColumn{
+			      get{
+        			return "QuantityPerUnit";
+      			}
+		    }
+           
             public IColumn UnitPrice{
                 get{
                     return this.GetColumn("UnitPrice");
                 }
             }
-            
+            				
+   			public static string UnitPriceColumn{
+			      get{
+        			return "UnitPrice";
+      			}
+		    }
+           
             public IColumn UnitsInStock{
                 get{
                     return this.GetColumn("UnitsInStock");
                 }
             }
-            
+            				
+   			public static string UnitsInStockColumn{
+			      get{
+        			return "UnitsInStock";
+      			}
+		    }
+           
             public IColumn UnitsOnOrder{
                 get{
                     return this.GetColumn("UnitsOnOrder");
                 }
             }
-            
+            				
+   			public static string UnitsOnOrderColumn{
+			      get{
+        			return "UnitsOnOrder";
+      			}
+		    }
+           
             public IColumn ReorderLevel{
                 get{
                     return this.GetColumn("ReorderLevel");
                 }
             }
-            
+            				
+   			public static string ReorderLevelColumn{
+			      get{
+        			return "ReorderLevel";
+      			}
+		    }
+           
             public IColumn Discontinued{
                 get{
                     return this.GetColumn("Discontinued");
                 }
             }
-            
+            				
+   			public static string DiscontinuedColumn{
+			      get{
+        			return "Discontinued";
+      			}
+		    }
+           
                     
         }
         
@@ -1440,7 +1993,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = true,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("LastName", this)
@@ -1449,7 +2003,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 20
                 });
 
                 Columns.Add(new DatabaseColumn("FirstName", this)
@@ -1458,7 +2013,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 10
                 });
 
                 Columns.Add(new DatabaseColumn("Title", this)
@@ -1467,7 +2023,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 30
                 });
 
                 Columns.Add(new DatabaseColumn("TitleOfCourtesy", this)
@@ -1476,7 +2033,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 25
                 });
 
                 Columns.Add(new DatabaseColumn("BirthDate", this)
@@ -1485,7 +2043,8 @@ namespace WestWind {
 	                DataType = DbType.DateTime,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("HireDate", this)
@@ -1494,7 +2053,8 @@ namespace WestWind {
 	                DataType = DbType.DateTime,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("Address", this)
@@ -1503,7 +2063,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 60
                 });
 
                 Columns.Add(new DatabaseColumn("City", this)
@@ -1512,7 +2073,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("Region", this)
@@ -1521,7 +2083,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("PostalCode", this)
@@ -1530,7 +2093,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 10
                 });
 
                 Columns.Add(new DatabaseColumn("Country", this)
@@ -1539,7 +2103,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("HomePhone", this)
@@ -1548,7 +2113,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 24
                 });
 
                 Columns.Add(new DatabaseColumn("Extension", this)
@@ -1557,7 +2123,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 4
                 });
 
                 Columns.Add(new DatabaseColumn("Photo", this)
@@ -1566,7 +2133,8 @@ namespace WestWind {
 	                DataType = DbType.Binary,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 2147483647
                 });
 
                 Columns.Add(new DatabaseColumn("Notes", this)
@@ -1575,7 +2143,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 1073741823
                 });
 
                 Columns.Add(new DatabaseColumn("ReportsTo", this)
@@ -1584,7 +2153,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("PhotoPath", this)
@@ -1593,7 +2163,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 255
                 });
                     
                 
@@ -1605,109 +2176,217 @@ namespace WestWind {
                     return this.GetColumn("EmployeeID");
                 }
             }
-            
+            				
+   			public static string EmployeeIDColumn{
+			      get{
+        			return "EmployeeID";
+      			}
+		    }
+           
             public IColumn LastName{
                 get{
                     return this.GetColumn("LastName");
                 }
             }
-            
+            				
+   			public static string LastNameColumn{
+			      get{
+        			return "LastName";
+      			}
+		    }
+           
             public IColumn FirstName{
                 get{
                     return this.GetColumn("FirstName");
                 }
             }
-            
+            				
+   			public static string FirstNameColumn{
+			      get{
+        			return "FirstName";
+      			}
+		    }
+           
             public IColumn Title{
                 get{
                     return this.GetColumn("Title");
                 }
             }
-            
+            				
+   			public static string TitleColumn{
+			      get{
+        			return "Title";
+      			}
+		    }
+           
             public IColumn TitleOfCourtesy{
                 get{
                     return this.GetColumn("TitleOfCourtesy");
                 }
             }
-            
+            				
+   			public static string TitleOfCourtesyColumn{
+			      get{
+        			return "TitleOfCourtesy";
+      			}
+		    }
+           
             public IColumn BirthDate{
                 get{
                     return this.GetColumn("BirthDate");
                 }
             }
-            
+            				
+   			public static string BirthDateColumn{
+			      get{
+        			return "BirthDate";
+      			}
+		    }
+           
             public IColumn HireDate{
                 get{
                     return this.GetColumn("HireDate");
                 }
             }
-            
+            				
+   			public static string HireDateColumn{
+			      get{
+        			return "HireDate";
+      			}
+		    }
+           
             public IColumn Address{
                 get{
                     return this.GetColumn("Address");
                 }
             }
-            
+            				
+   			public static string AddressColumn{
+			      get{
+        			return "Address";
+      			}
+		    }
+           
             public IColumn City{
                 get{
                     return this.GetColumn("City");
                 }
             }
-            
+            				
+   			public static string CityColumn{
+			      get{
+        			return "City";
+      			}
+		    }
+           
             public IColumn Region{
                 get{
                     return this.GetColumn("Region");
                 }
             }
-            
+            				
+   			public static string RegionColumn{
+			      get{
+        			return "Region";
+      			}
+		    }
+           
             public IColumn PostalCode{
                 get{
                     return this.GetColumn("PostalCode");
                 }
             }
-            
+            				
+   			public static string PostalCodeColumn{
+			      get{
+        			return "PostalCode";
+      			}
+		    }
+           
             public IColumn Country{
                 get{
                     return this.GetColumn("Country");
                 }
             }
-            
+            				
+   			public static string CountryColumn{
+			      get{
+        			return "Country";
+      			}
+		    }
+           
             public IColumn HomePhone{
                 get{
                     return this.GetColumn("HomePhone");
                 }
             }
-            
+            				
+   			public static string HomePhoneColumn{
+			      get{
+        			return "HomePhone";
+      			}
+		    }
+           
             public IColumn Extension{
                 get{
                     return this.GetColumn("Extension");
                 }
             }
-            
+            				
+   			public static string ExtensionColumn{
+			      get{
+        			return "Extension";
+      			}
+		    }
+           
             public IColumn Photo{
                 get{
                     return this.GetColumn("Photo");
                 }
             }
-            
+            				
+   			public static string PhotoColumn{
+			      get{
+        			return "Photo";
+      			}
+		    }
+           
             public IColumn Notes{
                 get{
                     return this.GetColumn("Notes");
                 }
             }
-            
+            				
+   			public static string NotesColumn{
+			      get{
+        			return "Notes";
+      			}
+		    }
+           
             public IColumn ReportsTo{
                 get{
                     return this.GetColumn("ReportsTo");
                 }
             }
-            
+            				
+   			public static string ReportsToColumn{
+			      get{
+        			return "ReportsTo";
+      			}
+		    }
+           
             public IColumn PhotoPath{
                 get{
                     return this.GetColumn("PhotoPath");
                 }
             }
-            
+            				
+   			public static string PhotoPathColumn{
+			      get{
+        			return "PhotoPath";
+      			}
+		    }
+           
                     
         }
         
@@ -1729,7 +2408,8 @@ namespace WestWind {
 	                DataType = DbType.Int32,
 	                IsNullable = false,
 	                AutoIncrement = true,
-	                IsForeignKey = true
+	                IsForeignKey = true,
+	                MaxLength = 0
                 });
 
                 Columns.Add(new DatabaseColumn("CategoryName", this)
@@ -1738,7 +2418,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = false,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 15
                 });
 
                 Columns.Add(new DatabaseColumn("Description", this)
@@ -1747,7 +2428,8 @@ namespace WestWind {
 	                DataType = DbType.String,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 1073741823
                 });
 
                 Columns.Add(new DatabaseColumn("Picture", this)
@@ -1756,7 +2438,8 @@ namespace WestWind {
 	                DataType = DbType.Binary,
 	                IsNullable = true,
 	                AutoIncrement = false,
-	                IsForeignKey = false
+	                IsForeignKey = false,
+	                MaxLength = 2147483647
                 });
                     
                 
@@ -1768,25 +2451,49 @@ namespace WestWind {
                     return this.GetColumn("CategoryID");
                 }
             }
-            
+            				
+   			public static string CategoryIDColumn{
+			      get{
+        			return "CategoryID";
+      			}
+		    }
+           
             public IColumn CategoryName{
                 get{
                     return this.GetColumn("CategoryName");
                 }
             }
-            
+            				
+   			public static string CategoryNameColumn{
+			      get{
+        			return "CategoryName";
+      			}
+		    }
+           
             public IColumn Description{
                 get{
                     return this.GetColumn("Description");
                 }
             }
-            
+            				
+   			public static string DescriptionColumn{
+			      get{
+        			return "Description";
+      			}
+		    }
+           
             public IColumn Picture{
                 get{
                     return this.GetColumn("Picture");
                 }
             }
-            
+            				
+   			public static string PictureColumn{
+			      get{
+        			return "Picture";
+      			}
+		    }
+           
                     
         }
         
