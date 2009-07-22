@@ -102,11 +102,21 @@ List<Table> LoadTables(){
             foreach (var row in columns) {
                 Column col=new Column();
                 col.Name=row["COLUMN_NAME"].ToString();
+                //col.Name=row["COLUMN_NAME"].ToString()+"_"+row["DATA_TYPE"].ToString();
                 col.CleanName=CleanUp(col.Name);
                 col.DataType=row["DATA_TYPE"].ToString();
                 
-                col.SysType=GetSysType(col.DataType);
-                col.DbType=GetDbType(col.DataType);
+                if (row["COLUMN_TYPE"].ToString().Contains("unsigned"))
+                {
+                    col.DbType=GetDbType(col.DataType+" unsigned");    
+                    col.SysType=GetSysType(col.DataType+" unsigned");
+                }
+                else{
+                    col.DbType=GetDbType(col.DataType);
+                    col.SysType=GetSysType(col.DataType);
+                }
+                //col.SysType=GetSysType(col.DataType);
+                //col.DbType=GetDbType(col.DataType);
                 
                 col.AutoIncrement=row["EXTRA"].ToString()=="auto_increment";
                 col.IsNullable=row["IS_NULLABLE"].ToString()=="YES";
@@ -132,11 +142,22 @@ List<Table> LoadTables(){
 string GetSysType(string sqlType){
 	string sysType="string";
 	switch (sqlType) {
+	    case "bigint unsigned":
+			sysType= "ulong";
+			break;
 		case "bigint":
 			sysType= "long";
 			break;
+	    case "mediumint unsigned":
+	    case "int unsigned":
+			sysType= "uint";
+			break;
+	    case "mediumint":
 		case "int":
 			sysType= "int";
+			break;
+	    case "smallint unsigned":
+	        sysType= "ushort";
 			break;
 		case "smallint":
 			sysType= "short";
@@ -160,7 +181,12 @@ string GetSysType(string sqlType){
 		case "money":
 			sysType=  "decimal";
 			 break;
+	    case "tinyint unsigned":
+	          sysType=  "byte";
+			  break;
 		case "tinyint":
+		        sysType=  "sbyte";
+			   break;
 		case "bit":
 			sysType=  "bool";
 			   break;
@@ -179,6 +205,12 @@ DbType GetDbType(string sqlType){
             return DbType.AnsiString;
         case "nvarchar":
             return DbType.String;
+        case "mediumint unsigned":
+        case "int unsigned":
+        case "integer unsigned":
+            return DbType.UInt32;
+        case "mediumint":
+        case "int":
         case "integer":
             return DbType.Int32;
         case "guid":
@@ -187,6 +219,8 @@ DbType GetDbType(string sqlType){
         case "timestamp":
         case "datetime":
             return DbType.DateTime;
+        case "bigint unsigned":
+            return DbType.UInt64;
         case "bigint":
             return DbType.Int64;
         case "binary":
@@ -213,6 +247,8 @@ DbType GetDbType(string sqlType){
             return DbType.Single;
         case "smalldatetime":
             return DbType.DateTime;
+        case "smallint unsigned":
+            return DbType.UInt16;
         case "smallint":
             return DbType.Int16;
         case "smallmoney":
@@ -223,8 +259,10 @@ DbType GetDbType(string sqlType){
             return DbType.String;
         case "text":
             return DbType.AnsiString;
+       case "tinyint unsigned":
+            return DbType.Byte;            
         case "tinyint":
-            return DbType.Byte;
+            return DbType.SByte;
         case "varbinary":
             return DbType.Binary;
         default:
