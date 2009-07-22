@@ -1,4 +1,4 @@
-<#@ include file="SQLServer.ttinclude" #>
+<#@ include file="MySQL.ttinclude" #>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -260,7 +260,11 @@ namespace <#=Namespace #>
         }
         
         public override string ToString(){
-            return this.<#=tbl.Descriptor.CleanName #>.ToString();
+            <# if (tbl.ClassName == tbl.Descriptor.CleanName){ #>
+			    return this.<#=tbl.Descriptor.CleanName+"X" #>.ToString();
+	        <# } else { #>
+                return this.<#=tbl.Descriptor.CleanName #>.ToString();
+            <# } #>
         }
 
         public override bool Equals(object obj){
@@ -281,7 +285,11 @@ namespace <#=Namespace #>
 <#      }#>
         public string DescriptorValue()
         {
-            return this.<#=tbl.Descriptor.CleanName #>.ToString();
+            <# if (tbl.ClassName == tbl.Descriptor.CleanName){ #>
+			    return this.<#=tbl.Descriptor.CleanName+"X" #>.ToString();
+	        <# } else { #>
+                return this.<#=tbl.Descriptor.CleanName #>.ToString();
+            <# } #>
         }
 
         public string DescriptorColumn() {
