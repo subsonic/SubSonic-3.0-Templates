@@ -4,6 +4,33 @@
 <#+
 SQLiteConnection conn;
 
+List<FKTable> LoadFKTables(string tableName){
+    string fkSQL=@"PRAGMA foreign_key_list({0})";
+    
+    var tables = LoadTables();
+    var result=new List<FKTable>();
+    
+    using(conn=new SQLiteConnection(ConnectionString)){
+        conn.Open();
+        foreach (var table in tables){
+            var cmd=new SQLiteCommand(string.Format(fkSQL,table.Name),conn);
+            var rdr=cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while(rdr.Read()){
+                FKTable fk=new FKTable();
+                fk.ThisTable=table.Name;
+                fk.ThisColumn=rdr["to"].ToString();
+                fk.OtherTable=rdr["table"].ToString();
+                fk.OtherColumn=rdr["from"].ToString();
+                fk.OtherClass=Inflector.MakeSingular(CleanUp(fk.OtherTable));
+                fk.OtherQueryable=Inflector.MakePlural(fk.OtherClass);
+                result.Add(fk);
+            }
+        }
+    }    
+    return result;
+}
+
+
 List<Table> LoadTables(){
     var result=new List<Table>();
     
