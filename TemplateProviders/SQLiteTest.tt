@@ -1,0 +1,27 @@
+﻿<#@ template language="C#v3.5" debug="False" hostspecific="True"  #>
+<#@ output extension=".cs" #>
+<#@ include file="SQLite.ttinclude" #>
+<#
+    var tables = LoadTables();
+   
+    foreach(var tbl in tables){
+#>
+        //***********************************************
+        //Table=<#=tbl.Name#>
+        //Columns=<#=tbl.Columns.Count#>
+        //PK =<#=tbl.PK.Name#>
+        //FKs = <#=tbl.FKTables.Count#>;
+        
+             
+<#      foreach(var col in tbl.Columns){#>
+        //<#=col.Name#> (<#=col.SysType#>): Nullable: <#=col.IsNullable#> <#=col.DbType#>
+<#      }#>
+
+        //FKs
+<#      foreach(var fk in tbl.FKTables){#>
+        //<#=fk.ThisTable#> --> <#=fk.OtherTable#>
+<#      }#>
+
+
+
+<#  }#>

@@ -41,6 +41,7 @@ List<Table> LoadTables(){
             foreach (var row in columns) {
                 Column col=new Column();
                 col.Name=row["COLUMN_NAME"].ToString();
+                //col.Name=row["COLUMN_NAME"].ToString()+"_"+row["DATA_TYPE"].ToString();
                 col.CleanName=CleanUp(col.Name);
                 col.DataType=row["DATA_TYPE"].ToString();
                 
@@ -73,12 +74,15 @@ string GetSysType(string sqlType){
 	switch (sqlType) {
 		case "bigint":
 		case "smallint":
+		    sysType= "short";
+			break;
 		case "int":
 			sysType= "int";
 			break;
 		case "long":
 		case "integer":
 			sysType= "long";
+			break;
 		case "guid":
 			sysType=  "Guid";
 			 break;
@@ -90,6 +94,8 @@ string GetSysType(string sqlType){
 			sysType="double";
 			break;
 		case "real":
+		    sysType=  "float";
+			 break;
 		case "numeric":
 		case "smallmoney":
 		case "decimal":
@@ -97,6 +103,8 @@ string GetSysType(string sqlType){
 			sysType=  "decimal";
 			 break;
 		case "tinyint":
+		    sysType=  "byte";
+			   break;
 		case "bit":
 			sysType=  "bool";
 			   break;
