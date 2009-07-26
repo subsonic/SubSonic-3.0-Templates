@@ -75,7 +75,7 @@ List<Table> LoadTables(){
                 col.SysType=GetSysType(col.DataType);
                 col.DbType=GetDbType(col.DataType);
                 
-                col.AutoIncrement=row["AUTOINCREMENT"].ToString()=="True";
+                col.AutoIncrement=(row["DATA_TYPE"].ToString()=="integer" && row["PRIMARY_KEY"].ToString()=="True"? true : false) ;
                 col.IsNullable=row["IS_NULLABLE"].ToString()=="True";
                 col.IsPK=row["PRIMARY_KEY"].ToString()=="True";
                 
