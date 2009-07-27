@@ -5,19 +5,19 @@
 SQLiteConnection conn;
 
 List<FKTable> LoadFKTables(string tableName){
-    string fkSQL=@"PRAGMA foreign_key_list({0})";
+    string fkSQL = @"PRAGMA foreign_key_list('{0}');";    
     
-    var tables = LoadTables();
     var result=new List<FKTable>();
     
     using(conn=new SQLiteConnection(ConnectionString)){
-        conn.Open();
-        foreach (var table in tables){
-            var cmd=new SQLiteCommand(string.Format(fkSQL,table.Name),conn);
+        try{
+            conn.Open();
+        
+            var cmd=new SQLiteCommand(string.Format(fkSQL,tableName),conn);            
             var rdr=cmd.ExecuteReader(CommandBehavior.CloseConnection);
             while(rdr.Read()){
                 FKTable fk=new FKTable();
-                fk.ThisTable=table.Name;
+                fk.ThisTable=tableName;
                 fk.ThisColumn=rdr["to"].ToString();
                 fk.OtherTable=rdr["table"].ToString();
                 fk.OtherColumn=rdr["from"].ToString();
@@ -25,6 +25,8 @@ List<FKTable> LoadFKTables(string tableName){
                 fk.OtherQueryable=Inflector.MakePlural(fk.OtherClass);
                 result.Add(fk);
             }
+        }
+        catch(Exception ex){
         }
     }    
     return result;
@@ -49,11 +51,14 @@ List<Table> LoadTables(){
 
                 //add it
                 Table tbl = new Table();
-                tbl.PrimaryKey="";
-                tbl.FKTables=new List<FKTable>();
-                tbl.Name = row["TABLE_NAME"].ToString();
+                tbl.PrimaryKey=""; 
+                tbl.Name = row["TABLE_NAME"].ToString();                
                 tbl.CleanName=CleanUp(tbl.Name);
                 tbl.ClassName=Inflector.MakeSingular(tbl.CleanName);
+                
+                /** Added support for FK **/
+                tbl.FKTables=LoadFKTables(tbl.Name);
+                
                 tbl.QueryableName=Inflector.MakePlural(tbl.ClassName);
                 result.Add(tbl);
             }
