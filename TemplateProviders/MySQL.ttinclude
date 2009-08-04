@@ -232,6 +232,7 @@ DbType GetDbType(string sqlType){
         case "decimal":
             return DbType.Decimal;
         case "float":
+        case "double":
             return DbType.Double;
         case "image":
             return DbType.Binary;
