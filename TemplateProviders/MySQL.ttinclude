@@ -175,6 +175,7 @@ string GetSysType(string sqlType){
 		case "real":
 		case "numeric":
 		case "smallmoney":
+		case "decimal unsigned":
 		case "decimal":
 		case "money":
 			sysType=  "decimal";
