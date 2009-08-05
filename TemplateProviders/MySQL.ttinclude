@@ -115,7 +115,12 @@ List<Table> LoadTables(){
                     col.DbType=GetDbType(col.DataType);
                     col.SysType=GetSysType(col.DataType);
                 }
-                
+ 
+                if (TreatTinyint1AsBool && row["COLUMN_TYPE"].ToString() == "tinyint(1)") {
+                    col.SysType = "bool";
+                    col.DbType = DbType.Boolean;
+                }
+
                 col.AutoIncrement=row["EXTRA"].ToString()=="auto_increment";
                 col.IsNullable=row["IS_NULLABLE"].ToString()=="YES";
                 col.IsPK=row["COLUMN_KEY"].ToString()=="PRI";

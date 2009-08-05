@@ -25,6 +25,8 @@
     //the repository. By default we set it to the connection string name
     const string DatabaseName = "Northwind";
 
+    const bool TreatTinyint1AsBool = false;
+
     //this is a list of tables you don't want generated
     string[] ExcludeTables = new string[]{
     "sysdiagrams",
