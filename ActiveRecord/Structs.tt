@@ -44,6 +44,26 @@ namespace <#=Namespace#> {
                 
             }
             
+            public class Schema {
+<#          foreach(var col in tbl.Columns){#>
+				public static DatabaseColumn <#=col.Name#>{
+					get{
+						return new DatabaseColumn()
+						{
+							Name = "<#=col.Name#>",
+							IsPrimaryKey = <#=col.IsPK.ToString().ToLower()#>,
+							DataType = DbType.<#=col.DbType.ToString()#>,
+							IsNullable = <#=col.IsNullable.ToString().ToLower()#>,
+							AutoIncrement = <#=col.AutoIncrement.ToString().ToLower()#>,
+							IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#>,
+							MaxLength = <#=col.MaxLength#>,
+							IsReadOnly = <#=col.IsReadOnly.ToString().ToLower()#>
+						};
+					}
+				}
+<#          }#>
+			}              
+
 <#          foreach(var col in tbl.Columns){#>
             public IColumn <#=col.CleanName#>{
                 get{
