@@ -252,6 +252,7 @@ string GetSysType(string sqlType){
 			 break;
 		case "smalldatetime":
 		case "datetime":
+		case "date":
 			sysType=  "DateTime";
 			  break;
 		case "float":
@@ -273,6 +274,7 @@ string GetSysType(string sqlType){
 		case "image":
 		case "binary":
 		case "varbinary":
+		case "timestamp":
 			sysType=  "byte[]";
 			 break;
 	}
