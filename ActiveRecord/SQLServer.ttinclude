@@ -59,7 +59,14 @@ const string COLUMN_SQL=@"SELECT
   
 List<SPParam> GetSPParams(string spName){
     var result=new List<SPParam>();
-    string[] restrictions = new string[4] { DatabaseName, null, spName, null };
+	
+	string dbName = null;
+    
+    if(!String.IsNullOrEmpty(DatabaseName))
+		dbName = DatabaseName;
+    
+    string[] restrictions = new string[4] { dbName , null, spName, null };
+	
     using(SqlConnection conn=new SqlConnection(ConnectionString)){
         conn.Open();
 		var sprocs=conn.GetSchema("ProcedureParameters", restrictions);
