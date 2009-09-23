@@ -272,5 +272,17 @@ namespace <#=Namespace#>
             }
             #endregion
         }
+        
+<#//################################################ HELPERS ####################################### #>
+
+        #region ' Helpers '
+            
+        internal static DateTime DateTimeNowTruncatedDownToSecond() {
+            var now = DateTime.Now;
+            return now.AddTicks(-now.Ticks % TimeSpan.TicksPerSecond);
+        }
+
+        #endregion
+
     }
 }
