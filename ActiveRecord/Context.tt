@@ -24,6 +24,8 @@ namespace <#=Namespace#>
         public IDataProvider DataProvider;
         public DbQueryProvider provider;
         
+        public static IDataProvider DefaultDataProvider { get; set; }
+
         public bool TestMode
 		{
             get
@@ -33,8 +35,13 @@ namespace <#=Namespace#>
         }
 
         public <#=DatabaseName#>DB() 
-        { 
-            DataProvider = ProviderFactory.GetProvider("<#=ConnectionStringName#>");
+        {
+            if (DefaultDataProvider == null) {
+                DataProvider = ProviderFactory.GetProvider("<#=ConnectionStringName#>");
+            }
+            else {
+                DataProvider = DefaultDataProvider;
+            }
             Init();
         }
 
