@@ -47,7 +47,10 @@ namespace <#=Namespace #>
         }
         public static void Setup(List<<#=tbl.ClassName#>> testlist){
             SetTestRepo();
-            _testRepo._items = testlist;
+            foreach (var item in testlist)
+            {
+                _testRepo._items.Add(item);
+            }
         }
         public static void Setup(<#=tbl.ClassName#> item) {
             SetTestRepo();
