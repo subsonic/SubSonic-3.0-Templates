@@ -188,6 +188,7 @@ string GetSysType(string sqlType){
 		case "bit":
 			sysType=  "bool";
 			   break;
+	    case "longblob":
 		case "image":
 		case "binary":
 		case "varbinary":
@@ -239,6 +240,8 @@ DbType GetDbType(string sqlType){
             return DbType.String;
         case "longtext":
             return DbType.String;
+        case "longblob":
+            return DbType.Object;
         case "numeric":
             return DbType.Decimal;
         case "real":
