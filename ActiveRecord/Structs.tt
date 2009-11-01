@@ -36,7 +36,8 @@ namespace <#=Namespace#> {
 	                IsNullable = <#=col.IsNullable.ToString().ToLower()#>,
 	                AutoIncrement = <#=col.AutoIncrement.ToString().ToLower()#>,
 	                IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#>,
-	                MaxLength = <#=col.MaxLength#>
+	                MaxLength = <#=col.MaxLength#>,
+	                CleanName = "<#=col.CleanName#>"
                 });
 <#          }#>                    
                 
