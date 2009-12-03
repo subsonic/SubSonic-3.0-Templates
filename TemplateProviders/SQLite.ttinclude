@@ -1,36 +1,9 @@
 ﻿<#@ include file="Settings.ttinclude" #>
 <#@ assembly name="System.Data.SQLite" #>
 <#@ import namespace="System.Data.SQLite" #>
+<#@ import namespace="System.Diagnostics" #>
 <#+
 SQLiteConnection conn;
-
-List<FKTable> LoadFKTables(string tableName){
-    string fkSQL = @"PRAGMA foreign_key_list('{0}');";    
-    
-    var result=new List<FKTable>();
-    
-    using(conn=new SQLiteConnection(ConnectionString)){
-        try{
-            conn.Open();
-        
-            var cmd=new SQLiteCommand(string.Format(fkSQL,tableName),conn);            
-            var rdr=cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            while(rdr.Read()){
-                FKTable fk=new FKTable();
-                fk.ThisTable=tableName;
-                fk.ThisColumn=rdr["to"].ToString();
-                fk.OtherTable=rdr["table"].ToString();
-                fk.OtherColumn=rdr["from"].ToString();
-                fk.OtherClass=Inflector.MakeSingular(CleanUp(fk.OtherTable));
-                fk.OtherQueryable=Inflector.MakePlural(fk.OtherClass);
-                result.Add(fk);
-            }
-        }
-        catch(Exception ex){
-        }
-    }    
-    return result;
-}
 
 
 List<Table> LoadTables(){
@@ -51,14 +24,11 @@ List<Table> LoadTables(){
 
                 //add it
                 Table tbl = new Table();
-                tbl.PrimaryKey=""; 
-                tbl.Name = row["TABLE_NAME"].ToString();                
+                tbl.PrimaryKey="";
+                tbl.FKTables=new List<FKTable>();
+                tbl.Name = row["TABLE_NAME"].ToString();
                 tbl.CleanName=CleanUp(tbl.Name);
                 tbl.ClassName=Inflector.MakeSingular(tbl.CleanName);
-                
-                /** Added support for FK **/
-                tbl.FKTables=LoadFKTables(tbl.Name);
-                
                 tbl.QueryableName=Inflector.MakePlural(tbl.ClassName);
                 result.Add(tbl);
             }
@@ -73,14 +43,13 @@ List<Table> LoadTables(){
             foreach (var row in columns) {
                 Column col=new Column();
                 col.Name=row["COLUMN_NAME"].ToString();
-                //col.Name=row["COLUMN_NAME"].ToString()+"_"+row["DATA_TYPE"].ToString();
                 col.CleanName=CleanUp(col.Name);
                 col.DataType=row["DATA_TYPE"].ToString();
                 
                 col.SysType=GetSysType(col.DataType);
                 col.DbType=GetDbType(col.DataType);
                 
-                col.AutoIncrement=(row["DATA_TYPE"].ToString()=="integer" && row["PRIMARY_KEY"].ToString()=="True"? true : false) ;
+                col.AutoIncrement=row["AUTOINCREMENT"].ToString()=="True";
                 col.IsNullable=row["IS_NULLABLE"].ToString()=="True";
                 col.IsPK=row["PRIMARY_KEY"].ToString()=="True";
                 
@@ -101,74 +70,88 @@ List<Table> LoadTables(){
     return result;
 }
 
-string GetSysType(string sqlType){
-	string sysType="string";
-	switch (sqlType) {
-		case "bigint":
-		case "smallint":
-		    sysType= "short";
-			break;
-		case "int":
-			sysType= "int";
-			break;
-		case "long":
-		case "integer":
-			sysType= "long";
-			break;
-		case "guid":
-			sysType=  "Guid";
-			 break;
-		case "smalldatetime":
-		case "datetime":
-			sysType=  "DateTime";
-			  break;
-		case "float":
-			sysType="double";
-			break;
-		case "real":
-		    sysType=  "float";
-			 break;
-		case "numeric":
-		case "smallmoney":
-		case "decimal":
-		case "money":
-			sysType=  "decimal";
-			 break;
-		case "tinyint":
-		    sysType=  "byte";
-			   break;
-		case "bit":
-			sysType=  "bool";
-			   break;
-		case "image":
-		case "binary":
-		case "varbinary":
-			sysType=  "byte[]";
-			 break;
-	}
-	return sysType;
+string GetSysType(string sqlType)
+{
+  
+  switch (sqlType) 
+  {
+    
+    case "bigint":
+    case "smallint":
+    case "int":
+        return "int";
+    
+    case "long":
+    case "integer":
+        return "long";
+    
+    case "guid":
+        return "Guid";
+    
+    case "smalldatetime":
+    case "datetime":
+        return "DateTime";
+    
+    case "float":
+        return "double";
+    
+    case "real":
+    case "numeric":
+    case "smallmoney":
+    case "decimal":
+    case "money":
+        return "decimal";
+   
+    case "tinyint":
+    case "bit":
+        return "bool";
+    
+    case "blob":
+    case "image":
+    case "binary":
+    case "varbinary":
+        return "byte[]";
+    
+    }
+    
+    return "string";
+    
 }
+
 DbType GetDbType(string sqlType){
-	switch(sqlType)
+  switch(sqlType)
     {
         case "varchar":
             return DbType.AnsiString;
+        
         case "nvarchar":
             return DbType.String;
+        
         case "int":
             return DbType.Int32;
+        
         case "integer":
-	        return DbType.Int64;
+          return DbType.Int64;
+        
         case "long":
-	        return DbType.Int64;
+          return DbType.Int64;
+        
         case "guid":
             return DbType.Guid;
+        
         case "datetime":
             return DbType.DateTime;
+        
         case "bigint":
             return DbType.Int64;
+        
         case "binary":
+        case "blob":
+        case "image":
+        case "timestamp":
+        case "varbinary":
             return DbType.Binary;
+      
         case "bit":
             return DbType.Boolean;
         case "char":
@@ -177,8 +160,6 @@ DbType GetDbType(string sqlType){
             return DbType.Decimal;
         case "float":
             return DbType.Double;
-        case "image":
-            return DbType.Binary;
         case "money":
             return DbType.Currency;
         case "nchar":
@@ -201,12 +182,9 @@ DbType GetDbType(string sqlType){
             return DbType.String;
         case "text":
             return DbType.AnsiString;
-        case "timestamp":
-            return DbType.Binary;
         case "tinyint":
             return DbType.Byte;
-        case "varbinary":
-            return DbType.Binary;
+
         default:
             return DbType.AnsiString;
     }
