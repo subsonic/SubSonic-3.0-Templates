@@ -189,7 +189,7 @@
         }
         public Column PK{
             get{
-                return this.Columns.SingleOrDefault(x=>x.IsPK) ?? this.Columns[0];
+                return this.Columns.FirstOrDefault(x=>x.IsPK) ?? this.Columns[0];
             }
         }
         public Column Descriptor{
