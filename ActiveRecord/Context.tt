@@ -24,8 +24,6 @@ namespace <#=Namespace#>
         public IDataProvider DataProvider;
         public DbQueryProvider provider;
         
-        public static IDataProvider DefaultDataProvider { get; set; }
-
         public bool TestMode
 		{
             get
@@ -35,13 +33,8 @@ namespace <#=Namespace#>
         }
 
         public <#=DatabaseName#>DB() 
-        {
-            if (DefaultDataProvider == null) {
-                DataProvider = ProviderFactory.GetProvider("<#=ConnectionStringName#>");
-            }
-            else {
-                DataProvider = DefaultDataProvider;
-            }
+        { 
+            DataProvider = ProviderFactory.GetProvider("<#=ConnectionStringName#>");
             Init();
         }
 
@@ -59,7 +52,7 @@ namespace <#=Namespace#>
 
 		public ITable FindByPrimaryKey(string pkName)
         {
-            return DataProvider.Schema.Tables.SingleOrDefault(x => x.PrimaryKey.Name.Equals(pkName, StringComparison.InvariantCultureIgnoreCase));
+            return DataProvider.Schema.Tables.SingleOrDefault(x => x.PrimaryKey.First().Name.Equals(pkName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public Query<T> GetQuery<T>()
@@ -279,17 +272,5 @@ namespace <#=Namespace#>
             }
             #endregion
         }
-        
-<#//################################################ HELPERS ####################################### #>
-
-        #region ' Helpers '
-            
-        internal static DateTime DateTimeNowTruncatedDownToSecond() {
-            var now = DateTime.Now;
-            return now.AddTicks(-now.Ticks % TimeSpan.TicksPerSecond);
-        }
-
-        #endregion
-
     }
 }

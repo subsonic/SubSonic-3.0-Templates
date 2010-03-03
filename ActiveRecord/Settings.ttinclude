@@ -15,50 +15,53 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Configuration" #>
-
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ import namespace="EnvDTE" #>
+<#@ include file="MultiOutput.ttinclude" #>
 <#+
 
-    const string Namespace = "SouthWind";
+
+
+
+    const string Namespace = "Southwind";
     const string ConnectionStringName = "Northwind";
+	
     
     //This is the name of your database and is used in naming
     //the repository. By default we set it to the connection string name
     const string DatabaseName = "Northwind";
 
-    const bool TreatTinyint1AsBool = false;
-
     //this is a list of tables you don't want generated
     string[] ExcludeTables = new string[]{
     "sysdiagrams",
     "BuildVersion",
+	"aspnet_Applications",
+	"aspnet_Membership",
+	"aspnet_Paths",
+	"aspnet_PersonalizationAllUsers",
+	"aspnet_PersonalizationPerUser",
+	"aspnet_Profile",
+	"aspnet_Roles",
+	"aspnet_SchemaVersions",
+	"aspnet_Users",
+	"aspnet_UsersInRoles",
+	"aspnet_WebEvent_Events"
+	
     };
 
-    string CleanUpColumnName(string tableName){
-	    string res = tableName.Replace(" ","_");
-        char[] ca = res.ToLower().ToCharArray();
-        for (int i = 0; i < ca.Length; i++) {
-            if ((i == 0) || (ca[i - 1] == '_')) {
-                ca[i] = char.ToUpper(ca[i]);
-            }         
-        }
-        res = new string(ca);
-        res = res.Replace("_","");
-        return res;
-    }
-    
-    string CleanUpTableName(string tableName)
-    {
-        string res = tableName.Replace(" ","_");
-        char[] ca = res.ToLower().ToCharArray();
-        for (int i = 0; i < ca.Length; i++) {
-            if ((i == 0) || (ca[i - 1] == '_')) {
-                ca[i] = char.ToUpper(ca[i]);
-            }         
-        }
-        res = new string(ca);
-        res = res.Replace("_","");
-        res = res.Replace(" ","");
-        return res;
+	
+ 
+
+    string CleanUp(string tableName){
+	    string result=tableName;
+    	
+	    //strip blanks
+	    result=result.Replace(" ","");
+    	
+	    //put your logic here...
+    	
+	    return result;
     }
     string CheckNullable(Column col){
         string result="";
@@ -189,7 +192,7 @@
         }
         public Column PK{
             get{
-                return this.Columns.FirstOrDefault(x=>x.IsPK) ?? this.Columns[0];
+                return this.Columns.SingleOrDefault(x=>x.IsPK) ?? this.Columns[0];
             }
         }
         public Column Descriptor{

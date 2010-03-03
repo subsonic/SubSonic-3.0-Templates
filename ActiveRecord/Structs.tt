@@ -4,18 +4,21 @@
 <#
     var tables = LoadTables();
 #>
-using System;
-using SubSonic.Schema;
-using System.Collections.Generic;
-using SubSonic.DataProviders;
-using System.Data;
 
-namespace <#=Namespace#> {
 	
-<#  foreach(var tbl in tables){
+<#  foreach(var tbl in tables){#>
+
+<#
         if(!ExcludeTables.Contains(tbl.Name))
         {
 #>
+		using System;
+		using SubSonic.Schema;
+		using System.Collections.Generic;
+		using SubSonic.DataProviders;
+		using System.Data;
+
+		namespace <#=Namespace#> {
         /// <summary>
         /// Table: <#=tbl.Name#>
         /// Primary Key: <#=tbl.PrimaryKey#>
@@ -36,34 +39,13 @@ namespace <#=Namespace#> {
 	                IsNullable = <#=col.IsNullable.ToString().ToLower()#>,
 	                AutoIncrement = <#=col.AutoIncrement.ToString().ToLower()#>,
 	                IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#>,
-	                MaxLength = <#=col.MaxLength#>,
-	                CleanName = "<#=col.CleanName#>"
+	                MaxLength = <#=col.MaxLength#>
                 });
 <#          }#>                    
                 
                 
             }
             
-            public class Schema {
-<#          foreach(var col in tbl.Columns){#>
-				public static DatabaseColumn <#=col.Name#>{
-					get{
-						return new DatabaseColumn()
-						{
-							Name = "<#=col.Name#>",
-							IsPrimaryKey = <#=col.IsPK.ToString().ToLower()#>,
-							DataType = DbType.<#=col.DbType.ToString()#>,
-							IsNullable = <#=col.IsNullable.ToString().ToLower()#>,
-							AutoIncrement = <#=col.AutoIncrement.ToString().ToLower()#>,
-							IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#>,
-							MaxLength = <#=col.MaxLength#>,
-							IsReadOnly = <#=col.IsReadOnly.ToString().ToLower()#>
-						};
-					}
-				}
-<#          }#>
-			}              
-
 <#          foreach(var col in tbl.Columns){#>
             public IColumn <#=col.CleanName#>{
                 get{
@@ -80,9 +62,11 @@ namespace <#=Namespace#> {
 <#          }#>                    
         }
         
+}
 <#    
+		SaveOutput(tbl.CleanName + "Table.cs");
         }
+
         
     }
 #>
-}

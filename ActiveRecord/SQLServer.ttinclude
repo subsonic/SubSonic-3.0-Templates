@@ -1,4 +1,4 @@
-<#@ include file="Settings.ttinclude" #>
+﻿<#@ include file="Settings.ttinclude" #>
 <#+
 
 IDataReader GetReader(string sql){
@@ -59,14 +59,7 @@ const string COLUMN_SQL=@"SELECT
   
 List<SPParam> GetSPParams(string spName){
     var result=new List<SPParam>();
-	
-	string dbName = null;
-    
-    if(!String.IsNullOrEmpty(DatabaseName))
-		dbName = DatabaseName;
-    
-    string[] restrictions = new string[4] { dbName , null, spName, null };
-	
+    string[] restrictions = new string[4] { DatabaseName, null, spName, null };
     using(SqlConnection conn=new SqlConnection(ConnectionString)){
         conn.Open();
 		var sprocs=conn.GetSchema("ProcedureParameters", restrictions);
@@ -252,7 +245,6 @@ string GetSysType(string sqlType){
 			 break;
 		case "smalldatetime":
 		case "datetime":
-		case "date":
 			sysType=  "DateTime";
 			  break;
 		case "float":
@@ -266,21 +258,17 @@ string GetSysType(string sqlType){
 			sysType=  "decimal";
 			 break;
 		case "tinyint":
-			sysType = "byte";
-			break;
 		case "bit":
 			sysType=  "bool";
 			   break;
 		case "image":
 		case "binary":
 		case "varbinary":
-		case "timestamp":
 			sysType=  "byte[]";
 			 break;
 	}
 	return sysType;
 }
-
 DbType GetDbType(string sqlType){
 	switch(sqlType)
     {

@@ -1,4 +1,17 @@
-<#@ include file="MySQL.ttinclude" #>
+<#@ include file="SQLServer.ttinclude" #>
+
+
+
+<#
+
+    var tables = LoadTables();
+
+    foreach(Table tbl in tables)
+    {
+	    if(!ExcludeTables.Contains(tbl.Name))
+        {
+		
+#>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +26,10 @@ using SubSonic;
 using SubSonic.Repository;
 using System.ComponentModel;
 using System.Data.Common;
+using System.ComponentModel.DataAnnotations;
 
-namespace <#=Namespace #>
-{
-<#
 
-    var tables = LoadTables();
-
-    foreach(Table tbl in tables)
-    {
-	    if(!ExcludeTables.Contains(tbl.Name))
-        {
-#>
-    
+namespace <#=Namespace #>    {
     
     /// <summary>
     /// A class which represents the <#=tbl.Name #> table in the <#=DatabaseName#> Database.
@@ -47,10 +51,7 @@ namespace <#=Namespace #>
         }
         public static void Setup(List<<#=tbl.ClassName#>> testlist){
             SetTestRepo();
-            foreach (var item in testlist)
-            {
-                _testRepo._items.Add(item);
-            }
+            _testRepo._items = testlist;
         }
         public static void Setup(<#=tbl.ClassName#> item) {
             SetTestRepo();
@@ -263,11 +264,7 @@ namespace <#=Namespace #>
         }
         
         public override string ToString(){
-            <# if (tbl.ClassName == tbl.Descriptor.CleanName){ #>
-			    return this.<#=tbl.Descriptor.CleanName+"X" #>.ToString();
-	        <# } else { #>
-                return this.<#=tbl.Descriptor.CleanName #>.ToString();
-            <# } #>
+            return this.<#=tbl.Descriptor.CleanName #>.ToString();
         }
 
         public override bool Equals(object obj){
@@ -288,11 +285,7 @@ namespace <#=Namespace #>
 <#      }#>
         public string DescriptorValue()
         {
-            <# if (tbl.ClassName == tbl.Descriptor.CleanName){ #>
-			    return this.<#=tbl.Descriptor.CleanName+"X" #>.ToString();
-	        <# } else { #>
-                return this.<#=tbl.Descriptor.CleanName #>.ToString();
-            <# } #>
+            return this.<#=tbl.Descriptor.CleanName #>.ToString();
         }
 
         public string DescriptorColumn() {
@@ -380,7 +373,7 @@ namespace <#=Namespace #>
         public DbCommand GetUpdateCommand() {
 <#if(tbl.Columns.Any(x=>x.Name.ToLower()=="modifiedon")){#>
             if (!_dirtyColumns.Any(x => x.Name.ToLower() == "modifiedon")) {
-               this.<#=tbl.Columns.Single(x=>x.Name.ToLower()=="modifiedon").CleanName#>=<#=DatabaseName#>DB.DateTimeNowTruncatedDownToSecond();
+               this.<#=tbl.Columns.Single(x=>x.Name.ToLower()=="modifiedon").CleanName#>=DateTime.Now;
             }            
 <#}#>
             if(TestMode)
@@ -416,7 +409,7 @@ namespace <#=Namespace #>
                 this.ModifiedBy=Environment.UserName;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="ModifiedOn")){#>
-            this.ModifiedOn=<#=DatabaseName#>DB.DateTimeNowTruncatedDownToSecond();
+            this.ModifiedOn=DateTime.Now;
 <#}#>
             
             if(this._dirtyColumns.Count>0)
@@ -447,14 +440,14 @@ namespace <#=Namespace #>
 
 <#if(tbl.Columns.Any(x=>x.Name=="CreatedOn")){#>
             
-            this.CreatedOn=<#=DatabaseName#>DB.DateTimeNowTruncatedDownToSecond();
+            this.CreatedOn=DateTime.Now;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="CreatedBy")){#>
             if(String.IsNullOrEmpty(this.CreatedBy))
                 this.CreatedBy=Environment.UserName;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="ModifiedOn")){#>
-            this.ModifiedOn=<#=DatabaseName#>DB.DateTimeNowTruncatedDownToSecond();
+            this.ModifiedOn=DateTime.Now;
 <#}#>
 <#if(tbl.Columns.Any(x=>x.Name=="ModifiedBy")){#>
             if(String.IsNullOrEmpty(this.ModifiedBy))
@@ -612,7 +605,11 @@ namespace <#=Namespace #>
         
 
     } 
-<#        }
+}
+<#
+	SaveOutput(tbl.ClassName+".cs");
+        }
+
     }
 #>
-}
+
