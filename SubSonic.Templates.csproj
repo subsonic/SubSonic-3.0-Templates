@@ -112,6 +112,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ActiveRecord.cs</LastGenOutput>
     </None>
+    <Compile Include="TemplateProviders\MySQLTest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MySQLTest.tt</DependentUpon>
+    </Compile>
     <None Include="ActiveRecord\Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Context.cs</LastGenOutput>
@@ -127,6 +132,11 @@
       <LastGenOutput>Structs.cs</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="TemplateProviders\MySQLTest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MySQLTest.cs</LastGenOutput>
+    </None>
+    <None Include="TemplateProviders\Settings.ttinclude" />
     <None Include="_Utility\DbScripts\Northwind_Oracle.sql" />
     <None Include="_Utility\DbScripts\Northwind_Oracle_Data.sql" />
     <None Include="_Utility\DbScripts\Northwind_Schema_Data_MySQL.sql" />

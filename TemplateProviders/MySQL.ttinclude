@@ -68,7 +68,6 @@ List<Table> LoadTables(){
     var result=new List<Table>();
     
     using(conn=new MySqlConnection(ConnectionString)){
-             
         conn.Open();
         
         //this will return everything for the DB
@@ -135,10 +134,8 @@ List<Table> LoadTables(){
             
             }
         }
-        
     }
-        
-
+    
     return result;
 }
 
