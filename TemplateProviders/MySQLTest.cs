@@ -17,7 +17,7 @@
         //UnitsInStock (short): Nullable: True
         //UnitsOnOrder (short): Nullable: True
         //ReorderLevel (short): Nullable: True
-        //Discontinued (bool): Nullable: False
+        //Discontinued (sbyte): Nullable: False
         //CategoryName (string): Nullable: False
 
         //FKs
@@ -34,7 +34,7 @@
         //CategoryID (int): Nullable: False
         //CategoryName (string): Nullable: False
         //Description (string): Nullable: True
-        //Picture (string): Nullable: True
+        //Picture (byte[]): Nullable: True
 
         //FKs
         //categories --> products
@@ -162,7 +162,7 @@
         //Country (string): Nullable: True
         //HomePhone (string): Nullable: True
         //Extension (string): Nullable: True
-        //Photo (string): Nullable: True
+        //Photo (byte[]): Nullable: True
         //Notes (string): Nullable: True
         //ReportsTo (int): Nullable: True
         //PhotoPath (string): Nullable: True
@@ -212,7 +212,7 @@
         //Country (string): Nullable: True
         //Salesperson (string): Nullable: False
         //OrderID (int): Nullable: False
-        //OrderDate (DateTime): Nullable: True
+        //OrderDate (DateTime): Nullable: False
         //RequiredDate (DateTime): Nullable: True
         //ShippedDate (DateTime): Nullable: True
         //ShipperName (string): Nullable: False
@@ -223,25 +223,6 @@
         //Discount (double): Nullable: False
         //ExtendedPrice (decimal): Nullable: True
         //Freight (decimal): Nullable: True
-
-        //FKs
-
-
-
-        //***********************************************
-        //Table=order details extended
-        //Columns=7
-        //PK =OrderID
-        //FKs = 0;
-        
-             
-        //OrderID (int): Nullable: False
-        //ProductID (int): Nullable: False
-        //ProductName (string): Nullable: False
-        //UnitPrice (decimal): Nullable: False
-        //Quantity (short): Nullable: False
-        //Discount (double): Nullable: False
-        //ExtendedPrice (decimal): Nullable: True
 
         //FKs
 
@@ -267,6 +248,25 @@
 
 
         //***********************************************
+        //Table=order details extended
+        //Columns=7
+        //PK =OrderID
+        //FKs = 0;
+        
+             
+        //OrderID (int): Nullable: False
+        //ProductID (int): Nullable: False
+        //ProductName (string): Nullable: False
+        //UnitPrice (decimal): Nullable: False
+        //Quantity (short): Nullable: False
+        //Discount (double): Nullable: False
+        //ExtendedPrice (decimal): Nullable: True
+
+        //FKs
+
+
+
+        //***********************************************
         //Table=order subtotals
         //Columns=2
         //PK =OrderID
@@ -281,6 +281,36 @@
 
 
         //***********************************************
+        //Table=orders
+        //Columns=14
+        //PK =OrderID
+        //FKs = 4;
+        
+             
+        //OrderID (int): Nullable: False
+        //CustomerID (string): Nullable: True
+        //EmployeeID (int): Nullable: True
+        //OrderDate (DateTime): Nullable: False
+        //RequiredDate (DateTime): Nullable: True
+        //ShippedDate (DateTime): Nullable: True
+        //ShipVia (int): Nullable: True
+        //Freight (decimal): Nullable: True
+        //ShipName (string): Nullable: True
+        //ShipAddress (string): Nullable: True
+        //ShipCity (string): Nullable: True
+        //ShipRegion (string): Nullable: True
+        //ShipPostalCode (string): Nullable: True
+        //ShipCountry (string): Nullable: True
+
+        //FKs
+        //orders --> order details
+        //orders --> customers
+        //orders --> employees
+        //orders --> shippers
+
+
+
+        //***********************************************
         //Table=orders qry
         //Columns=20
         //PK =OrderID
@@ -290,7 +320,7 @@
         //OrderID (int): Nullable: False
         //CustomerID (string): Nullable: True
         //EmployeeID (int): Nullable: True
-        //OrderDate (DateTime): Nullable: True
+        //OrderDate (DateTime): Nullable: False
         //RequiredDate (DateTime): Nullable: True
         //ShippedDate (DateTime): Nullable: True
         //ShipVia (int): Nullable: True
@@ -313,36 +343,6 @@
 
 
         //***********************************************
-        //Table=orders
-        //Columns=14
-        //PK =OrderID
-        //FKs = 4;
-        
-             
-        //OrderID (int): Nullable: False
-        //CustomerID (string): Nullable: True
-        //EmployeeID (int): Nullable: True
-        //OrderDate (DateTime): Nullable: True
-        //RequiredDate (DateTime): Nullable: True
-        //ShippedDate (DateTime): Nullable: True
-        //ShipVia (int): Nullable: True
-        //Freight (decimal): Nullable: True
-        //ShipName (string): Nullable: True
-        //ShipAddress (string): Nullable: True
-        //ShipCity (string): Nullable: True
-        //ShipRegion (string): Nullable: True
-        //ShipPostalCode (string): Nullable: True
-        //ShipCountry (string): Nullable: True
-
-        //FKs
-        //orders --> order details
-        //orders --> customers
-        //orders --> employees
-        //orders --> shippers
-
-
-
-        //***********************************************
         //Table=product sales for 1997
         //Columns=3
         //PK =CategoryName
@@ -354,6 +354,31 @@
         //ProductSales (decimal): Nullable: True
 
         //FKs
+
+
+
+        //***********************************************
+        //Table=products
+        //Columns=10
+        //PK =ProductID
+        //FKs = 3;
+        
+             
+        //ProductID (int): Nullable: False
+        //ProductName (string): Nullable: False
+        //SupplierID (int): Nullable: True
+        //CategoryID (int): Nullable: True
+        //QuantityPerUnit (string): Nullable: True
+        //UnitPrice (decimal): Nullable: True
+        //UnitsInStock (short): Nullable: True
+        //UnitsOnOrder (short): Nullable: True
+        //ReorderLevel (short): Nullable: True
+        //Discontinued (sbyte): Nullable: False
+
+        //FKs
+        //products --> order details
+        //products --> categories
+        //products --> suppliers
 
 
 
@@ -382,36 +407,9 @@
         //ProductName (string): Nullable: False
         //QuantityPerUnit (string): Nullable: True
         //UnitsInStock (short): Nullable: True
-        //Discontinued (bool): Nullable: False
+        //Discontinued (sbyte): Nullable: False
 
         //FKs
-
-
-
-        //***********************************************
-        //Table=products
-        //Columns=12
-        //PK =ProductID
-        //FKs = 3;
-        
-             
-        //ProductID (int): Nullable: False
-        //ProductName (string): Nullable: False
-        //SupplierID (int): Nullable: True
-        //CategoryID (int): Nullable: True
-        //QuantityPerUnit (string): Nullable: True
-        //UnitPrice (decimal): Nullable: True
-        //UnitsInStock (short): Nullable: True
-        //UnitsOnOrder (short): Nullable: True
-        //ReorderLevel (short): Nullable: True
-        //Discontinued (bool): Nullable: False
-        //IsDeleted (bool): Nullable: True
-        //Thoughtful (long): Nullable: False
-
-        //FKs
-        //products --> order details
-        //products --> categories
-        //products --> suppliers
 
 
 
@@ -491,30 +489,6 @@
 
         //FKs
         //shippers --> orders
-
-
-
-        //***********************************************
-        //Table=subsonictests
-        //Columns=12
-        //PK =Thinger
-        //FKs = 0;
-        
-             
-        //Thinger (int): Nullable: False
-        //Name (string): Nullable: False
-        //UserName (string): Nullable: False
-        //CreatedOn (DateTime): Nullable: False
-        //Price (decimal): Nullable: False
-        //Discount (double): Nullable: False
-        //Lat (decimal): Nullable: True
-        //Long (decimal): Nullable: True
-        //SomeFlag (bool): Nullable: False
-        //SomeNullableFlag (bool): Nullable: True
-        //LongText (string): Nullable: False
-        //MediumText (string): Nullable: False
-
-        //FKs
 
 
 

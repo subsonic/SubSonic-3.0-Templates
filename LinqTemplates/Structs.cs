@@ -10,6 +10,113 @@ using System.Data;
 namespace WestWind {
 	
         /// <summary>
+        /// Table: Categories
+        /// Primary Key: CategoryID
+        /// </summary>
+
+        public class CategoriesTable: DatabaseTable {
+            
+            public CategoriesTable(IDataProvider provider):base("Categories",provider){
+                ClassName = "Category";
+                SchemaName = "dbo";
+                
+
+                Columns.Add(new DatabaseColumn("CategoryID", this)
+                {
+	                IsPrimaryKey = true,
+	                DataType = DbType.Int32,
+	                IsNullable = false,
+	                AutoIncrement = true,
+	                IsForeignKey = true,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("CategoryName", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = false,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 15
+                });
+
+                Columns.Add(new DatabaseColumn("Description", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 1073741823
+                });
+
+                Columns.Add(new DatabaseColumn("Picture", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Binary,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 2147483647
+                });
+                    
+                
+                
+            }
+            
+            public IColumn CategoryID{
+                get{
+                    return this.GetColumn("CategoryID");
+                }
+            }
+            				
+   			public static string CategoryIDColumn{
+			      get{
+        			return "CategoryID";
+      			}
+		    }
+           
+            public IColumn CategoryName{
+                get{
+                    return this.GetColumn("CategoryName");
+                }
+            }
+            				
+   			public static string CategoryNameColumn{
+			      get{
+        			return "CategoryName";
+      			}
+		    }
+           
+            public IColumn Description{
+                get{
+                    return this.GetColumn("Description");
+                }
+            }
+            				
+   			public static string DescriptionColumn{
+			      get{
+        			return "Description";
+      			}
+		    }
+           
+            public IColumn Picture{
+                get{
+                    return this.GetColumn("Picture");
+                }
+            }
+            				
+   			public static string PictureColumn{
+			      get{
+        			return "Picture";
+      			}
+		    }
+           
+                    
+        }
+        
+        /// <summary>
         /// Table: Customers
         /// Primary Key: CustomerID
         /// </summary>
@@ -639,6 +746,572 @@ namespace WestWind {
         }
         
         /// <summary>
+        /// Table: Orders
+        /// Primary Key: OrderID
+        /// </summary>
+
+        public class OrdersTable: DatabaseTable {
+            
+            public OrdersTable(IDataProvider provider):base("Orders",provider){
+                ClassName = "Order";
+                SchemaName = "dbo";
+                
+
+                Columns.Add(new DatabaseColumn("OrderID", this)
+                {
+	                IsPrimaryKey = true,
+	                DataType = DbType.Int32,
+	                IsNullable = false,
+	                AutoIncrement = true,
+	                IsForeignKey = true,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("CustomerID", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = true,
+	                MaxLength = 5
+                });
+
+                Columns.Add(new DatabaseColumn("EmployeeID", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Int32,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = true,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("OrderDate", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.DateTime,
+	                IsNullable = false,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("RequiredDate", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.DateTime,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("ShippedDate", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.DateTime,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("ShipVia", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Int32,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = true,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("Freight", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Currency,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("ShipName", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 40
+                });
+
+                Columns.Add(new DatabaseColumn("ShipAddress", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 60
+                });
+
+                Columns.Add(new DatabaseColumn("ShipCity", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 15
+                });
+
+                Columns.Add(new DatabaseColumn("ShipRegion", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 15
+                });
+
+                Columns.Add(new DatabaseColumn("ShipPostalCode", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 10
+                });
+
+                Columns.Add(new DatabaseColumn("ShipCountry", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 15
+                });
+                    
+                
+                
+            }
+            
+            public IColumn OrderID{
+                get{
+                    return this.GetColumn("OrderID");
+                }
+            }
+            				
+   			public static string OrderIDColumn{
+			      get{
+        			return "OrderID";
+      			}
+		    }
+           
+            public IColumn CustomerID{
+                get{
+                    return this.GetColumn("CustomerID");
+                }
+            }
+            				
+   			public static string CustomerIDColumn{
+			      get{
+        			return "CustomerID";
+      			}
+		    }
+           
+            public IColumn EmployeeID{
+                get{
+                    return this.GetColumn("EmployeeID");
+                }
+            }
+            				
+   			public static string EmployeeIDColumn{
+			      get{
+        			return "EmployeeID";
+      			}
+		    }
+           
+            public IColumn OrderDate{
+                get{
+                    return this.GetColumn("OrderDate");
+                }
+            }
+            				
+   			public static string OrderDateColumn{
+			      get{
+        			return "OrderDate";
+      			}
+		    }
+           
+            public IColumn RequiredDate{
+                get{
+                    return this.GetColumn("RequiredDate");
+                }
+            }
+            				
+   			public static string RequiredDateColumn{
+			      get{
+        			return "RequiredDate";
+      			}
+		    }
+           
+            public IColumn ShippedDate{
+                get{
+                    return this.GetColumn("ShippedDate");
+                }
+            }
+            				
+   			public static string ShippedDateColumn{
+			      get{
+        			return "ShippedDate";
+      			}
+		    }
+           
+            public IColumn ShipVia{
+                get{
+                    return this.GetColumn("ShipVia");
+                }
+            }
+            				
+   			public static string ShipViaColumn{
+			      get{
+        			return "ShipVia";
+      			}
+		    }
+           
+            public IColumn Freight{
+                get{
+                    return this.GetColumn("Freight");
+                }
+            }
+            				
+   			public static string FreightColumn{
+			      get{
+        			return "Freight";
+      			}
+		    }
+           
+            public IColumn ShipName{
+                get{
+                    return this.GetColumn("ShipName");
+                }
+            }
+            				
+   			public static string ShipNameColumn{
+			      get{
+        			return "ShipName";
+      			}
+		    }
+           
+            public IColumn ShipAddress{
+                get{
+                    return this.GetColumn("ShipAddress");
+                }
+            }
+            				
+   			public static string ShipAddressColumn{
+			      get{
+        			return "ShipAddress";
+      			}
+		    }
+           
+            public IColumn ShipCity{
+                get{
+                    return this.GetColumn("ShipCity");
+                }
+            }
+            				
+   			public static string ShipCityColumn{
+			      get{
+        			return "ShipCity";
+      			}
+		    }
+           
+            public IColumn ShipRegion{
+                get{
+                    return this.GetColumn("ShipRegion");
+                }
+            }
+            				
+   			public static string ShipRegionColumn{
+			      get{
+        			return "ShipRegion";
+      			}
+		    }
+           
+            public IColumn ShipPostalCode{
+                get{
+                    return this.GetColumn("ShipPostalCode");
+                }
+            }
+            				
+   			public static string ShipPostalCodeColumn{
+			      get{
+        			return "ShipPostalCode";
+      			}
+		    }
+           
+            public IColumn ShipCountry{
+                get{
+                    return this.GetColumn("ShipCountry");
+                }
+            }
+            				
+   			public static string ShipCountryColumn{
+			      get{
+        			return "ShipCountry";
+      			}
+		    }
+           
+                    
+        }
+        
+        /// <summary>
+        /// Table: Products
+        /// Primary Key: ProductID
+        /// </summary>
+
+        public class ProductsTable: DatabaseTable {
+            
+            public ProductsTable(IDataProvider provider):base("Products",provider){
+                ClassName = "Product";
+                SchemaName = "dbo";
+                
+
+                Columns.Add(new DatabaseColumn("ProductID", this)
+                {
+	                IsPrimaryKey = true,
+	                DataType = DbType.Int32,
+	                IsNullable = false,
+	                AutoIncrement = true,
+	                IsForeignKey = true,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("ProductName", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = false,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 40
+                });
+
+                Columns.Add(new DatabaseColumn("SupplierID", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Int32,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = true,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("CategoryID", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Int32,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = true,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("QuantityPerUnit", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.String,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 20
+                });
+
+                Columns.Add(new DatabaseColumn("UnitPrice", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Currency,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("UnitsInStock", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Int16,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("UnitsOnOrder", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Int16,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("ReorderLevel", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Int16,
+	                IsNullable = true,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+
+                Columns.Add(new DatabaseColumn("Discontinued", this)
+                {
+	                IsPrimaryKey = false,
+	                DataType = DbType.Boolean,
+	                IsNullable = false,
+	                AutoIncrement = false,
+	                IsForeignKey = false,
+	                MaxLength = 0
+                });
+                    
+                
+                
+            }
+            
+            public IColumn ProductID{
+                get{
+                    return this.GetColumn("ProductID");
+                }
+            }
+            				
+   			public static string ProductIDColumn{
+			      get{
+        			return "ProductID";
+      			}
+		    }
+           
+            public IColumn ProductName{
+                get{
+                    return this.GetColumn("ProductName");
+                }
+            }
+            				
+   			public static string ProductNameColumn{
+			      get{
+        			return "ProductName";
+      			}
+		    }
+           
+            public IColumn SupplierID{
+                get{
+                    return this.GetColumn("SupplierID");
+                }
+            }
+            				
+   			public static string SupplierIDColumn{
+			      get{
+        			return "SupplierID";
+      			}
+		    }
+           
+            public IColumn CategoryID{
+                get{
+                    return this.GetColumn("CategoryID");
+                }
+            }
+            				
+   			public static string CategoryIDColumn{
+			      get{
+        			return "CategoryID";
+      			}
+		    }
+           
+            public IColumn QuantityPerUnit{
+                get{
+                    return this.GetColumn("QuantityPerUnit");
+                }
+            }
+            				
+   			public static string QuantityPerUnitColumn{
+			      get{
+        			return "QuantityPerUnit";
+      			}
+		    }
+           
+            public IColumn UnitPrice{
+                get{
+                    return this.GetColumn("UnitPrice");
+                }
+            }
+            				
+   			public static string UnitPriceColumn{
+			      get{
+        			return "UnitPrice";
+      			}
+		    }
+           
+            public IColumn UnitsInStock{
+                get{
+                    return this.GetColumn("UnitsInStock");
+                }
+            }
+            				
+   			public static string UnitsInStockColumn{
+			      get{
+        			return "UnitsInStock";
+      			}
+		    }
+           
+            public IColumn UnitsOnOrder{
+                get{
+                    return this.GetColumn("UnitsOnOrder");
+                }
+            }
+            				
+   			public static string UnitsOnOrderColumn{
+			      get{
+        			return "UnitsOnOrder";
+      			}
+		    }
+           
+            public IColumn ReorderLevel{
+                get{
+                    return this.GetColumn("ReorderLevel");
+                }
+            }
+            				
+   			public static string ReorderLevelColumn{
+			      get{
+        			return "ReorderLevel";
+      			}
+		    }
+           
+            public IColumn Discontinued{
+                get{
+                    return this.GetColumn("Discontinued");
+                }
+            }
+            				
+   			public static string DiscontinuedColumn{
+			      get{
+        			return "Discontinued";
+      			}
+		    }
+           
+                    
+        }
+        
+        /// <summary>
         /// Table: Order Details
         /// Primary Key: OrderID
         /// </summary>
@@ -1105,877 +1778,6 @@ namespace WestWind {
         }
         
         /// <summary>
-        /// Table: Orders
-        /// Primary Key: OrderID
-        /// </summary>
-
-        public class OrdersTable: DatabaseTable {
-            
-            public OrdersTable(IDataProvider provider):base("Orders",provider){
-                ClassName = "Order";
-                SchemaName = "dbo";
-                
-
-                Columns.Add(new DatabaseColumn("OrderID", this)
-                {
-	                IsPrimaryKey = true,
-	                DataType = DbType.Int32,
-	                IsNullable = false,
-	                AutoIncrement = true,
-	                IsForeignKey = true,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("CustomerID", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = true,
-	                MaxLength = 5
-                });
-
-                Columns.Add(new DatabaseColumn("EmployeeID", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int32,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = true,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("OrderDate", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.DateTime,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("RequiredDate", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.DateTime,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("ShippedDate", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.DateTime,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("ShipVia", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int32,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = true,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Freight", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Currency,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("ShipName", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 40
-                });
-
-                Columns.Add(new DatabaseColumn("ShipAddress", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 60
-                });
-
-                Columns.Add(new DatabaseColumn("ShipCity", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 15
-                });
-
-                Columns.Add(new DatabaseColumn("ShipRegion", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 15
-                });
-
-                Columns.Add(new DatabaseColumn("ShipPostalCode", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 10
-                });
-
-                Columns.Add(new DatabaseColumn("ShipCountry", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 15
-                });
-                    
-                
-                
-            }
-            
-            public IColumn OrderID{
-                get{
-                    return this.GetColumn("OrderID");
-                }
-            }
-            				
-   			public static string OrderIDColumn{
-			      get{
-        			return "OrderID";
-      			}
-		    }
-           
-            public IColumn CustomerID{
-                get{
-                    return this.GetColumn("CustomerID");
-                }
-            }
-            				
-   			public static string CustomerIDColumn{
-			      get{
-        			return "CustomerID";
-      			}
-		    }
-           
-            public IColumn EmployeeID{
-                get{
-                    return this.GetColumn("EmployeeID");
-                }
-            }
-            				
-   			public static string EmployeeIDColumn{
-			      get{
-        			return "EmployeeID";
-      			}
-		    }
-           
-            public IColumn OrderDate{
-                get{
-                    return this.GetColumn("OrderDate");
-                }
-            }
-            				
-   			public static string OrderDateColumn{
-			      get{
-        			return "OrderDate";
-      			}
-		    }
-           
-            public IColumn RequiredDate{
-                get{
-                    return this.GetColumn("RequiredDate");
-                }
-            }
-            				
-   			public static string RequiredDateColumn{
-			      get{
-        			return "RequiredDate";
-      			}
-		    }
-           
-            public IColumn ShippedDate{
-                get{
-                    return this.GetColumn("ShippedDate");
-                }
-            }
-            				
-   			public static string ShippedDateColumn{
-			      get{
-        			return "ShippedDate";
-      			}
-		    }
-           
-            public IColumn ShipVia{
-                get{
-                    return this.GetColumn("ShipVia");
-                }
-            }
-            				
-   			public static string ShipViaColumn{
-			      get{
-        			return "ShipVia";
-      			}
-		    }
-           
-            public IColumn Freight{
-                get{
-                    return this.GetColumn("Freight");
-                }
-            }
-            				
-   			public static string FreightColumn{
-			      get{
-        			return "Freight";
-      			}
-		    }
-           
-            public IColumn ShipName{
-                get{
-                    return this.GetColumn("ShipName");
-                }
-            }
-            				
-   			public static string ShipNameColumn{
-			      get{
-        			return "ShipName";
-      			}
-		    }
-           
-            public IColumn ShipAddress{
-                get{
-                    return this.GetColumn("ShipAddress");
-                }
-            }
-            				
-   			public static string ShipAddressColumn{
-			      get{
-        			return "ShipAddress";
-      			}
-		    }
-           
-            public IColumn ShipCity{
-                get{
-                    return this.GetColumn("ShipCity");
-                }
-            }
-            				
-   			public static string ShipCityColumn{
-			      get{
-        			return "ShipCity";
-      			}
-		    }
-           
-            public IColumn ShipRegion{
-                get{
-                    return this.GetColumn("ShipRegion");
-                }
-            }
-            				
-   			public static string ShipRegionColumn{
-			      get{
-        			return "ShipRegion";
-      			}
-		    }
-           
-            public IColumn ShipPostalCode{
-                get{
-                    return this.GetColumn("ShipPostalCode");
-                }
-            }
-            				
-   			public static string ShipPostalCodeColumn{
-			      get{
-        			return "ShipPostalCode";
-      			}
-		    }
-           
-            public IColumn ShipCountry{
-                get{
-                    return this.GetColumn("ShipCountry");
-                }
-            }
-            				
-   			public static string ShipCountryColumn{
-			      get{
-        			return "ShipCountry";
-      			}
-		    }
-           
-                    
-        }
-        
-        /// <summary>
-        /// Table: SubSonicTests
-        /// Primary Key: SubSonicTestID
-        /// </summary>
-
-        public class SubSonicTestsTable: DatabaseTable {
-            
-            public SubSonicTestsTable(IDataProvider provider):base("SubSonicTests",provider){
-                ClassName = "SubSonicTest";
-                SchemaName = "dbo";
-                
-
-                Columns.Add(new DatabaseColumn("SubSonicTestID", this)
-                {
-	                IsPrimaryKey = true,
-	                DataType = DbType.Int32,
-	                IsNullable = false,
-	                AutoIncrement = true,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Thinger", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int32,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Name", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 255
-                });
-
-                Columns.Add(new DatabaseColumn("UserName", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 500
-                });
-
-                Columns.Add(new DatabaseColumn("CreatedOn", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.DateTime,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Price", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Decimal,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Discount", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Double,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Lat", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Decimal,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Long", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Decimal,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("SomeFlag", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Boolean,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("SomeNullableFlag", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Boolean,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("LongText", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = -1
-                });
-
-                Columns.Add(new DatabaseColumn("MediumText", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 800
-                });
-                    
-                
-                
-            }
-            
-            public IColumn SubSonicTestID{
-                get{
-                    return this.GetColumn("SubSonicTestID");
-                }
-            }
-            				
-   			public static string SubSonicTestIDColumn{
-			      get{
-        			return "SubSonicTestID";
-      			}
-		    }
-           
-            public IColumn Thinger{
-                get{
-                    return this.GetColumn("Thinger");
-                }
-            }
-            				
-   			public static string ThingerColumn{
-			      get{
-        			return "Thinger";
-      			}
-		    }
-           
-            public IColumn Name{
-                get{
-                    return this.GetColumn("Name");
-                }
-            }
-            				
-   			public static string NameColumn{
-			      get{
-        			return "Name";
-      			}
-		    }
-           
-            public IColumn UserName{
-                get{
-                    return this.GetColumn("UserName");
-                }
-            }
-            				
-   			public static string UserNameColumn{
-			      get{
-        			return "UserName";
-      			}
-		    }
-           
-            public IColumn CreatedOn{
-                get{
-                    return this.GetColumn("CreatedOn");
-                }
-            }
-            				
-   			public static string CreatedOnColumn{
-			      get{
-        			return "CreatedOn";
-      			}
-		    }
-           
-            public IColumn Price{
-                get{
-                    return this.GetColumn("Price");
-                }
-            }
-            				
-   			public static string PriceColumn{
-			      get{
-        			return "Price";
-      			}
-		    }
-           
-            public IColumn Discount{
-                get{
-                    return this.GetColumn("Discount");
-                }
-            }
-            				
-   			public static string DiscountColumn{
-			      get{
-        			return "Discount";
-      			}
-		    }
-           
-            public IColumn Lat{
-                get{
-                    return this.GetColumn("Lat");
-                }
-            }
-            				
-   			public static string LatColumn{
-			      get{
-        			return "Lat";
-      			}
-		    }
-           
-            public IColumn Long{
-                get{
-                    return this.GetColumn("Long");
-                }
-            }
-            				
-   			public static string LongColumn{
-			      get{
-        			return "Long";
-      			}
-		    }
-           
-            public IColumn SomeFlag{
-                get{
-                    return this.GetColumn("SomeFlag");
-                }
-            }
-            				
-   			public static string SomeFlagColumn{
-			      get{
-        			return "SomeFlag";
-      			}
-		    }
-           
-            public IColumn SomeNullableFlag{
-                get{
-                    return this.GetColumn("SomeNullableFlag");
-                }
-            }
-            				
-   			public static string SomeNullableFlagColumn{
-			      get{
-        			return "SomeNullableFlag";
-      			}
-		    }
-           
-            public IColumn LongText{
-                get{
-                    return this.GetColumn("LongText");
-                }
-            }
-            				
-   			public static string LongTextColumn{
-			      get{
-        			return "LongText";
-      			}
-		    }
-           
-            public IColumn MediumText{
-                get{
-                    return this.GetColumn("MediumText");
-                }
-            }
-            				
-   			public static string MediumTextColumn{
-			      get{
-        			return "MediumText";
-      			}
-		    }
-           
-                    
-        }
-        
-        /// <summary>
-        /// Table: Products
-        /// Primary Key: ProductID
-        /// </summary>
-
-        public class ProductsTable: DatabaseTable {
-            
-            public ProductsTable(IDataProvider provider):base("Products",provider){
-                ClassName = "Product";
-                SchemaName = "dbo";
-                
-
-                Columns.Add(new DatabaseColumn("ProductID", this)
-                {
-	                IsPrimaryKey = true,
-	                DataType = DbType.Int32,
-	                IsNullable = false,
-	                AutoIncrement = true,
-	                IsForeignKey = true,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("ProductName", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 40
-                });
-
-                Columns.Add(new DatabaseColumn("SupplierID", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int32,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = true,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("CategoryID", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int32,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = true,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("QuantityPerUnit", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 20
-                });
-
-                Columns.Add(new DatabaseColumn("UnitPrice", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Currency,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("UnitsInStock", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int16,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("UnitsOnOrder", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int64,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("ReorderLevel", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Int16,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("Discontinued", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Boolean,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 0
-                });
-                    
-                
-                
-            }
-            
-            public IColumn ProductID{
-                get{
-                    return this.GetColumn("ProductID");
-                }
-            }
-            				
-   			public static string ProductIDColumn{
-			      get{
-        			return "ProductID";
-      			}
-		    }
-           
-            public IColumn ProductName{
-                get{
-                    return this.GetColumn("ProductName");
-                }
-            }
-            				
-   			public static string ProductNameColumn{
-			      get{
-        			return "ProductName";
-      			}
-		    }
-           
-            public IColumn SupplierID{
-                get{
-                    return this.GetColumn("SupplierID");
-                }
-            }
-            				
-   			public static string SupplierIDColumn{
-			      get{
-        			return "SupplierID";
-      			}
-		    }
-           
-            public IColumn CategoryID{
-                get{
-                    return this.GetColumn("CategoryID");
-                }
-            }
-            				
-   			public static string CategoryIDColumn{
-			      get{
-        			return "CategoryID";
-      			}
-		    }
-           
-            public IColumn QuantityPerUnit{
-                get{
-                    return this.GetColumn("QuantityPerUnit");
-                }
-            }
-            				
-   			public static string QuantityPerUnitColumn{
-			      get{
-        			return "QuantityPerUnit";
-      			}
-		    }
-           
-            public IColumn UnitPrice{
-                get{
-                    return this.GetColumn("UnitPrice");
-                }
-            }
-            				
-   			public static string UnitPriceColumn{
-			      get{
-        			return "UnitPrice";
-      			}
-		    }
-           
-            public IColumn UnitsInStock{
-                get{
-                    return this.GetColumn("UnitsInStock");
-                }
-            }
-            				
-   			public static string UnitsInStockColumn{
-			      get{
-        			return "UnitsInStock";
-      			}
-		    }
-           
-            public IColumn UnitsOnOrder{
-                get{
-                    return this.GetColumn("UnitsOnOrder");
-                }
-            }
-            				
-   			public static string UnitsOnOrderColumn{
-			      get{
-        			return "UnitsOnOrder";
-      			}
-		    }
-           
-            public IColumn ReorderLevel{
-                get{
-                    return this.GetColumn("ReorderLevel");
-                }
-            }
-            				
-   			public static string ReorderLevelColumn{
-			      get{
-        			return "ReorderLevel";
-      			}
-		    }
-           
-            public IColumn Discontinued{
-                get{
-                    return this.GetColumn("Discontinued");
-                }
-            }
-            				
-   			public static string DiscontinuedColumn{
-			      get{
-        			return "Discontinued";
-      			}
-		    }
-           
-                    
-        }
-        
-        /// <summary>
         /// Table: Employees
         /// Primary Key: EmployeeID
         /// </summary>
@@ -2384,113 +2186,6 @@ namespace WestWind {
    			public static string PhotoPathColumn{
 			      get{
         			return "PhotoPath";
-      			}
-		    }
-           
-                    
-        }
-        
-        /// <summary>
-        /// Table: Categories
-        /// Primary Key: CategoryID
-        /// </summary>
-
-        public class CategoriesTable: DatabaseTable {
-            
-            public CategoriesTable(IDataProvider provider):base("Categories",provider){
-                ClassName = "Category";
-                SchemaName = "dbo";
-                
-
-                Columns.Add(new DatabaseColumn("CategoryID", this)
-                {
-	                IsPrimaryKey = true,
-	                DataType = DbType.Int32,
-	                IsNullable = false,
-	                AutoIncrement = true,
-	                IsForeignKey = true,
-	                MaxLength = 0
-                });
-
-                Columns.Add(new DatabaseColumn("CategoryName", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = false,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 15
-                });
-
-                Columns.Add(new DatabaseColumn("Description", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.String,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 1073741823
-                });
-
-                Columns.Add(new DatabaseColumn("Picture", this)
-                {
-	                IsPrimaryKey = false,
-	                DataType = DbType.Binary,
-	                IsNullable = true,
-	                AutoIncrement = false,
-	                IsForeignKey = false,
-	                MaxLength = 2147483647
-                });
-                    
-                
-                
-            }
-            
-            public IColumn CategoryID{
-                get{
-                    return this.GetColumn("CategoryID");
-                }
-            }
-            				
-   			public static string CategoryIDColumn{
-			      get{
-        			return "CategoryID";
-      			}
-		    }
-           
-            public IColumn CategoryName{
-                get{
-                    return this.GetColumn("CategoryName");
-                }
-            }
-            				
-   			public static string CategoryNameColumn{
-			      get{
-        			return "CategoryName";
-      			}
-		    }
-           
-            public IColumn Description{
-                get{
-                    return this.GetColumn("Description");
-                }
-            }
-            				
-   			public static string DescriptionColumn{
-			      get{
-        			return "Description";
-      			}
-		    }
-           
-            public IColumn Picture{
-                get{
-                    return this.GetColumn("Picture");
-                }
-            }
-            				
-   			public static string PictureColumn{
-			      get{
-        			return "Picture";
       			}
 		    }
            

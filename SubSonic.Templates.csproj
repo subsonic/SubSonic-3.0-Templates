@@ -39,7 +39,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_Utility\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SubSonic.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SubSonic.Core, Version=3.0.0.3, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -106,17 +106,17 @@
     <Compile Include="LinqTemplates\Tests\AggregateTests.cs" />
     <Compile Include="LinqTemplates\Tests\SelectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplateProviders\MySQLTest.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MySQLTest.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ActiveRecord\ActiveRecord.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ActiveRecord.cs</LastGenOutput>
     </None>
+    <Compile Include="TemplateProviders\MySQLTest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MySQLTest.tt</DependentUpon>
+    </Compile>
     <None Include="ActiveRecord\Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Context.cs</LastGenOutput>
@@ -136,6 +136,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MySQLTest.cs</LastGenOutput>
     </None>
+    <None Include="TemplateProviders\Settings.ttinclude" />
     <None Include="_Utility\DbScripts\Northwind_Oracle.sql" />
     <None Include="_Utility\DbScripts\Northwind_Oracle_Data.sql" />
     <None Include="_Utility\DbScripts\Northwind_Schema_Data_MySQL.sql" />

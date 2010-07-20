@@ -45,7 +45,7 @@
                 
                 
             }
-            
+
 <#          foreach(var col in tbl.Columns){#>
             public IColumn <#=col.CleanName#>{
                 get{

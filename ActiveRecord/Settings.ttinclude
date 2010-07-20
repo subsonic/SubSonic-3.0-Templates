@@ -50,10 +50,9 @@
 	
     };
 
-	
- 
 
     string CleanUp(string tableName){
+
 	    string result=tableName;
     	
 	    //strip blanks
@@ -63,6 +62,7 @@
     	
 	    return result;
     }
+
     string CheckNullable(Column col){
         string result="";
         if(col.IsNullable && col.SysType !="byte[]" && col.SysType !="string")

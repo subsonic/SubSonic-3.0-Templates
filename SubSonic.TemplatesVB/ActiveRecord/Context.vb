@@ -102,6 +102,15 @@ NameSpace Southwind
             Return Nothing
         End Function
 			
+		Private _Categories As Query(Of Category)
+        Public Property Categories As Query(Of Category)
+			Get
+				Return _Categories
+			End Get
+			Set(value As Query(Of Category))
+				_Categories = value
+			End Set
+		End Property
 		Private _Customers As Query(Of Customer)
         Public Property Customers As Query(Of Customer)
 			Get
@@ -210,15 +219,6 @@ NameSpace Southwind
 				_Employees = value
 			End Set
 		End Property
-		Private _Categories As Query(Of Category)
-        Public Property Categories As Query(Of Category)
-			Get
-				Return _Categories
-			End Get
-			Set(value As Query(Of Category))
-				_Categories = value
-			End Set
-		End Property
 
         #Region " Aggregates and SubSonic Queries "
 
@@ -313,6 +313,7 @@ NameSpace Southwind
             _provider = New DbQueryProvider(Me.Provider)
 
             ' Query Defs
+            Categories = New Query(Of Category)(_provider)
             Customers = New Query(Of Customer)(_provider)
             Shippers = New Query(Of Shipper)(_provider)
             Suppliers = New Query(Of Supplier)(_provider)
@@ -325,11 +326,11 @@ NameSpace Southwind
             Territories = New Query(Of Territory)(_provider)
             EmployeeTerritories = New Query(Of EmployeeTerritory)(_provider)
             Employees = New Query(Of Employee)(_provider)
-            Categories = New Query(Of Category)(_provider)
 
 
             ' Schemas
         	If _dataProvider.Schema.Tables.Count = 0 Then
+            	_dataProvider.Schema.Tables.Add(New CategoriesTable(_dataProvider))
             	_dataProvider.Schema.Tables.Add(New CustomersTable(_dataProvider))
             	_dataProvider.Schema.Tables.Add(New ShippersTable(_dataProvider))
             	_dataProvider.Schema.Tables.Add(New SuppliersTable(_dataProvider))
@@ -342,7 +343,6 @@ NameSpace Southwind
             	_dataProvider.Schema.Tables.Add(New TerritoriesTable(_dataProvider))
             	_dataProvider.Schema.Tables.Add(New EmployeeTerritoriesTable(_dataProvider))
             	_dataProvider.Schema.Tables.Add(New EmployeesTable(_dataProvider))
-            	_dataProvider.Schema.Tables.Add(New CategoriesTable(_dataProvider))
             End If
         End Sub
     End Class

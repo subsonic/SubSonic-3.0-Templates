@@ -48,7 +48,7 @@ List<FKTable> LoadFKTables(string tableName){
           
             }
             
-            fk.OtherClass=Inflector.MakeSingular(CleanUpTableName(fk.OtherTable));
+            fk.OtherClass=Inflector.MakeSingular(CleanUp(fk.OtherTable));
             fk.OtherQueryable=Inflector.MakePlural(fk.OtherClass);
             
             result.Add(fk);
@@ -68,7 +68,6 @@ List<Table> LoadTables(){
     var result=new List<Table>();
     
     using(conn=new MySqlConnection(ConnectionString)){
-             
         conn.Open();
         
         //this will return everything for the DB
@@ -86,7 +85,7 @@ List<Table> LoadTables(){
                 tbl.PrimaryKey="";
                 tbl.Name = row["TABLE_NAME"].ToString();
                 tbl.FKTables=LoadFKTables(tbl.Name);
-                tbl.CleanName=CleanUpTableName(tbl.Name);
+                tbl.CleanName=CleanUp(tbl.Name);
                 tbl.ClassName=Inflector.MakeSingular(tbl.CleanName);
                 tbl.QueryableName=Inflector.MakePlural(tbl.ClassName);
                 result.Add(tbl);
@@ -102,7 +101,7 @@ List<Table> LoadTables(){
             foreach (var row in columns) {
                 Column col=new Column();
                 col.Name=row["COLUMN_NAME"].ToString();
-                col.CleanName=CleanUpColumnName(col.Name);
+                col.CleanName=CleanUp(col.Name);
                 col.DataType=row["DATA_TYPE"].ToString();
                 
                 /* Pass the information whether Data Type Unsigned or Not **/
@@ -135,10 +134,8 @@ List<Table> LoadTables(){
             
             }
         }
-        
     }
-        
-
+    
     return result;
 }
 
