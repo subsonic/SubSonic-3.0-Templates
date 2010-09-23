@@ -1,0 +1,56 @@
+﻿<#@ template language="C#v3.5" debug="True" hostspecific="True" #>
+<#@ include file="SQLServer.ttinclude" #>
+<#
+	var list = LoadTables();
+	foreach (Table table in list)
+	{
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using System.Linq.Expressions;
+using System.Collections;
+using System.ComponentModel;
+using System.Data.Common;
+using SubSonic.SqlGeneration.Schema;
+
+namespace <#=Namespace #>
+{
+	[SubSonicTableNameOverride("<#=table.Name#>")]
+	public partial class <#=table.CleanName#>
+	{
+<#
+		foreach(Column col in table.Columns)
+		{
+			var nullableNonString = string.Empty;
+			var nullableString = string.Empty;
+			if (col.IsNullable && col.SysType != "string")
+			{
+				nullableNonString = "?";
+			}
+			if (col.SysType == "string"){
+				if (col.IsNullable)
+				{
+#>		[SubSonicNullString]
+<#				}
+				if (col.DataType == "text")
+				{
+#>		[SubSonicLongString]
+<#				}
+				else
+				{
+#>		[SubSonicStringLength(<#=col.MaxLength#>)]
+<#				}
+			}
+#>		public <#=col.SysType#><#=nullableNonString#> <#=col.CleanName#> { get; set; }
+<#
+		}
+#>
+	}
+}
+<#	SaveOutput(table.CleanName + ".cs");
+	}
+#>
+}
