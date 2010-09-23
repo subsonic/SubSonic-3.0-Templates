@@ -24,6 +24,11 @@ namespace <#=Namespace #>
 <#
 		foreach(Column col in table.Columns)
 		{
+			if (col.IsPK && col.CleanName.ToLower() != "id")
+			{
+#>		[SubSonicPrimaryKey]
+<#			}
+		
 			var nullableNonString = string.Empty;
 			var nullableString = string.Empty;
 			if (col.IsNullable && col.SysType != "string")
