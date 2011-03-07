@@ -36,6 +36,7 @@ NameSpace <#=Namespace#>
 					.IsNullable = <#=col.IsNullable.ToString().ToLower()#>, _
 					.AutoIncrement = <#=col.AutoIncrement.ToString().ToLower()#>, _
 					.IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#> _
+					.PropertyName = "<#=col.Name#>" _
 				})
 
 <#          }#>                    
