@@ -37,7 +37,7 @@ namespace <#=Namespace#> {
 	                AutoIncrement = <#=col.AutoIncrement.ToString().ToLower()#>,
 	                IsForeignKey = <#=col.IsForeignKey.ToString().ToLower()#>,
 	                MaxLength = <#=col.MaxLength#>,
-					PropertyName = "<#=col.Name#>"
+						PropertyName = "<#=col.Name#>"
                 });
 <#          }#>                    
                 
