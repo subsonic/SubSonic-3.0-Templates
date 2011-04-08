@@ -112,6 +112,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ActiveRecord.cs</LastGenOutput>
     </None>
+    <Compile Include="ActiveRecord\Enums.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Enums.tt</DependentUpon>
+    </Compile>
     <Compile Include="TemplateProviders\MySQLTest.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -121,6 +126,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Context.cs</LastGenOutput>
     </None>
+    <None Include="ActiveRecord\Enums.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Enums.cs</LastGenOutput>
+    </None>
+    <None Include="ActiveRecord\Enums.ttinclude" />
     <None Include="ActiveRecord\Settings.ttinclude" />
     <None Include="ActiveRecord\SQLServer.ttinclude" />
     <None Include="ActiveRecord\StoredProcedures.tt">

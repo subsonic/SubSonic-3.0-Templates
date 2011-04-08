@@ -1,0 +1,245 @@
+<#+
+	// ----------------------------------------------------------------------------------------------------
+	// INSTRUCTIONS
+	// ----------------------------------------------------------------------------------------------------
+
+	// Enum Generator Features
+	// -----------------------
+	//  - auto generates enum values from the row data in the tables
+	//  - will generate regular enums for integer values or an 'enum-like' struct for string values
+	//  - a single setting will generate enums for all lookup tables with a standard prefix, with default enum
+	//    name based on the table name
+	//	- the enum name, and the value and description columns used to create the enum can be customised per-table
+	//  - multiple enums can be generated from the same table 
+	//  - a MULTI mode allows automated enum generation from a MUCK (Massively Unified Code-Key) general purpose lookup table
+	//    (BTW MUCK tables are NOT a good idea, but in the tradition of SubSonic, we let you make the choice)
+	//
+	// Typical 'integer valued' table:
+	//
+	//   CategoryID  CategoryName   
+	//   int         nvarchar(50)   
+	//   ----------- ---------------
+	//   1           Beverages       
+	//   2           Condiments      
+	//   3           Confections     
+	//   4           Dairy Products  
+	//   5           Grains/Cereals  
+	//
+	// Typical 'string valued' table:
+	//
+	//   State_Str     State
+	//   nvarchar(10)  nvarchar(50)
+	//   ------------  ----------------------------
+	//   ACT           Australian Capital Territory
+	//   NSW           New South Wales
+	//   NT            Northern Territory
+	//   QLD           Queensland
+	//   SA            South Australia
+	//   TAS           Tasmania
+	//   VIC           Victoria
+	//   WA            Western Australia
+	//
+	// Typical 'MUCK' table:
+	//
+	//   LookupKey                                          LookupVal    LookupDescLong
+	//   nvarchar(50)                                       nvarchar(20) nvarchar(100)
+	//   -------------------------------------------------- ----------   --------------------------
+	//   AssignStatusStr                                    F            Fully
+	//   AssignStatusStr                                    P            Partly
+	//   AssignStatusStr                                    U            Not
+	//   AssignStatusStr                                    X            n/a
+	//   BatchAutoGenModeStr                                E            Assign to existing batch
+	//   BatchAutoGenModeStr                                N            Make new batch
+	//   BatchAutoGenModeStr                                X            Do not assign to batch
+	//   BatchPackStatusStr                                 C            Cancelled
+	//   BatchPackStatusStr                                 L            Locked
+	//   BatchPackStatusStr                                 P            Packing
+	//   BatchPackStatusStr                                 T            Complete
+	//
+	//
+    // EnumSettings contains a list of enum generation settings.
+    // 
+    // FORMAT:   [table name regexp]:[enum name]:[id column name]:[descr column name]:[sql where clause]
+    //
+    //  - all params are optional except the first. if omitting an earlier parameter but using a later parameter then 
+    //    still include the ':' as a placeholder
+    //
+    //   [table name regexp] = regular expression matching the table name.  can be just the table name.
+    //
+    //   [enum name] = the name to use for the enum (default=table name + 'Enum')
+    //		- if the enum name is in the format MULTI=[KeyColName] then the key column values will be used to name 
+    //		  the enum and to match the blocks of row values to be used for each enum
+    //
+    //   [id column name] = the name of the column to use for the enum value (default=PK col)
+    //
+    //   [descr column name] = the name of the column to use for the enum description (default=first text col)
+    //
+    //   [sql where clause] = where clause to use when retrieving the enum values (default=empty)
+    //
+    // EXAMPLES
+    // string[] EnumSettings = new string[]{
+    //  "lk_.+",
+    //  - generates enums from all table in the database starting with 'lk_' using default names and columns
+    //
+    //  "tblLookupVals:AssignStatusEnumStr:LookupVal:LookupDescLong:where [LookupKey]='AssignStatusStr'",
+    //  - generates the named enum from the designated table, using the designated columns and WHERE
+    //
+    //  "tblLookupVals:MULTI=LookupKey:LookupVal:LookupDescLong",
+    //  - generates multiple enums from the 'tblLookupVals' MUCK table; one enum for each block of values in column 'LookupKey'
+    //
+    //  "lk_State:StateShortEnum:State_Str:State_Str",
+    //  - generates an enum of 'short' state values only
+    //
+    //  "lk_State:StateLongEnum:State:State",
+    //  - generates an enum of 'long' state values only
+    //
+    // };
+
+
+	// ----------------------------------------------------------------------------------------------------
+	// USER SETTINGS
+	// ----------------------------------------------------------------------------------------------------
+
+    string[] EnumSettings = new string[]{
+    "Categories",
+    "Employees",
+    };
+    
+    const string MultiMarker = "MULTI=";
+
+
+	// ----------------------------------------------------------------------------------------------------
+	// ENUM GENERATION CODE
+	// ----------------------------------------------------------------------------------------------------
+
+    string CleanUpEnumData(string dataVal){
+	    string result = Regex.Replace(dataVal, @"[^\w]+", "_").Trim();
+    	if (result=="") { result="_"; }
+	    return result;
+    }
+
+	string GetEnumSql(string idCol, string descriptionCol, string keyCol, string tablename, string sqlWhereClause){
+		return "SELECT " + idCol + "," + descriptionCol + (keyCol=="" ? "" : "," + keyCol) + " FROM " + tablename + " " + sqlWhereClause;
+	}
+
+    string GetEnumHeaderFooter(string tblName, string EnumName, string IdCol, string DescriptionCol, string EnumRowScript, bool idColIsString) {
+		if (idColIsString) {
+			return "\r\n\t\t// string enum derived from database rows: " + tblName 
+				+ "." + DescriptionCol + ", " + tblName + "." + IdCol 
+				+ "\r\n\t\tpublic struct " + EnumName + " {"
+				+ "\r\n" + EnumRowScript 
+				+ "\r\n\t\t\tpublic string Value { get; set; }"  
+				+ "\r\n\t\t\tpublic override string ToString() { return Value; }"  
+				+ "\r\n\t\t}\r\n";							
+		} else {
+			return "\r\n\t\t// enum derived from database rows: " + tblName 
+				+ "." + DescriptionCol + ", " + tblName + "." + IdCol 
+				+ "\r\n\t\tpublic enum " + EnumName + " {"
+				+ "\r\n" + EnumRowScript 
+				+ "\r\n\t\t}\r\n";
+		}
+	}
+
+    string GetEnumName(string CleanName, bool idColIsString) {
+		return CleanName + "Enum" + (idColIsString ? "Str" : ""); 
+	}
+	
+    string GetEnumScript(Table tbl) {
+		string rtn = "";
+		foreach (string enumSetting in  EnumSettings) {
+			string[] settings = enumSetting.Split(new char[] {':'});
+			string regExFind = "";
+			if (settings.Length > 0) { regExFind = settings[0].Trim(); }
+			bool found = regExFind.Length>0 && Regex.IsMatch (tbl.Name, regExFind, RegexOptions.IgnoreCase);
+			
+			if (found) { 
+				string SqlScript = "";
+				
+				// Get Enum Details
+				string EnumName = "";
+				string IdCol = "";
+				string DescriptionCol = "";
+				string multiKeyCol = "";
+				string SqlWhereClause = "";
+				bool idColIsString = false;
+				bool isMulti = false;
+				
+				bool idColFound = false;
+				bool descColFound = false;
+				bool multiKeyColFound = false;
+				
+				if (settings.Length > 1) { EnumName = settings[1].Trim(); }
+				if (EnumName.StartsWith(MultiMarker, StringComparison.InvariantCultureIgnoreCase)) { 
+					isMulti = true;
+					multiKeyCol = EnumName.Substring(MultiMarker.Length); 
+				}
+				if (settings.Length > 2) { IdCol = settings[2].Trim(); }
+				if (settings.Length > 3) { DescriptionCol = settings[3].Trim(); }
+				if (settings.Length > 4) { SqlWhereClause = settings[4].Trim(); }
+				
+				// check the cols do actually exist if specified
+				foreach(var col in tbl.Columns){
+					if (IdCol=="" && col.IsPK) { IdCol = col.Name; }
+					if (DescriptionCol=="" && !col.IsPK && !col.IsForeignKey && col.SysType =="string") { DescriptionCol = col.Name; }
+					
+					if (IdCol == col.Name) { idColFound = true; idColIsString = (col.SysType =="string"); }
+					if (DescriptionCol == col.Name) { descColFound = true; }
+					
+					if (isMulti && multiKeyCol == col.Name) { multiKeyColFound = true; }
+				}
+				
+				if (EnumName=="") { EnumName = GetEnumName(tbl.CleanName, idColIsString); }
+				
+				// generate the script or a warning message
+				if (!idColFound || !descColFound || (isMulti && !multiKeyColFound)) { 
+					SqlScript += "\r\n\t\t// " + tbl.Name + ": enumSetting could not be matched to ID" + (isMulti ? ", Key " : "") 
+					+ " and Description columns. Setting=" + enumSetting + "\r\n";
+				} else { 
+					//pull the tables in a reader
+					int rowCount = 0;
+					string enumMemberScript = "";
+					string lastKeyVal = "";
+					string sql = GetEnumSql(IdCol, DescriptionCol, multiKeyCol, tbl.Name, SqlWhereClause);
+					try {
+						using(IDataReader rdr=GetReader(sql)){
+							while(rdr.Read()){
+								string enumMemberName = CleanUpEnumData(rdr[DescriptionCol].ToString());
+								string enumMemberValue = rdr[IdCol].ToString();
+								string enumKeyVal = (isMulti ? CleanUpEnumData(rdr[multiKeyCol].ToString()) : "");
+								
+								if (rowCount!=0 && lastKeyVal!=enumKeyVal) {
+									// we are doing a multi read, use the key val to generate an enum for each block of key values
+									string tempEnumName = GetEnumName(lastKeyVal, idColIsString);
+									SqlScript += GetEnumHeaderFooter(tbl.Name, tempEnumName, IdCol, DescriptionCol, enumMemberScript, idColIsString); 
+									enumMemberScript = "";
+								}
+								
+								if (idColIsString) {
+									enumMemberScript += "\t\t\tpublic const string " + enumMemberName + " = \"" + enumMemberValue + "\";\r\n";
+								} else {
+									enumMemberScript += (enumMemberScript=="" ? "" : ",\r\n");
+									enumMemberScript += "\t\t\t" + enumMemberName + " = " + enumMemberValue;
+								}
+								
+								lastKeyVal = enumKeyVal;
+								rowCount++;
+							}
+						}
+						if (rowCount==0) { 
+							SqlScript += "\r\n\t\t// " + tbl.Name + ": enum generation was specfied but the database table had no records\r\n";
+						} else { 
+							string tempEnumName = (isMulti ? GetEnumName(lastKeyVal, idColIsString) : EnumName);
+							SqlScript += GetEnumHeaderFooter(tbl.Name, tempEnumName, IdCol, DescriptionCol, enumMemberScript, idColIsString); 
+						}
+					}
+					catch (Exception ex) {
+						SqlScript += "\r\n\t\t// SQL fetch error in SQL \"" + sql + "\" : " + ex.Message;
+					}
+					
+				}
+				rtn += SqlScript;
+			}
+		}
+		return rtn;
+	}
+#>
