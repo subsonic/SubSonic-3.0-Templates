@@ -1,0 +1,8 @@
+<#@ template language="C#v3.5" debug="False" hostspecific="True"  #>
+<#@ output extension=".cs" #>
+<#@ include file="SQLServer.ttinclude" #>
+<#@ include file="Enums.ttinclude" #>
+<# var tables = LoadTables(); #> 
+namespace <#=Namespace#> { 
+<#  foreach (var tbl in tables) {  #><#=GetEnumScript(tbl) #><#  }  #> 
+}
