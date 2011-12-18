@@ -312,11 +312,6 @@ NameSpace <#=Namespace #>
 <#
             foreach(Column col in tbl.Columns)
             {
-
-			if (tbl.ClassName == col.CleanName)
-			{
-				col.CleanName += ColumnSuffix;
-			}
 #>
         Private _<#=col.CleanName #> As <#=col.SysType #><#=CheckNullable(col)#>
         Public Property [<#=col.CleanName #>] As <#=col.SysType #><#=CheckNullable(col)#>

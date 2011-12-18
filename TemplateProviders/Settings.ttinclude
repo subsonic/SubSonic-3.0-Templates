@@ -43,6 +43,31 @@
     	
 	    return result;
     }
+	string CleanUpColName(string colName, Table tbl){
+		string result=colName;
+		
+		//strip blanks
+		result=result.Replace(" ","");
+		
+		if (result == tbl.ClassName)
+		{
+			result += ColumnSuffix;
+		}
+		
+		return result;
+	}
+	string CleanUpSPArgName(string argName){
+		string result=argName;
+		
+		//strip blanks
+		result=result.Replace(" ","");
+		
+		// we should have a list of reserved words and check if result is on it
+		if(result == "select" || result == "property")
+			result += "Str";
+		
+		return result;
+	}
     
     string CheckNullable(Column col){
         string result="";
