@@ -172,7 +172,7 @@ namespace <#=Namespace #>    {
             var repo = GetRepo();
             var results=repo.Find(expression);
             <#=tbl.ClassName#> single=null;
-            if(results.Count() > 0){
+            if(results.Any()){
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
@@ -186,7 +186,7 @@ namespace <#=Namespace #>    {
             var repo = GetRepo(connectionString,providerName);
             var results=repo.Find(expression);
             <#=tbl.ClassName#> single=null;
-            if(results.Count() > 0){
+            if(results.Any()){
                 single=results.ToList()[0];
             }
 
