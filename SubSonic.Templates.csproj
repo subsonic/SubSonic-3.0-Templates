@@ -230,7 +230,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Structs.cs</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="TemplateProviders\MySQLTest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MySQLTest.cs</LastGenOutput>
