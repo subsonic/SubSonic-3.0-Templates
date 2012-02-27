@@ -82,7 +82,7 @@ List<SP> GetSPs(){
     //pull the SPs
     
     DataTable sprocs=null;
-    DataTable parameters=null;
+    //DataTable parameters=null;
     
     using(SqlConnection conn=new SqlConnection(ConnectionString)){
         conn.Open();

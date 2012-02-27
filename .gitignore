@@ -14,6 +14,7 @@ bin
 *.suo
 *.cache
 Thumbs.db
+*.dotCover
  
 # Other useful stuff
 *.bak
@@ -25,6 +26,8 @@ _compareTemp
 _notes
 aspnet_client
 httpd.parse.errors
+*.generated.cs
+*Table.cs
  
 # Office Temp Files
 ~$*

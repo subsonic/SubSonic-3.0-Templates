@@ -13,7 +13,7 @@ using SubSonic.Schema;
 using System.Data.Common;
 using System.Collections.Generic;
 
-namespace SouthWind
+namespace Southwind
 {
     public partial class NorthwindDB : IQuerySurface
     {
@@ -21,8 +21,6 @@ namespace SouthWind
         public IDataProvider DataProvider;
         public DbQueryProvider provider;
         
-        public static IDataProvider DefaultDataProvider { get; set; }
-
         public bool TestMode
 		{
             get
@@ -32,13 +30,8 @@ namespace SouthWind
         }
 
         public NorthwindDB() 
-        {
-            if (DefaultDataProvider == null) {
-                DataProvider = ProviderFactory.GetProvider("Northwind");
-            }
-            else {
-                DataProvider = DefaultDataProvider;
-            }
+        { 
+            DataProvider = ProviderFactory.GetProvider("Northwind");
             Init();
         }
 
@@ -56,7 +49,7 @@ namespace SouthWind
 
 		public ITable FindByPrimaryKey(string pkName)
         {
-            return DataProvider.Schema.Tables.SingleOrDefault(x => x.PrimaryKey.Name.Equals(pkName, StringComparison.InvariantCultureIgnoreCase));
+            return DataProvider.Schema.Tables.SingleOrDefault(x => x.PrimaryKey.First().Name.Equals(pkName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public Query<T> GetQuery<T>()
@@ -279,16 +272,5 @@ namespace SouthWind
             }
             #endregion
         }
-        
-
-        #region ' Helpers '
-            
-        internal static DateTime DateTimeNowTruncatedDownToSecond() {
-            var now = DateTime.Now;
-            return now.AddTicks(-now.Ticks % TimeSpan.TicksPerSecond);
-        }
-
-        #endregion
-
     }
 }
