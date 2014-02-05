@@ -11,6 +11,7 @@ bin
 *.csproj.user
 *ReSharper*
 *resharper*
+*dotCover*
 *.suo
 *.cache
 Thumbs.db
@@ -25,10 +26,14 @@ _compareTemp
 _notes
 aspnet_client
 httpd.parse.errors
+*.t4properties
  
 # Office Temp Files
 ~$*
  
+# don't allow CS files from the ActiveRecord folder.
+ActiveRecord/*.cs
+
 # If you have a deploy folder
 # deploy
 # deploy/*

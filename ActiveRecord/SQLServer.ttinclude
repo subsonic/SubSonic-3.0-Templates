@@ -15,10 +15,10 @@ SqlCommand GetCommand(string sql){
 }
 
 const string FKSql=@"SELECT
-        ThisTable  = FK.TABLE_NAME,
-        ThisColumn = CU.COLUMN_NAME,
-        OtherTable  = PK.TABLE_NAME,
-        OtherColumn = PT.COLUMN_NAME, 
+        FKTableName  = FK.TABLE_NAME,
+        FKColumnName = CU.COLUMN_NAME,
+        PKTableName = PK.TABLE_NAME,
+        PKColumnName = PT.COLUMN_NAME, 
         Constraint_Name = C.CONSTRAINT_NAME,
         Owner = FK.TABLE_SCHEMA
     FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS C
@@ -138,7 +138,7 @@ List<Table> LoadTables(){
         //loop the FK tables and see if there's a match for our FK columns
         foreach(Column col in tbl.Columns){
             col.IsForeignKey=tbl.FKTables.Any(
-                x=>x.ThisColumn.Equals(col.Name,StringComparison.InvariantCultureIgnoreCase)
+                x=>x.FKColumnName.Equals(col.Name,StringComparison.InvariantCultureIgnoreCase)
             );
         }
     }
@@ -181,30 +181,22 @@ List<FKTable> LoadFKTables(string tableName){
     using(IDataReader rdr=cmd.ExecuteReader(CommandBehavior.CloseConnection)){
         while(rdr.Read()){
             FKTable fk=new FKTable();
-            string thisTable=rdr["ThisTable"].ToString();
-            
-            if(tableName.ToLower()==thisTable.ToLower()){
-                fk.ThisTable=rdr["ThisTable"].ToString();
-                fk.ThisColumn=rdr["ThisColumn"].ToString();
-                fk.OtherTable=rdr["OtherTable"].ToString();
-                fk.OtherColumn=rdr["OtherColumn"].ToString();
-            
+            fk.FKTableName=rdr["FKTableName"].ToString();
+            fk.FKColumnName=rdr["FKColumnName"].ToString();
+            fk.PKTableName=rdr["PKTableName"].ToString();
+            fk.PKColumnName=rdr["PKColumnName"].ToString();
+
+            if(tableName.ToLower()==fk.FKTableName.ToLower()){
+                fk.OtherClass=Inflector.MakeSingular(CleanUp(fk.PKTableName));
+                fk.OtherQueryable=fk.OtherClass;
             }else{
-                fk.ThisTable=rdr["OtherTable"].ToString();
-                fk.ThisColumn=rdr["OtherColumn"].ToString();
-                fk.OtherTable=rdr["ThisTable"].ToString();
-                fk.OtherColumn=rdr["ThisColumn"].ToString();
-          
+                fk.OtherClass=Inflector.MakeSingular(CleanUp(fk.FKTableName));
+                fk.OtherQueryable=Inflector.MakePlural(fk.OtherClass);
             }
-            
-            fk.OtherClass=Inflector.MakeSingular(CleanUp(fk.OtherTable));
-            fk.OtherQueryable=Inflector.MakePlural(fk.OtherClass);
-            
             result.Add(fk);
         }
     }
     return result;
-
 }
 
 string GetPK(string table){

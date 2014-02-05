@@ -1,4 +1,4 @@
-<#@ template language="C#v3.5" debug="True" hostspecific="True" #>
+<#@ template language="C#" debug="True" hostspecific="True" #>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Core.dll" #>
 <#@ assembly name="System.Data" #>
@@ -15,7 +15,6 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Configuration" #>
-<#@ import namespace="System.IO" #>
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
 <#@ import namespace="EnvDTE" #>
 <#@ include file="MultiOutput.ttinclude" #>
@@ -224,10 +223,10 @@
         public bool IsForeignKey;
     }
     public class FKTable{
-        public string ThisTable;
-        public string ThisColumn;
-        public string OtherTable;
-        public string OtherColumn;
+        public string FKTableName;
+        public string FKColumnName;
+        public string PKTableName;
+        public string PKColumnName;
         public string OtherClass;
         public string OtherQueryable;
     }

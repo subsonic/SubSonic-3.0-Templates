@@ -1,14 +1,4 @@
 <#@ include file="SQLServer.ttinclude" #>
-<#
-
-    var tables = LoadTables();
-
-    foreach(Table tbl in tables)
-    {
-	    if(!ExcludeTables.Contains(tbl.Name))
-        {
-		
-#>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +14,18 @@ using SubSonic.Repository;
 using System.ComponentModel;
 using System.Data.Common;
 using System.ComponentModel.DataAnnotations;
+
+<#
+
+    var tables = LoadTables();
+
+    foreach(Table tbl in tables)
+    {
+	    if(!ExcludeTables.Contains(tbl.Name))
+        {
+		
+#>
+
 
 
 namespace <#=Namespace #>    {
@@ -172,7 +174,7 @@ namespace <#=Namespace #>    {
             var repo = GetRepo();
             var results=repo.Find(expression);
             <#=tbl.ClassName#> single=null;
-            if(results.Count() > 0){
+            if(results.Any()){
                 single=results.ToList()[0];
                 single.OnLoaded();
                 single.SetIsLoaded(true);
@@ -186,7 +188,7 @@ namespace <#=Namespace #>    {
             var repo = GetRepo(connectionString,providerName);
             var results=repo.Find(expression);
             <#=tbl.ClassName#> single=null;
-            if(results.Count() > 0){
+            if(results.Any()){
                 single=results.ToList()[0];
             }
 
@@ -303,7 +305,7 @@ namespace <#=Namespace #>    {
             foreach(FKTable fk in tbl.FKTables)
             { 
                 
-                if(!ExcludeTables.Contains(fk.OtherTable)){
+                if(!ExcludeTables.Contains(fk.PKTableName)){
                     string propName=fk.OtherQueryable;
                     if(fkCreated.Contains(propName))
                     {
@@ -311,8 +313,7 @@ namespace <#=Namespace #>    {
                     }
                     
                     fkCreated.Add(fk.OtherQueryable);
-                    
-               
+                    if (fk.PKTableName.ToLower()==tbl.Name.ToLower()) {               
 #>
         public IQueryable<<#=fk.OtherClass #>> <#=propName #>
         {
@@ -321,14 +322,28 @@ namespace <#=Namespace #>    {
                 
                   var repo=<#=Namespace #>.<#=fk.OtherClass#>.GetRepo();
                   return from items in repo.GetAll()
-                       where items.<#=CleanUp(fk.OtherColumn)#> == _<#=CleanUp(fk.ThisColumn)#>
+                       where items.<#=CleanUp(fk.FKColumnName)#> == _<#=CleanUp(fk.PKColumnName)#>
                        select items;
             }
         }
 
 <#
+				} else {
+#>
+		public <#=fk.OtherClass#> <#=propName#>
+		{
+			get
+			{
+				var repo=<#=Namespace #>.<#=fk.OtherClass#>.GetRepo();
+                return (from items in repo.GetAll()
+                        where items.<#=CleanUp(fk.PKColumnName)#> == _<#=CleanUp(fk.FKColumnName)#>
+                        select items).FirstOrDefault();
+			}
+		}
+<#
                 }
             }
+		}
             
 #>
         #endregion
@@ -604,9 +619,8 @@ namespace <#=Namespace #>    {
     } 
 }
 <#
-	SaveOutput(tbl.ClassName+".cs");
+			//SaveOutput(tbl.ClassName+".cs");
         }
-
     }
 #>
 
