@@ -18,7 +18,7 @@ NameSpace <#=Namespace#>
         Public Shared Function <#=sp.CleanName#>(<#=sp.ArgList#>) As StoredProcedure
             Dim sp As New StoredProcedure("<#=sp.Name#>",ProviderFactory.GetProvider("<#=ConnectionStringName#>"))
 <#      foreach(var par in sp.Parameters){#>
-            sp.Command.AddParameter("<#=par.Name#>",<#=par.Name#>)
+            sp.Command.AddParameter("<#=par.Name#>",<#=par.CleanName#>)
 <#      }#>
             Return sp
         End Function

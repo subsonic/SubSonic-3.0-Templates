@@ -101,7 +101,7 @@ List<Table> LoadTables(){
             foreach (var row in columns) {
                 Column col=new Column();
                 col.Name=row["COLUMN_NAME"].ToString();
-                col.CleanName=CleanUp(col.Name);
+                col.CleanName=CleanUpColName(col.Name,tbl);
                 col.DataType=row["DATA_TYPE"].ToString();
                 
                 /* Pass the information whether Data Type Unsigned or Not **/

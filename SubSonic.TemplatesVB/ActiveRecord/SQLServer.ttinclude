@@ -68,7 +68,7 @@ List<SPParam> GetSPParams(string spName){
 		    SPParam p=new SPParam();
 			p.SysType=GetSysType(row["DATA_TYPE"].ToString());
 			p.Name=row["PARAMETER_NAME"].ToString().Replace("@","");
-			p.CleanName=CleanUp(p.Name);
+			p.CleanName=CleanUpSPArgName(p.Name);
 			result.Add(p);
 		}
 		
@@ -116,11 +116,11 @@ List<Table> LoadTables(){
             Table tbl=new Table();
             tbl.Name=rdr["TABLE_NAME"].ToString();
             tbl.Schema=rdr["TABLE_SCHEMA"].ToString();
-            tbl.Columns=LoadColumns(tbl);
             tbl.PrimaryKey=GetPK(tbl.Name);
             tbl.CleanName=CleanUp(tbl.Name);
             tbl.ClassName=Inflector.MakeSingular(tbl.CleanName);
             tbl.QueryableName=Inflector.MakePlural(tbl.ClassName);
+            tbl.Columns=LoadColumns(tbl);
             
             //set the PK for the columns
             var pkColumn=tbl.Columns.SingleOrDefault(x=>x.Name.ToLower().Trim()==tbl.PrimaryKey.ToLower().Trim());
@@ -153,7 +153,7 @@ List<Column> LoadColumns(Table tbl){
         while(rdr.Read()){
             Column col=new Column();
             col.Name=rdr["ColumnName"].ToString();
-            col.CleanName=CleanUp(col.Name);
+            col.CleanName=CleanUpColName(col.Name,tbl);
             col.DataType=rdr["DataType"].ToString();
             col.SysType=GetSysType(col.DataType);
             col.DbType=GetDbType(col.DataType);
