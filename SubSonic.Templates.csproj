@@ -132,6 +132,13 @@
       <LastGenOutput>Structs.cs</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Repository\Entities_Initial.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Entities_Initial.cs</LastGenOutput>
+    </None>
+    <None Include="Repository\MultiOutput.ttinclude" />
+    <None Include="Repository\Settings.ttinclude" />
+    <None Include="Repository\SQLServer.ttinclude" />
     <None Include="TemplateProviders\MySQLTest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MySQLTest.cs</LastGenOutput>

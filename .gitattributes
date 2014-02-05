@@ -1,0 +1,3 @@
+*.csproj	-crlf
+*.sln		-crlf
+*.vbproj -crlf
